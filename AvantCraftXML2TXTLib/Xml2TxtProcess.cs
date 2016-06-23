@@ -297,19 +297,12 @@ namespace AvantCraftXML2TXTLib
       //----------------------------------------------------------------------------------------------------
 
       var complemento_nomina_deducciones = (from c in root.Elements(cfdi + "Complemento").Elements(nomina + "Nomina").Elements(nomina + "Deducciones") select c).FirstOrDefault();
-
-      string DES_0 = "DES";
-
-      string DES_1 = d2s(0.0M);
-      string DES_2 = d2s(0.0M);
       if (complemento_nomina_deducciones != null)
       {
-        DES_1 = d2s(s2d(complemento_nomina_deducciones.Attribute("TotalGravado").Value));
-        DES_2 = d2s(s2d(complemento_nomina_deducciones.Attribute("TotalExento").Value));
-      }
+        string DES_0 = "DES";
+        string DES_1 = d2s(s2d(complemento_nomina_deducciones.Attribute("TotalGravado").Value));
+        string DES_2 = d2s(s2d(complemento_nomina_deducciones.Attribute("TotalExento").Value));
 
-      if (DES_1 != "0.0000" && DES_2 != "0.0000")
-      {
         sb.Append(DES_0 + "|");
         sb.Append(DES_1 + "|");
         sb.Append(DES_2 + "\r\n");
@@ -505,7 +498,7 @@ namespace AvantCraftXML2TXTLib
     {
       string confValue = @"C:\Nomina\";
 
-      switch(rfc)
+      switch (rfc)
       {
         case "GTU870812BQ6": //GRUPO TURIN S.A. DE C.V.
           confValue = @"C:\Nomina\GrupoTurin\IN\";
@@ -525,9 +518,9 @@ namespace AvantCraftXML2TXTLib
         default:
           confValue = @"C:\Nomina\";
           break;
-        //case "": //Holdings
-        //  confValue = confValue + @"C:\Nomina\Holdings\IN\";
-        //  break;
+          //case "": //Holdings
+          //  confValue = confValue + @"C:\Nomina\Holdings\IN\";
+          //  break;
       }
 
       bool exists2 = System.IO.Directory.Exists(confValue);
