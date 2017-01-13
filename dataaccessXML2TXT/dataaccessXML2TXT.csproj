@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6CD36DC6-E5F3-4EE3-9AF9-BBC21F8927D8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>dataaccessXML2TXT</RootNamespace>
+    <AssemblyName>dataaccessXML2TXT</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="c_Banco.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_Estado.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_OrigenRecurso.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_PeriodicidadPago.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_RegimenFiscal.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_RiesgoPuesto.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_TipoContrato.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_TipoDeduccion.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_TipoHoras.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_TipoIncapacidad.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_TipoJornada.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_TipoNomina.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_TipoOtroPago.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_TipoPercepcion.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_TipoRegimen.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TE_Deduccion.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TE_Incapacidad.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TE_JubilacionPensionRetiro.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TE_Nomina.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TE_OtroPago.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TE_Percepcion.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TE_Percepcion_HorasExtra.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TE_Receptor_Subcontratacion.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TE_SeparacionIndemnizacion.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TE_TXT_HEADER.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="XML2TXTModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XML2TXTModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="XML2TXTModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="XML2TXTModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XML2TXTModel.edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="XML2TXTModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>XML2TXTModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="XML2TXTModel.edmx.diagram">
+      <DependentUpon>XML2TXTModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="XML2TXTModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>XML2TXTModel.Context.cs</LastGenOutput>
+      <DependentUpon>XML2TXTModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="XML2TXTModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>XML2TXTModel.edmx</DependentUpon>
+      <LastGenOutput>XML2TXTModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="81f108ff29de4cc694d01b4a47abe16a" Name="Diagram1">
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_Banco" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_Estado" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_OrigenRecurso" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_PeriodicidadPago" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_RegimenFiscal" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_RiesgoPuesto" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_TipoContrato" Width="1.5" PointX="0.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_TipoDeduccion" Width="1.5" PointX="3" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_TipoHoras" Width="1.5" PointX="8.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_TipoIncapacidad" Width="1.5" PointX="6" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_TipoJornada" Width="1.5" PointX="0.75" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_TipoNomina" Width="1.5" PointX="0.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_TipoOtroPago" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_TipoPercepcion" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.c_TipoRegimen" Width="1.5" PointX="0.75" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_Incapacidad" Width="1.5" PointX="8.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_JubilacionPensionRetiro" Width="1.5" PointX="5.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_OtroPago" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_Percepcion_HorasExtra" Width="1.5" PointX="10.5" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_Receptor_Subcontratacion" Width="1.5" PointX="5.25" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_SeparacionIndemnizacion" Width="1.5" PointX="5.25" PointY="29.875" IsExpanded="true" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_c_TipoHoras" ManuallyRouted="false" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Incapacidad_c_TipoIncapacidad" ManuallyRouted="false" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_OtroPago_c_TipoOtroPago" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_TXT_HEADER" Width="1.5" PointX="10.375" PointY="12.125" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_Nomina" Width="1.5" PointX="3" PointY="7.5" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_Percepcion" Width="1.5" PointX="8.25" PointY="7.5" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_Banco" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_Estado" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_OrigenRecurso" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_PeriodicidadPago" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_RiesgoPuesto" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoContrato" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoJornada" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoNomina" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoRegimen" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Incapacidad_TE_Nomina" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_JubilacionPensionRetiro_TE_Nomina" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_OtroPago_TE_Nomina" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Receptor_Subcontratacion_TE_Nomina" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_SeparacionIndemnizacion_TE_Nomina" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_Deduccion" Width="1.5" PointX="8.25" PointY="21.5" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

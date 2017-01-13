@@ -1,0 +1,1783 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AvantCraft_nomina2017Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="c_Banco">
+          <Key>
+            <PropertyRef Name="c_Banco" />
+          </Key>
+          <Property Name="c_Banco" Type="float" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Nombre o razón social" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_Estado">
+          <Key>
+            <PropertyRef Name="c_Estado" />
+          </Key>
+          <Property Name="c_Estado" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="c_Pais" Type="nvarchar" MaxLength="255" />
+          <Property Name="Nombre del estado" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_OrigenRecurso">
+          <Key>
+            <PropertyRef Name="c_OrigenRecurso" />
+          </Key>
+          <Property Name="c_OrigenRecurso" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Descripción" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_PeriodicidadPago">
+          <Key>
+            <PropertyRef Name="c_PeriodicidadPago" />
+          </Key>
+          <Property Name="c_PeriodicidadPago" Type="float" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_RegimenFiscal">
+          <Key>
+            <PropertyRef Name="c_RegimenFiscal" />
+          </Key>
+          <Property Name="c_RegimenFiscal" Type="float" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Física" Type="nvarchar" MaxLength="255" />
+          <Property Name="Moral" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_RiesgoPuesto">
+          <Key>
+            <PropertyRef Name="c_RiesgoPuesto" />
+          </Key>
+          <Property Name="c_RiesgoPuesto" Type="float" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_TipoContrato">
+          <Key>
+            <PropertyRef Name="c_TipoContrato" />
+          </Key>
+          <Property Name="c_TipoContrato" Type="float" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_TipoDeduccion">
+          <Key>
+            <PropertyRef Name="c_TipoDeduccion" />
+          </Key>
+          <Property Name="c_TipoDeduccion" Type="float" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_TipoHoras">
+          <Key>
+            <PropertyRef Name="c_TipoHoras" />
+          </Key>
+          <Property Name="c_TipoHoras" Type="float" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_TipoIncapacidad">
+          <Key>
+            <PropertyRef Name="c_TipoIncapacidad" />
+          </Key>
+          <Property Name="c_TipoIncapacidad" Type="float" Nullable="false" />
+          <Property Name="Descripción" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_TipoJornada">
+          <Key>
+            <PropertyRef Name="c_TipoJornada" />
+          </Key>
+          <Property Name="c_TipoJornada" Type="float" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_TipoNomina">
+          <Key>
+            <PropertyRef Name="c_TipoNomina" />
+          </Key>
+          <Property Name="c_TipoNomina" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_TipoOtroPago">
+          <Key>
+            <PropertyRef Name="c_TipoOtroPago" />
+          </Key>
+          <Property Name="c_TipoOtroPago" Type="float" Nullable="false" />
+          <Property Name="Descripción" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_TipoPercepcion">
+          <Key>
+            <PropertyRef Name="c_TipoPercepcion" />
+          </Key>
+          <Property Name="c_TipoPercepcion" Type="float" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_TipoRegimen">
+          <Key>
+            <PropertyRef Name="c_TipoRegimen" />
+          </Key>
+          <Property Name="c_TipoRegimen" Type="float" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TE_Deduccion">
+          <Key>
+            <PropertyRef Name="deduccionId" />
+          </Key>
+          <Property Name="deduccionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nominaId" Type="int" />
+          <Property Name="TipoDeduccion" Type="nvarchar" MaxLength="250" />
+          <Property Name="c_TipoDeduccion" Type="float" />
+          <Property Name="Clave" Type="nvarchar" MaxLength="50" />
+          <Property Name="Concepto" Type="nvarchar" MaxLength="250" />
+          <Property Name="Importe" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TE_Incapacidad">
+          <Key>
+            <PropertyRef Name="incapacidadId" />
+          </Key>
+          <Property Name="incapacidadId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nominaId" Type="int" />
+          <Property Name="DiasIncapacidad" Type="int" />
+          <Property Name="TipoIncapacidad" Type="nvarchar" MaxLength="250" />
+          <Property Name="c_TipoIncapacidad" Type="float" />
+          <Property Name="ImporteMonetario" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TE_JubilacionPensionRetiro">
+          <Key>
+            <PropertyRef Name="JubilacionPensionRetiroId" />
+          </Key>
+          <Property Name="JubilacionPensionRetiroId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nominaId" Type="int" />
+          <Property Name="TotalUnaExhibicion" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalParcialidad" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="MontoDiario" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IngresoAcumulable" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IngresoNoAcumulable" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TE_Nomina">
+          <Key>
+            <PropertyRef Name="nominaId" />
+          </Key>
+          <Property Name="nominaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="nvarchar" MaxLength="50" />
+          <Property Name="c_TipoNomina" Type="nvarchar" MaxLength="255" />
+          <Property Name="FechaPago" Type="nvarchar" MaxLength="50" />
+          <Property Name="FechaInicialPago" Type="nvarchar" MaxLength="50" />
+          <Property Name="FechaFinalPago" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumDiasPagados" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalPercepciones" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalDeducciones" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalOtrosPagos" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Emisor_CURP" Type="nvarchar" MaxLength="50" />
+          <Property Name="Emisor_RegistroPatronal" Type="nvarchar" MaxLength="250" />
+          <Property Name="Emisor_RfcPatronOrigen" Type="nvarchar" MaxLength="50" />
+          <Property Name="Emisor_EntidadSNCF_c_OrigenRecurso" Type="nvarchar" MaxLength="255" />
+          <Property Name="Emisor_EntidadSNCF_MontoRecursoPropio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Receptor_CURP" Type="nvarchar" MaxLength="50" />
+          <Property Name="Receptor_NumSeguridadSocial" Type="nvarchar" MaxLength="50" />
+          <Property Name="Receptor_FechaInicioRelLaboral" Type="nvarchar" MaxLength="50" />
+          <Property Name="Receptor_Antiguedad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Receptor_c_TipoContrato" Type="float" />
+          <Property Name="Receptor_Sindicalizado" Type="nvarchar" MaxLength="50" />
+          <Property Name="Receptor_c_TipoJornada" Type="float" />
+          <Property Name="Receptor_TipoRegimen" Type="nvarchar" MaxLength="250" />
+          <Property Name="Receptor_c_TipoRegimen" Type="float" />
+          <Property Name="Receptor_NumEmpleado" Type="nvarchar" MaxLength="50" />
+          <Property Name="Receptor_Departamento" Type="nvarchar" MaxLength="250" />
+          <Property Name="Receptor_Puesto" Type="nvarchar" MaxLength="250" />
+          <Property Name="Receptor_c_RiesgoPuesto" Type="float" />
+          <Property Name="Receptor_PeriodicidadPago" Type="nvarchar" MaxLength="50" />
+          <Property Name="Receptor_c_PeriodicidadPago" Type="float" />
+          <Property Name="Receptor_c_Banco" Type="float" />
+          <Property Name="Receptor_CuentaBancaria" Type="nvarchar" MaxLength="50" />
+          <Property Name="Receptor_SalarioBaseCotApor" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Receptor_SalarioDiarioIntegrado" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Receptor_c_ClaveEntFed" Type="nvarchar" MaxLength="255" />
+          <Property Name="Percepciones_TotalSueldos" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Percepciones_TotalSeparacionIndemnizacion" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Percepciones_TotalJubilacionPensionRetiro" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Percepciones_TotalGravado" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Percepciones_TotalExento" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Deducciones_TotalOtrasDeducciones" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Deducciones_TotalImpuestosRetenidos" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TE_OtroPago">
+          <Key>
+            <PropertyRef Name="otropagoId" />
+          </Key>
+          <Property Name="otropagoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nominaId" Type="int" />
+          <Property Name="c_TipoOtroPago" Type="float" />
+          <Property Name="Clave" Type="nvarchar" MaxLength="50" />
+          <Property Name="Concepto" Type="nvarchar" MaxLength="50" />
+          <Property Name="Importe" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SubsidioAlEmpleo_SubsidioCausado" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CompensacionSaldosAFavor_SaldoAFavor" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CompensacionSaldosAFavor_Año" Type="int" />
+          <Property Name="CompensacionSaldosAFavor_RemanenteSalFav" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TE_Percepcion">
+          <Key>
+            <PropertyRef Name="percepcionId" />
+          </Key>
+          <Property Name="percepcionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nominaId" Type="int" />
+          <Property Name="TipoPercepcion" Type="nvarchar" MaxLength="250" />
+          <Property Name="c_TipoPercepcion" Type="float" />
+          <Property Name="Clave" Type="nvarchar" MaxLength="250" />
+          <Property Name="Concepto" Type="nvarchar" MaxLength="250" />
+          <Property Name="ImporteGravado" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ImporteExcento" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AccionesOTitulos_ValorMercado" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AccionesOTitulos_PrecioAlOtorgarse" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TE_Percepcion_HorasExtra">
+          <Key>
+            <PropertyRef Name="horasextraId" />
+          </Key>
+          <Property Name="horasextraId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="percepcionId" Type="int" />
+          <Property Name="Dias" Type="int" />
+          <Property Name="TipoHoras" Type="nvarchar" MaxLength="250" />
+          <Property Name="c_TipoHoras" Type="float" />
+          <Property Name="HorasExtra" Type="int" />
+          <Property Name="ImportePagado" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TE_Receptor_Subcontratacion">
+          <Key>
+            <PropertyRef Name="subcontratacionId" />
+          </Key>
+          <Property Name="subcontratacionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nominaId" Type="int" Nullable="false" />
+          <Property Name="RfcLabora" Type="nvarchar" MaxLength="50" />
+          <Property Name="PorcentajeTiempo" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TE_SeparacionIndemnizacion">
+          <Key>
+            <PropertyRef Name="SeparacionIndemnizacionId" />
+          </Key>
+          <Property Name="SeparacionIndemnizacionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nominaId" Type="int" />
+          <Property Name="TotalPagado" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NumAñosServicio" Type="int" />
+          <Property Name="UltimoSueldoMensOrd" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IngresoAcumulable" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IngresoNoAcumulable" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TE_TXT_HEADER">
+          <Key>
+            <PropertyRef Name="headerId" />
+          </Key>
+          <Property Name="headerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="H1_05" Type="nvarchar" MaxLength="250" />
+          <Property Name="H1_08" Type="nvarchar" MaxLength="250" />
+          <Property Name="H1_11" Type="nvarchar" MaxLength="250" />
+          <Property Name="H1_14" Type="nvarchar" MaxLength="250" />
+          <Property Name="H1_30" Type="nvarchar" MaxLength="250" />
+          <Property Name="H1_31" Type="nvarchar" MaxLength="250" />
+          <Property Name="H1_32" Type="nvarchar" MaxLength="250" />
+          <Property Name="H1_46" Type="nvarchar" MaxLength="250" />
+          <Property Name="H1_50" Type="nvarchar" MaxLength="250" />
+          <Property Name="H2_02" Type="nvarchar" MaxLength="250" />
+          <Property Name="H2_03" Type="nvarchar" MaxLength="250" />
+          <Property Name="H2_05" Type="nvarchar" MaxLength="250" />
+          <Property Name="H2_06" Type="nvarchar" MaxLength="250" />
+          <Property Name="H2_08" Type="nvarchar" MaxLength="250" />
+          <Property Name="H2_09" Type="nvarchar" MaxLength="250" />
+          <Property Name="H2_11" Type="nvarchar" MaxLength="250" />
+          <Property Name="H2_12" Type="nvarchar" MaxLength="250" />
+          <Property Name="H2_13" Type="nvarchar" MaxLength="250" />
+          <Property Name="H2_14" Type="nvarchar" MaxLength="250" />
+          <Property Name="H4_02" Type="nvarchar" MaxLength="250" />
+          <Property Name="H4_03" Type="nvarchar" MaxLength="250" />
+          <Property Name="H4_13" Type="nvarchar" MaxLength="250" />
+          <Property Name="D_04" Type="nvarchar" MaxLength="250" />
+          <Property Name="D_06" Type="nvarchar" MaxLength="250" />
+          <Property Name="D_07" Type="nvarchar" MaxLength="250" />
+          <Property Name="D_09" Type="nvarchar" MaxLength="250" />
+          <Property Name="D_25" Type="nvarchar" MaxLength="250" />
+          <Property Name="D_37" Type="nvarchar" MaxLength="250" />
+          <Property Name="D_38" Type="nvarchar" MaxLength="250" />
+          <Property Name="D_42" Type="nvarchar" MaxLength="250" />
+          <Property Name="S_10" Type="nvarchar" MaxLength="250" />
+          <Property Name="S_16" Type="nvarchar" MaxLength="250" />
+          <Property Name="S_36" Type="nvarchar" MaxLength="250" />
+          <Property Name="S_37" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="FK_TE_Deduccion_c_TipoDeduccion">
+          <End Role="c_TipoDeduccion" Type="Self.c_TipoDeduccion" Multiplicity="0..1" />
+          <End Role="TE_Deduccion" Type="Self.TE_Deduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoDeduccion">
+              <PropertyRef Name="c_TipoDeduccion" />
+            </Principal>
+            <Dependent Role="TE_Deduccion">
+              <PropertyRef Name="c_TipoDeduccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Deduccion_TE_Nomina">
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="0..1" />
+          <End Role="TE_Deduccion" Type="Self.TE_Deduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_Deduccion">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Incapacidad_c_TipoIncapacidad">
+          <End Role="c_TipoIncapacidad" Type="Self.c_TipoIncapacidad" Multiplicity="0..1" />
+          <End Role="TE_Incapacidad" Type="Self.TE_Incapacidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoIncapacidad">
+              <PropertyRef Name="c_TipoIncapacidad" />
+            </Principal>
+            <Dependent Role="TE_Incapacidad">
+              <PropertyRef Name="c_TipoIncapacidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Incapacidad_TE_Nomina">
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="0..1" />
+          <End Role="TE_Incapacidad" Type="Self.TE_Incapacidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_Incapacidad">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_JubilacionPensionRetiro_TE_Nomina">
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="0..1" />
+          <End Role="TE_JubilacionPensionRetiro" Type="Self.TE_JubilacionPensionRetiro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_JubilacionPensionRetiro">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_Banco">
+          <End Role="c_Banco" Type="Self.c_Banco" Multiplicity="0..1" />
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_Banco">
+              <PropertyRef Name="c_Banco" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_Banco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_Estado">
+          <End Role="c_Estado" Type="Self.c_Estado" Multiplicity="0..1" />
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_Estado">
+              <PropertyRef Name="c_Estado" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_ClaveEntFed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_OrigenRecurso">
+          <End Role="c_OrigenRecurso" Type="Self.c_OrigenRecurso" Multiplicity="0..1" />
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_OrigenRecurso">
+              <PropertyRef Name="c_OrigenRecurso" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Emisor_EntidadSNCF_c_OrigenRecurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_PeriodicidadPago">
+          <End Role="c_PeriodicidadPago" Type="Self.c_PeriodicidadPago" Multiplicity="0..1" />
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_PeriodicidadPago">
+              <PropertyRef Name="c_PeriodicidadPago" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_PeriodicidadPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_RiesgoPuesto">
+          <End Role="c_RiesgoPuesto" Type="Self.c_RiesgoPuesto" Multiplicity="0..1" />
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_RiesgoPuesto">
+              <PropertyRef Name="c_RiesgoPuesto" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_RiesgoPuesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_TipoContrato">
+          <End Role="c_TipoContrato" Type="Self.c_TipoContrato" Multiplicity="0..1" />
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoContrato">
+              <PropertyRef Name="c_TipoContrato" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_TipoContrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_TipoJornada">
+          <End Role="c_TipoJornada" Type="Self.c_TipoJornada" Multiplicity="0..1" />
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoJornada">
+              <PropertyRef Name="c_TipoJornada" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_TipoJornada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_TipoNomina">
+          <End Role="c_TipoNomina" Type="Self.c_TipoNomina" Multiplicity="0..1" />
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoNomina">
+              <PropertyRef Name="c_TipoNomina" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="c_TipoNomina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_TipoRegimen">
+          <End Role="c_TipoRegimen" Type="Self.c_TipoRegimen" Multiplicity="0..1" />
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoRegimen">
+              <PropertyRef Name="c_TipoRegimen" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_TipoRegimen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_OtroPago_c_TipoOtroPago">
+          <End Role="c_TipoOtroPago" Type="Self.c_TipoOtroPago" Multiplicity="0..1" />
+          <End Role="TE_OtroPago" Type="Self.TE_OtroPago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoOtroPago">
+              <PropertyRef Name="c_TipoOtroPago" />
+            </Principal>
+            <Dependent Role="TE_OtroPago">
+              <PropertyRef Name="c_TipoOtroPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_OtroPago_TE_Nomina">
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="0..1" />
+          <End Role="TE_OtroPago" Type="Self.TE_OtroPago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_OtroPago">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Percepcion_c_TipoPercepcion">
+          <End Role="c_TipoPercepcion" Type="Self.c_TipoPercepcion" Multiplicity="0..1" />
+          <End Role="TE_Percepcion" Type="Self.TE_Percepcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoPercepcion">
+              <PropertyRef Name="c_TipoPercepcion" />
+            </Principal>
+            <Dependent Role="TE_Percepcion">
+              <PropertyRef Name="c_TipoPercepcion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Percepcion_HorasExtra_c_TipoHoras">
+          <End Role="c_TipoHoras" Type="Self.c_TipoHoras" Multiplicity="0..1" />
+          <End Role="TE_Percepcion_HorasExtra" Type="Self.TE_Percepcion_HorasExtra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoHoras">
+              <PropertyRef Name="c_TipoHoras" />
+            </Principal>
+            <Dependent Role="TE_Percepcion_HorasExtra">
+              <PropertyRef Name="c_TipoHoras" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Percepcion_HorasExtra_TE_Percepcion">
+          <End Role="TE_Percepcion" Type="Self.TE_Percepcion" Multiplicity="0..1" />
+          <End Role="TE_Percepcion_HorasExtra" Type="Self.TE_Percepcion_HorasExtra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Percepcion">
+              <PropertyRef Name="percepcionId" />
+            </Principal>
+            <Dependent Role="TE_Percepcion_HorasExtra">
+              <PropertyRef Name="percepcionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Percepcion_TE_Nomina">
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="0..1" />
+          <End Role="TE_Percepcion" Type="Self.TE_Percepcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_Percepcion">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Receptor_Subcontratacion_TE_Nomina">
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="1" />
+          <End Role="TE_Receptor_Subcontratacion" Type="Self.TE_Receptor_Subcontratacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_Receptor_Subcontratacion">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_SeparacionIndemnizacion_TE_Nomina">
+          <End Role="TE_Nomina" Type="Self.TE_Nomina" Multiplicity="0..1" />
+          <End Role="TE_SeparacionIndemnizacion" Type="Self.TE_SeparacionIndemnizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_SeparacionIndemnizacion">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AvantCraft_nomina2017ModelStoreContainer">
+          <EntitySet Name="c_Banco" EntityType="Self.c_Banco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_Estado" EntityType="Self.c_Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_OrigenRecurso" EntityType="Self.c_OrigenRecurso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_PeriodicidadPago" EntityType="Self.c_PeriodicidadPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_RegimenFiscal" EntityType="Self.c_RegimenFiscal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_RiesgoPuesto" EntityType="Self.c_RiesgoPuesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_TipoContrato" EntityType="Self.c_TipoContrato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_TipoDeduccion" EntityType="Self.c_TipoDeduccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_TipoHoras" EntityType="Self.c_TipoHoras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_TipoIncapacidad" EntityType="Self.c_TipoIncapacidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_TipoJornada" EntityType="Self.c_TipoJornada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_TipoNomina" EntityType="Self.c_TipoNomina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_TipoOtroPago" EntityType="Self.c_TipoOtroPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_TipoPercepcion" EntityType="Self.c_TipoPercepcion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="c_TipoRegimen" EntityType="Self.c_TipoRegimen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_Deduccion" EntityType="Self.TE_Deduccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_Incapacidad" EntityType="Self.TE_Incapacidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_JubilacionPensionRetiro" EntityType="Self.TE_JubilacionPensionRetiro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_Nomina" EntityType="Self.TE_Nomina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_OtroPago" EntityType="Self.TE_OtroPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_Percepcion" EntityType="Self.TE_Percepcion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_Percepcion_HorasExtra" EntityType="Self.TE_Percepcion_HorasExtra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_Receptor_Subcontratacion" EntityType="Self.TE_Receptor_Subcontratacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_SeparacionIndemnizacion" EntityType="Self.TE_SeparacionIndemnizacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_TXT_HEADER" EntityType="Self.TE_TXT_HEADER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TE_Deduccion_c_TipoDeduccion" Association="Self.FK_TE_Deduccion_c_TipoDeduccion">
+            <End Role="c_TipoDeduccion" EntitySet="c_TipoDeduccion" />
+            <End Role="TE_Deduccion" EntitySet="TE_Deduccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Deduccion_TE_Nomina" Association="Self.FK_TE_Deduccion_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_Deduccion" EntitySet="TE_Deduccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Incapacidad_c_TipoIncapacidad" Association="Self.FK_TE_Incapacidad_c_TipoIncapacidad">
+            <End Role="c_TipoIncapacidad" EntitySet="c_TipoIncapacidad" />
+            <End Role="TE_Incapacidad" EntitySet="TE_Incapacidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Incapacidad_TE_Nomina" Association="Self.FK_TE_Incapacidad_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_Incapacidad" EntitySet="TE_Incapacidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_JubilacionPensionRetiro_TE_Nomina" Association="Self.FK_TE_JubilacionPensionRetiro_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_JubilacionPensionRetiro" EntitySet="TE_JubilacionPensionRetiro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_Banco" Association="Self.FK_TE_Nomina_c_Banco">
+            <End Role="c_Banco" EntitySet="c_Banco" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_Estado" Association="Self.FK_TE_Nomina_c_Estado">
+            <End Role="c_Estado" EntitySet="c_Estado" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_OrigenRecurso" Association="Self.FK_TE_Nomina_c_OrigenRecurso">
+            <End Role="c_OrigenRecurso" EntitySet="c_OrigenRecurso" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_PeriodicidadPago" Association="Self.FK_TE_Nomina_c_PeriodicidadPago">
+            <End Role="c_PeriodicidadPago" EntitySet="c_PeriodicidadPago" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_RiesgoPuesto" Association="Self.FK_TE_Nomina_c_RiesgoPuesto">
+            <End Role="c_RiesgoPuesto" EntitySet="c_RiesgoPuesto" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_TipoContrato" Association="Self.FK_TE_Nomina_c_TipoContrato">
+            <End Role="c_TipoContrato" EntitySet="c_TipoContrato" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_TipoJornada" Association="Self.FK_TE_Nomina_c_TipoJornada">
+            <End Role="c_TipoJornada" EntitySet="c_TipoJornada" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_TipoNomina" Association="Self.FK_TE_Nomina_c_TipoNomina">
+            <End Role="c_TipoNomina" EntitySet="c_TipoNomina" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_TipoRegimen" Association="Self.FK_TE_Nomina_c_TipoRegimen">
+            <End Role="c_TipoRegimen" EntitySet="c_TipoRegimen" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_OtroPago_c_TipoOtroPago" Association="Self.FK_TE_OtroPago_c_TipoOtroPago">
+            <End Role="c_TipoOtroPago" EntitySet="c_TipoOtroPago" />
+            <End Role="TE_OtroPago" EntitySet="TE_OtroPago" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_OtroPago_TE_Nomina" Association="Self.FK_TE_OtroPago_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_OtroPago" EntitySet="TE_OtroPago" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Percepcion_c_TipoPercepcion" Association="Self.FK_TE_Percepcion_c_TipoPercepcion">
+            <End Role="c_TipoPercepcion" EntitySet="c_TipoPercepcion" />
+            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Percepcion_HorasExtra_c_TipoHoras" Association="Self.FK_TE_Percepcion_HorasExtra_c_TipoHoras">
+            <End Role="c_TipoHoras" EntitySet="c_TipoHoras" />
+            <End Role="TE_Percepcion_HorasExtra" EntitySet="TE_Percepcion_HorasExtra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Percepcion_HorasExtra_TE_Percepcion" Association="Self.FK_TE_Percepcion_HorasExtra_TE_Percepcion">
+            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
+            <End Role="TE_Percepcion_HorasExtra" EntitySet="TE_Percepcion_HorasExtra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Percepcion_TE_Nomina" Association="Self.FK_TE_Percepcion_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Receptor_Subcontratacion_TE_Nomina" Association="Self.FK_TE_Receptor_Subcontratacion_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_Receptor_Subcontratacion" EntitySet="TE_Receptor_Subcontratacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_SeparacionIndemnizacion_TE_Nomina" Association="Self.FK_TE_SeparacionIndemnizacion_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_SeparacionIndemnizacion" EntitySet="TE_SeparacionIndemnizacion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AvantCraft_nomina2017Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="c_Banco">
+          <Key>
+            <PropertyRef Name="c_Banco1" />
+          </Key>
+          <Property Name="c_Banco1" Type="Double" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre_o_razón_social" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_Banco" FromRole="c_Banco" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="c_Estado">
+          <Key>
+            <PropertyRef Name="c_Estado1" />
+          </Key>
+          <Property Name="c_Estado1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="c_Pais" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre_del_estado" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_Estado" FromRole="c_Estado" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="c_OrigenRecurso">
+          <Key>
+            <PropertyRef Name="c_OrigenRecurso1" />
+          </Key>
+          <Property Name="c_OrigenRecurso1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripción" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_OrigenRecurso" FromRole="c_OrigenRecurso" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="c_PeriodicidadPago">
+          <Key>
+            <PropertyRef Name="c_PeriodicidadPago1" />
+          </Key>
+          <Property Name="c_PeriodicidadPago1" Type="Double" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_PeriodicidadPago" FromRole="c_PeriodicidadPago" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="c_RegimenFiscal">
+          <Key>
+            <PropertyRef Name="c_RegimenFiscal1" />
+          </Key>
+          <Property Name="c_RegimenFiscal1" Type="Double" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Física" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Moral" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="c_RiesgoPuesto">
+          <Key>
+            <PropertyRef Name="c_RiesgoPuesto1" />
+          </Key>
+          <Property Name="c_RiesgoPuesto1" Type="Double" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_RiesgoPuesto" FromRole="c_RiesgoPuesto" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="c_TipoContrato">
+          <Key>
+            <PropertyRef Name="c_TipoContrato1" />
+          </Key>
+          <Property Name="c_TipoContrato1" Type="Double" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoContrato" FromRole="c_TipoContrato" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="c_TipoDeduccion">
+          <Key>
+            <PropertyRef Name="c_TipoDeduccion1" />
+          </Key>
+          <Property Name="c_TipoDeduccion1" Type="Double" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Deduccion" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion" FromRole="c_TipoDeduccion" ToRole="TE_Deduccion" />
+        </EntityType>
+        <EntityType Name="c_TipoHoras">
+          <Key>
+            <PropertyRef Name="c_TipoHoras1" />
+          </Key>
+          <Property Name="c_TipoHoras1" Type="Double" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Percepcion_HorasExtra" Relationship="Self.FK_TE_Percepcion_HorasExtra_c_TipoHoras" FromRole="c_TipoHoras" ToRole="TE_Percepcion_HorasExtra" />
+        </EntityType>
+        <EntityType Name="c_TipoIncapacidad">
+          <Key>
+            <PropertyRef Name="c_TipoIncapacidad1" />
+          </Key>
+          <Property Name="c_TipoIncapacidad1" Type="Double" Nullable="false" />
+          <Property Name="Descripción" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Incapacidad" Relationship="Self.FK_TE_Incapacidad_c_TipoIncapacidad" FromRole="c_TipoIncapacidad" ToRole="TE_Incapacidad" />
+        </EntityType>
+        <EntityType Name="c_TipoJornada">
+          <Key>
+            <PropertyRef Name="c_TipoJornada1" />
+          </Key>
+          <Property Name="c_TipoJornada1" Type="Double" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoJornada" FromRole="c_TipoJornada" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="c_TipoNomina">
+          <Key>
+            <PropertyRef Name="c_TipoNomina1" />
+          </Key>
+          <Property Name="c_TipoNomina1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoNomina" FromRole="c_TipoNomina" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="c_TipoOtroPago">
+          <Key>
+            <PropertyRef Name="c_TipoOtroPago1" />
+          </Key>
+          <Property Name="c_TipoOtroPago1" Type="Double" Nullable="false" />
+          <Property Name="Descripción" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_OtroPago" Relationship="Self.FK_TE_OtroPago_c_TipoOtroPago" FromRole="c_TipoOtroPago" ToRole="TE_OtroPago" />
+        </EntityType>
+        <EntityType Name="c_TipoPercepcion">
+          <Key>
+            <PropertyRef Name="c_TipoPercepcion1" />
+          </Key>
+          <Property Name="c_TipoPercepcion1" Type="Double" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Percepcion" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion" FromRole="c_TipoPercepcion" ToRole="TE_Percepcion" />
+        </EntityType>
+        <EntityType Name="c_TipoRegimen">
+          <Key>
+            <PropertyRef Name="c_TipoRegimen1" />
+          </Key>
+          <Property Name="c_TipoRegimen1" Type="Double" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoRegimen" FromRole="c_TipoRegimen" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TE_Incapacidad">
+          <Key>
+            <PropertyRef Name="incapacidadId" />
+          </Key>
+          <Property Name="incapacidadId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nominaId" Type="Int32" />
+          <Property Name="DiasIncapacidad" Type="Int32" />
+          <Property Name="c_TipoIncapacidad" Type="Double" />
+          <Property Name="ImporteMonetario" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="c_TipoIncapacidad1" Relationship="Self.FK_TE_Incapacidad_c_TipoIncapacidad" FromRole="TE_Incapacidad" ToRole="c_TipoIncapacidad" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Incapacidad_TE_Nomina" FromRole="TE_Incapacidad" ToRole="TE_Nomina" />
+          <Property Name="TipoIncapacidad" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TE_JubilacionPensionRetiro">
+          <Key>
+            <PropertyRef Name="JubilacionPensionRetiroId" />
+          </Key>
+          <Property Name="JubilacionPensionRetiroId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nominaId" Type="Int32" />
+          <Property Name="TotalUnaExhibicion" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalParcialidad" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MontoDiario" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IngresoAcumulable" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IngresoNoAcumulable" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_JubilacionPensionRetiro_TE_Nomina" FromRole="TE_JubilacionPensionRetiro" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="TE_OtroPago">
+          <Key>
+            <PropertyRef Name="otropagoId" />
+          </Key>
+          <Property Name="otropagoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nominaId" Type="Int32" />
+          <Property Name="c_TipoOtroPago" Type="Double" />
+          <Property Name="Clave" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Concepto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Importe" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SubsidioAlEmpleo_SubsidioCausado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CompensacionSaldosAFavor_SaldoAFavor" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CompensacionSaldosAFavor_Año" Type="Int32" />
+          <Property Name="CompensacionSaldosAFavor_RemanenteSalFav" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="c_TipoOtroPago1" Relationship="Self.FK_TE_OtroPago_c_TipoOtroPago" FromRole="TE_OtroPago" ToRole="c_TipoOtroPago" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_OtroPago_TE_Nomina" FromRole="TE_OtroPago" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="TE_Percepcion_HorasExtra">
+          <Key>
+            <PropertyRef Name="horasextraId" />
+          </Key>
+          <Property Name="horasextraId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="percepcionId" Type="Int32" />
+          <Property Name="Dias" Type="Int32" />
+          <Property Name="c_TipoHoras" Type="Double" />
+          <Property Name="HorasExtra" Type="Int32" />
+          <Property Name="ImportePagado" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="c_TipoHoras1" Relationship="Self.FK_TE_Percepcion_HorasExtra_c_TipoHoras" FromRole="TE_Percepcion_HorasExtra" ToRole="c_TipoHoras" />
+          <NavigationProperty Name="TE_Percepcion" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion" FromRole="TE_Percepcion_HorasExtra" ToRole="TE_Percepcion" />
+          <Property Name="TipoHoras" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TE_Receptor_Subcontratacion">
+          <Key>
+            <PropertyRef Name="subcontratacionId" />
+          </Key>
+          <Property Name="subcontratacionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nominaId" Type="Int32" Nullable="false" />
+          <Property Name="RfcLabora" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PorcentajeTiempo" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Receptor_Subcontratacion_TE_Nomina" FromRole="TE_Receptor_Subcontratacion" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="TE_SeparacionIndemnizacion">
+          <Key>
+            <PropertyRef Name="SeparacionIndemnizacionId" />
+          </Key>
+          <Property Name="SeparacionIndemnizacionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nominaId" Type="Int32" />
+          <Property Name="TotalPagado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NumAñosServicio" Type="Int32" />
+          <Property Name="UltimoSueldoMensOrd" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IngresoAcumulable" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IngresoNoAcumulable" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_SeparacionIndemnizacion_TE_Nomina" FromRole="TE_SeparacionIndemnizacion" ToRole="TE_Nomina" />
+        </EntityType>
+        <Association Name="FK_TE_Percepcion_HorasExtra_c_TipoHoras">
+          <End Role="c_TipoHoras" Type="Self.c_TipoHoras" Multiplicity="0..1" />
+          <End Role="TE_Percepcion_HorasExtra" Type="Self.TE_Percepcion_HorasExtra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoHoras">
+              <PropertyRef Name="c_TipoHoras1" />
+            </Principal>
+            <Dependent Role="TE_Percepcion_HorasExtra">
+              <PropertyRef Name="c_TipoHoras" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Incapacidad_c_TipoIncapacidad">
+          <End Role="c_TipoIncapacidad" Type="Self.c_TipoIncapacidad" Multiplicity="0..1" />
+          <End Role="TE_Incapacidad" Type="Self.TE_Incapacidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoIncapacidad">
+              <PropertyRef Name="c_TipoIncapacidad1" />
+            </Principal>
+            <Dependent Role="TE_Incapacidad">
+              <PropertyRef Name="c_TipoIncapacidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_OtroPago_c_TipoOtroPago">
+          <End Role="c_TipoOtroPago" Type="Self.c_TipoOtroPago" Multiplicity="0..1" />
+          <End Role="TE_OtroPago" Type="Self.TE_OtroPago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoOtroPago">
+              <PropertyRef Name="c_TipoOtroPago1" />
+            </Principal>
+            <Dependent Role="TE_OtroPago">
+              <PropertyRef Name="c_TipoOtroPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AvantCraft_nomina2017Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="c_Banco" EntityType="Self.c_Banco" />
+          <EntitySet Name="c_Estado" EntityType="Self.c_Estado" />
+          <EntitySet Name="c_OrigenRecurso" EntityType="Self.c_OrigenRecurso" />
+          <EntitySet Name="c_PeriodicidadPago" EntityType="Self.c_PeriodicidadPago" />
+          <EntitySet Name="c_RegimenFiscal" EntityType="Self.c_RegimenFiscal" />
+          <EntitySet Name="c_RiesgoPuesto" EntityType="Self.c_RiesgoPuesto" />
+          <EntitySet Name="c_TipoContrato" EntityType="Self.c_TipoContrato" />
+          <EntitySet Name="c_TipoDeduccion" EntityType="Self.c_TipoDeduccion" />
+          <EntitySet Name="c_TipoHoras" EntityType="Self.c_TipoHoras" />
+          <EntitySet Name="c_TipoIncapacidad" EntityType="Self.c_TipoIncapacidad" />
+          <EntitySet Name="c_TipoJornada" EntityType="Self.c_TipoJornada" />
+          <EntitySet Name="c_TipoNomina" EntityType="Self.c_TipoNomina" />
+          <EntitySet Name="c_TipoOtroPago" EntityType="Self.c_TipoOtroPago" />
+          <EntitySet Name="c_TipoPercepcion" EntityType="Self.c_TipoPercepcion" />
+          <EntitySet Name="c_TipoRegimen" EntityType="Self.c_TipoRegimen" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TE_Incapacidad" EntityType="Self.TE_Incapacidad" />
+          <EntitySet Name="TE_JubilacionPensionRetiro" EntityType="Self.TE_JubilacionPensionRetiro" />
+          <EntitySet Name="TE_OtroPago" EntityType="Self.TE_OtroPago" />
+          <EntitySet Name="TE_Percepcion_HorasExtra" EntityType="Self.TE_Percepcion_HorasExtra" />
+          <EntitySet Name="TE_Receptor_Subcontratacion" EntityType="Self.TE_Receptor_Subcontratacion" />
+          <EntitySet Name="TE_SeparacionIndemnizacion" EntityType="Self.TE_SeparacionIndemnizacion" />
+          <AssociationSet Name="FK_TE_Percepcion_HorasExtra_c_TipoHoras" Association="Self.FK_TE_Percepcion_HorasExtra_c_TipoHoras">
+            <End Role="c_TipoHoras" EntitySet="c_TipoHoras" />
+            <End Role="TE_Percepcion_HorasExtra" EntitySet="TE_Percepcion_HorasExtra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Incapacidad_c_TipoIncapacidad" Association="Self.FK_TE_Incapacidad_c_TipoIncapacidad">
+            <End Role="c_TipoIncapacidad" EntitySet="c_TipoIncapacidad" />
+            <End Role="TE_Incapacidad" EntitySet="TE_Incapacidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_OtroPago_c_TipoOtroPago" Association="Self.FK_TE_OtroPago_c_TipoOtroPago">
+            <End Role="c_TipoOtroPago" EntitySet="c_TipoOtroPago" />
+            <End Role="TE_OtroPago" EntitySet="TE_OtroPago" />
+          </AssociationSet>
+          <EntitySet Name="TE_TXT_HEADER" EntityType="AvantCraft_nomina2017Model.TE_TXT_HEADER" />
+          <EntitySet Name="TE_Nomina" EntityType="AvantCraft_nomina2017Model.TE_Nomina" />
+          <EntitySet Name="TE_Percepcion" EntityType="AvantCraft_nomina2017Model.TE_Percepcion" />
+          <AssociationSet Name="FK_TE_Nomina_c_Banco" Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_Banco">
+            <End Role="c_Banco" EntitySet="c_Banco" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_Estado" Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_Estado">
+            <End Role="c_Estado" EntitySet="c_Estado" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_OrigenRecurso" Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_OrigenRecurso">
+            <End Role="c_OrigenRecurso" EntitySet="c_OrigenRecurso" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_PeriodicidadPago" Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_PeriodicidadPago">
+            <End Role="c_PeriodicidadPago" EntitySet="c_PeriodicidadPago" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_RiesgoPuesto" Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_RiesgoPuesto">
+            <End Role="c_RiesgoPuesto" EntitySet="c_RiesgoPuesto" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_TipoContrato" Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoContrato">
+            <End Role="c_TipoContrato" EntitySet="c_TipoContrato" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_TipoJornada" Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoJornada">
+            <End Role="c_TipoJornada" EntitySet="c_TipoJornada" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_TipoNomina" Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoNomina">
+            <End Role="c_TipoNomina" EntitySet="c_TipoNomina" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Percepcion_c_TipoPercepcion" Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion">
+            <End Role="c_TipoPercepcion" EntitySet="c_TipoPercepcion" />
+            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Nomina_c_TipoRegimen" Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoRegimen">
+            <End Role="c_TipoRegimen" EntitySet="c_TipoRegimen" />
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Incapacidad_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_Incapacidad_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_Incapacidad" EntitySet="TE_Incapacidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_JubilacionPensionRetiro_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_JubilacionPensionRetiro_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_JubilacionPensionRetiro" EntitySet="TE_JubilacionPensionRetiro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_OtroPago_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_OtroPago_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_OtroPago" EntitySet="TE_OtroPago" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Percepcion_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Receptor_Subcontratacion_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_Receptor_Subcontratacion_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_Receptor_Subcontratacion" EntitySet="TE_Receptor_Subcontratacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_SeparacionIndemnizacion_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_SeparacionIndemnizacion_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_SeparacionIndemnizacion" EntitySet="TE_SeparacionIndemnizacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Percepcion_HorasExtra_TE_Percepcion" Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion">
+            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
+            <End Role="TE_Percepcion_HorasExtra" EntitySet="TE_Percepcion_HorasExtra" />
+          </AssociationSet>
+          <EntitySet Name="TE_Deduccion" EntityType="AvantCraft_nomina2017Model.TE_Deduccion" />
+          <AssociationSet Name="FK_TE_Deduccion_c_TipoDeduccion" Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion">
+            <End Role="c_TipoDeduccion" EntitySet="c_TipoDeduccion" />
+            <End Role="TE_Deduccion" EntitySet="TE_Deduccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Deduccion_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_Deduccion" EntitySet="TE_Deduccion" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="TE_TXT_HEADER">
+          <Key>
+            <PropertyRef Name="headerId" />
+          </Key>
+          <Property Name="headerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="H1_05" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H1_08" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H1_11" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H1_14" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H1_30" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H1_31" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H1_32" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H1_46" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H1_50" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H2_02" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H2_03" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H2_05" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H2_06" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H2_08" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H2_09" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H2_11" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H2_12" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H2_13" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H2_14" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H4_02" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H4_03" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H4_13" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="S_10" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="S_16" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="S_37" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="D_04" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="D_06" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="D_07" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="D_09" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="D_25" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="D_37" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="D_38" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="D_42" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="S_36" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TE_Nomina">
+          <Key>
+            <PropertyRef Name="nominaId" />
+          </Key>
+          <Property Name="nominaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="c_TipoNomina" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FechaPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FechaInicialPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FechaFinalPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumDiasPagados" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalPercepciones" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalDeducciones" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalOtrosPagos" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Emisor_CURP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Emisor_RegistroPatronal" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Emisor_RfcPatronOrigen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Emisor_EntidadSNCF_c_OrigenRecurso" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Emisor_EntidadSNCF_MontoRecursoPropio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Receptor_CURP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_NumSeguridadSocial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_FechaInicioRelLaboral" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_Antiguedad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_c_TipoContrato" Type="Double" />
+          <Property Name="Receptor_Sindicalizado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_c_TipoJornada" Type="Double" />
+          <Property Name="Receptor_TipoRegimen" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_c_TipoRegimen" Type="Double" />
+          <Property Name="Receptor_NumEmpleado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_Departamento" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_Puesto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_c_RiesgoPuesto" Type="Double" />
+          <Property Name="Receptor_PeriodicidadPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_c_PeriodicidadPago" Type="Double" />
+          <Property Name="Receptor_c_Banco" Type="Double" />
+          <Property Name="Receptor_CuentaBancaria" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_SalarioBaseCotApor" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Receptor_SalarioDiarioIntegrado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Receptor_c_ClaveEntFed" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Percepciones_TotalSueldos" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Percepciones_TotalSeparacionIndemnizacion" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Percepciones_TotalJubilacionPensionRetiro" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Percepciones_TotalGravado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Percepciones_TotalExento" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Deducciones_TotalOtrasDeducciones" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Deducciones_TotalImpuestosRetenidos" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="c_Banco" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_Banco" FromRole="TE_Nomina" ToRole="c_Banco" />
+          <NavigationProperty Name="c_Estado" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_Estado" FromRole="TE_Nomina" ToRole="c_Estado" />
+          <NavigationProperty Name="c_OrigenRecurso" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_OrigenRecurso" FromRole="TE_Nomina" ToRole="c_OrigenRecurso" />
+          <NavigationProperty Name="c_PeriodicidadPago" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_PeriodicidadPago" FromRole="TE_Nomina" ToRole="c_PeriodicidadPago" />
+          <NavigationProperty Name="c_RiesgoPuesto" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_RiesgoPuesto" FromRole="TE_Nomina" ToRole="c_RiesgoPuesto" />
+          <NavigationProperty Name="c_TipoContrato" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoContrato" FromRole="TE_Nomina" ToRole="c_TipoContrato" />
+          <NavigationProperty Name="c_TipoJornada" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoJornada" FromRole="TE_Nomina" ToRole="c_TipoJornada" />
+          <NavigationProperty Name="c_TipoNomina1" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoNomina" FromRole="TE_Nomina" ToRole="c_TipoNomina" />
+          <NavigationProperty Name="c_TipoRegimen" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoRegimen" FromRole="TE_Nomina" ToRole="c_TipoRegimen" />
+          <NavigationProperty Name="TE_Incapacidad" Relationship="AvantCraft_nomina2017Model.FK_TE_Incapacidad_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Incapacidad" />
+          <NavigationProperty Name="TE_JubilacionPensionRetiro" Relationship="AvantCraft_nomina2017Model.FK_TE_JubilacionPensionRetiro_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_JubilacionPensionRetiro" />
+          <NavigationProperty Name="TE_OtroPago" Relationship="AvantCraft_nomina2017Model.FK_TE_OtroPago_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_OtroPago" />
+          <NavigationProperty Name="TE_Percepcion" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Percepcion" />
+          <NavigationProperty Name="TE_Receptor_Subcontratacion" Relationship="AvantCraft_nomina2017Model.FK_TE_Receptor_Subcontratacion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Receptor_Subcontratacion" />
+          <NavigationProperty Name="TE_SeparacionIndemnizacion" Relationship="AvantCraft_nomina2017Model.FK_TE_SeparacionIndemnizacion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_SeparacionIndemnizacion" />
+          <NavigationProperty Name="TE_Deduccion" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Deduccion" />
+        </EntityType>
+        <EntityType Name="TE_Percepcion">
+          <Key>
+            <PropertyRef Name="percepcionId" />
+          </Key>
+          <Property Name="percepcionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nominaId" Type="Int32" />
+          <Property Name="TipoPercepcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="c_TipoPercepcion" Type="Double" />
+          <Property Name="Clave" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Concepto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ImporteGravado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ImporteExcento" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AccionesOTitulos_ValorMercado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AccionesOTitulos_PrecioAlOtorgarse" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="c_TipoPercepcion1" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion" FromRole="TE_Percepcion" ToRole="c_TipoPercepcion" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina" FromRole="TE_Percepcion" ToRole="TE_Nomina" />
+          <NavigationProperty Name="TE_Percepcion_HorasExtra" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion" FromRole="TE_Percepcion" ToRole="TE_Percepcion_HorasExtra" />
+        </EntityType>
+        <Association Name="FK_TE_Nomina_c_Banco">
+          <End Type="AvantCraft_nomina2017Model.c_Banco" Role="c_Banco" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_Banco">
+              <PropertyRef Name="c_Banco1" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_Banco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_Estado">
+          <End Type="AvantCraft_nomina2017Model.c_Estado" Role="c_Estado" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_Estado">
+              <PropertyRef Name="c_Estado1" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_ClaveEntFed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_OrigenRecurso">
+          <End Type="AvantCraft_nomina2017Model.c_OrigenRecurso" Role="c_OrigenRecurso" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_OrigenRecurso">
+              <PropertyRef Name="c_OrigenRecurso1" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Emisor_EntidadSNCF_c_OrigenRecurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_PeriodicidadPago">
+          <End Type="AvantCraft_nomina2017Model.c_PeriodicidadPago" Role="c_PeriodicidadPago" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_PeriodicidadPago">
+              <PropertyRef Name="c_PeriodicidadPago1" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_PeriodicidadPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_RiesgoPuesto">
+          <End Type="AvantCraft_nomina2017Model.c_RiesgoPuesto" Role="c_RiesgoPuesto" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_RiesgoPuesto">
+              <PropertyRef Name="c_RiesgoPuesto1" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_RiesgoPuesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_TipoContrato">
+          <End Type="AvantCraft_nomina2017Model.c_TipoContrato" Role="c_TipoContrato" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoContrato">
+              <PropertyRef Name="c_TipoContrato1" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_TipoContrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_TipoJornada">
+          <End Type="AvantCraft_nomina2017Model.c_TipoJornada" Role="c_TipoJornada" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoJornada">
+              <PropertyRef Name="c_TipoJornada1" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_TipoJornada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_TipoNomina">
+          <End Type="AvantCraft_nomina2017Model.c_TipoNomina" Role="c_TipoNomina" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoNomina">
+              <PropertyRef Name="c_TipoNomina1" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="c_TipoNomina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Percepcion_c_TipoPercepcion">
+          <End Type="AvantCraft_nomina2017Model.c_TipoPercepcion" Role="c_TipoPercepcion" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Percepcion" Role="TE_Percepcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoPercepcion">
+              <PropertyRef Name="c_TipoPercepcion1" />
+            </Principal>
+            <Dependent Role="TE_Percepcion">
+              <PropertyRef Name="c_TipoPercepcion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Nomina_c_TipoRegimen">
+          <End Type="AvantCraft_nomina2017Model.c_TipoRegimen" Role="c_TipoRegimen" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoRegimen">
+              <PropertyRef Name="c_TipoRegimen1" />
+            </Principal>
+            <Dependent Role="TE_Nomina">
+              <PropertyRef Name="Receptor_c_TipoRegimen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Incapacidad_TE_Nomina">
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Incapacidad" Role="TE_Incapacidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_Incapacidad">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_JubilacionPensionRetiro_TE_Nomina">
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_JubilacionPensionRetiro" Role="TE_JubilacionPensionRetiro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_JubilacionPensionRetiro">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_OtroPago_TE_Nomina">
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_OtroPago" Role="TE_OtroPago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_OtroPago">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Percepcion_TE_Nomina">
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Percepcion" Role="TE_Percepcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_Percepcion">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Receptor_Subcontratacion_TE_Nomina">
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Receptor_Subcontratacion" Role="TE_Receptor_Subcontratacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_Receptor_Subcontratacion">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_SeparacionIndemnizacion_TE_Nomina">
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_SeparacionIndemnizacion" Role="TE_SeparacionIndemnizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_SeparacionIndemnizacion">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Percepcion_HorasExtra_TE_Percepcion">
+          <End Type="AvantCraft_nomina2017Model.TE_Percepcion" Role="TE_Percepcion" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Percepcion_HorasExtra" Role="TE_Percepcion_HorasExtra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Percepcion">
+              <PropertyRef Name="percepcionId" />
+            </Principal>
+            <Dependent Role="TE_Percepcion_HorasExtra">
+              <PropertyRef Name="percepcionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TE_Deduccion">
+          <Key>
+            <PropertyRef Name="deduccionId" />
+          </Key>
+          <Property Name="deduccionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nominaId" Type="Int32" />
+          <Property Name="TipoDeduccion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="c_TipoDeduccion" Type="Double" />
+          <Property Name="Clave" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Concepto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Importe" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="c_TipoDeduccion1" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion" FromRole="TE_Deduccion" ToRole="c_TipoDeduccion" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina" FromRole="TE_Deduccion" ToRole="TE_Nomina" />
+        </EntityType>
+        <Association Name="FK_TE_Deduccion_c_TipoDeduccion">
+          <End Type="AvantCraft_nomina2017Model.c_TipoDeduccion" Role="c_TipoDeduccion" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Deduccion" Role="TE_Deduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoDeduccion">
+              <PropertyRef Name="c_TipoDeduccion1" />
+            </Principal>
+            <Dependent Role="TE_Deduccion">
+              <PropertyRef Name="c_TipoDeduccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Deduccion_TE_Nomina">
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Deduccion" Role="TE_Deduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_Deduccion">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AvantCraft_nomina2017ModelStoreContainer" CdmEntityContainer="AvantCraft_nomina2017Entities">
+          <EntitySetMapping Name="c_Banco">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_Banco">
+              <MappingFragment StoreEntitySet="c_Banco">
+                <ScalarProperty Name="c_Banco1" ColumnName="c_Banco" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre_o_razón_social" ColumnName="Nombre o razón social" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_Estado">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_Estado">
+              <MappingFragment StoreEntitySet="c_Estado">
+                <ScalarProperty Name="c_Estado1" ColumnName="c_Estado" />
+                <ScalarProperty Name="c_Pais" ColumnName="c_Pais" />
+                <ScalarProperty Name="Nombre_del_estado" ColumnName="Nombre del estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_OrigenRecurso">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_OrigenRecurso">
+              <MappingFragment StoreEntitySet="c_OrigenRecurso">
+                <ScalarProperty Name="c_OrigenRecurso1" ColumnName="c_OrigenRecurso" />
+                <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_PeriodicidadPago">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_PeriodicidadPago">
+              <MappingFragment StoreEntitySet="c_PeriodicidadPago">
+                <ScalarProperty Name="c_PeriodicidadPago1" ColumnName="c_PeriodicidadPago" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_RegimenFiscal">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_RegimenFiscal">
+              <MappingFragment StoreEntitySet="c_RegimenFiscal">
+                <ScalarProperty Name="c_RegimenFiscal1" ColumnName="c_RegimenFiscal" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Física" ColumnName="Física" />
+                <ScalarProperty Name="Moral" ColumnName="Moral" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_RiesgoPuesto">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_RiesgoPuesto">
+              <MappingFragment StoreEntitySet="c_RiesgoPuesto">
+                <ScalarProperty Name="c_RiesgoPuesto1" ColumnName="c_RiesgoPuesto" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_TipoContrato">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoContrato">
+              <MappingFragment StoreEntitySet="c_TipoContrato">
+                <ScalarProperty Name="c_TipoContrato1" ColumnName="c_TipoContrato" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_TipoDeduccion">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoDeduccion">
+              <MappingFragment StoreEntitySet="c_TipoDeduccion">
+                <ScalarProperty Name="c_TipoDeduccion1" ColumnName="c_TipoDeduccion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_TipoHoras">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoHoras">
+              <MappingFragment StoreEntitySet="c_TipoHoras">
+                <ScalarProperty Name="c_TipoHoras1" ColumnName="c_TipoHoras" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_TipoIncapacidad">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoIncapacidad">
+              <MappingFragment StoreEntitySet="c_TipoIncapacidad">
+                <ScalarProperty Name="c_TipoIncapacidad1" ColumnName="c_TipoIncapacidad" />
+                <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_TipoJornada">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoJornada">
+              <MappingFragment StoreEntitySet="c_TipoJornada">
+                <ScalarProperty Name="c_TipoJornada1" ColumnName="c_TipoJornada" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_TipoNomina">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoNomina">
+              <MappingFragment StoreEntitySet="c_TipoNomina">
+                <ScalarProperty Name="c_TipoNomina1" ColumnName="c_TipoNomina" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_TipoOtroPago">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoOtroPago">
+              <MappingFragment StoreEntitySet="c_TipoOtroPago">
+                <ScalarProperty Name="c_TipoOtroPago1" ColumnName="c_TipoOtroPago" />
+                <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_TipoPercepcion">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoPercepcion">
+              <MappingFragment StoreEntitySet="c_TipoPercepcion">
+                <ScalarProperty Name="c_TipoPercepcion1" ColumnName="c_TipoPercepcion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_TipoRegimen">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoRegimen">
+              <MappingFragment StoreEntitySet="c_TipoRegimen">
+                <ScalarProperty Name="c_TipoRegimen1" ColumnName="c_TipoRegimen" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_Incapacidad">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Incapacidad">
+              <MappingFragment StoreEntitySet="TE_Incapacidad">
+                <ScalarProperty Name="TipoIncapacidad" ColumnName="TipoIncapacidad" />
+                <ScalarProperty Name="incapacidadId" ColumnName="incapacidadId" />
+                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
+                <ScalarProperty Name="DiasIncapacidad" ColumnName="DiasIncapacidad" />
+                <ScalarProperty Name="c_TipoIncapacidad" ColumnName="c_TipoIncapacidad" />
+                <ScalarProperty Name="ImporteMonetario" ColumnName="ImporteMonetario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_JubilacionPensionRetiro">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_JubilacionPensionRetiro">
+              <MappingFragment StoreEntitySet="TE_JubilacionPensionRetiro">
+                <ScalarProperty Name="JubilacionPensionRetiroId" ColumnName="JubilacionPensionRetiroId" />
+                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
+                <ScalarProperty Name="TotalUnaExhibicion" ColumnName="TotalUnaExhibicion" />
+                <ScalarProperty Name="TotalParcialidad" ColumnName="TotalParcialidad" />
+                <ScalarProperty Name="MontoDiario" ColumnName="MontoDiario" />
+                <ScalarProperty Name="IngresoAcumulable" ColumnName="IngresoAcumulable" />
+                <ScalarProperty Name="IngresoNoAcumulable" ColumnName="IngresoNoAcumulable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_OtroPago">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_OtroPago">
+              <MappingFragment StoreEntitySet="TE_OtroPago">
+                <ScalarProperty Name="otropagoId" ColumnName="otropagoId" />
+                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
+                <ScalarProperty Name="c_TipoOtroPago" ColumnName="c_TipoOtroPago" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="SubsidioAlEmpleo_SubsidioCausado" ColumnName="SubsidioAlEmpleo_SubsidioCausado" />
+                <ScalarProperty Name="CompensacionSaldosAFavor_SaldoAFavor" ColumnName="CompensacionSaldosAFavor_SaldoAFavor" />
+                <ScalarProperty Name="CompensacionSaldosAFavor_Año" ColumnName="CompensacionSaldosAFavor_Año" />
+                <ScalarProperty Name="CompensacionSaldosAFavor_RemanenteSalFav" ColumnName="CompensacionSaldosAFavor_RemanenteSalFav" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_Percepcion_HorasExtra">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Percepcion_HorasExtra">
+              <MappingFragment StoreEntitySet="TE_Percepcion_HorasExtra">
+                <ScalarProperty Name="TipoHoras" ColumnName="TipoHoras" />
+                <ScalarProperty Name="horasextraId" ColumnName="horasextraId" />
+                <ScalarProperty Name="percepcionId" ColumnName="percepcionId" />
+                <ScalarProperty Name="Dias" ColumnName="Dias" />
+                <ScalarProperty Name="c_TipoHoras" ColumnName="c_TipoHoras" />
+                <ScalarProperty Name="HorasExtra" ColumnName="HorasExtra" />
+                <ScalarProperty Name="ImportePagado" ColumnName="ImportePagado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_Receptor_Subcontratacion">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Receptor_Subcontratacion">
+              <MappingFragment StoreEntitySet="TE_Receptor_Subcontratacion">
+                <ScalarProperty Name="subcontratacionId" ColumnName="subcontratacionId" />
+                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
+                <ScalarProperty Name="RfcLabora" ColumnName="RfcLabora" />
+                <ScalarProperty Name="PorcentajeTiempo" ColumnName="PorcentajeTiempo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_SeparacionIndemnizacion">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_SeparacionIndemnizacion">
+              <MappingFragment StoreEntitySet="TE_SeparacionIndemnizacion">
+                <ScalarProperty Name="SeparacionIndemnizacionId" ColumnName="SeparacionIndemnizacionId" />
+                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
+                <ScalarProperty Name="TotalPagado" ColumnName="TotalPagado" />
+                <ScalarProperty Name="NumAñosServicio" ColumnName="NumAñosServicio" />
+                <ScalarProperty Name="UltimoSueldoMensOrd" ColumnName="UltimoSueldoMensOrd" />
+                <ScalarProperty Name="IngresoAcumulable" ColumnName="IngresoAcumulable" />
+                <ScalarProperty Name="IngresoNoAcumulable" ColumnName="IngresoNoAcumulable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_TXT_HEADER">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_TXT_HEADER">
+              <MappingFragment StoreEntitySet="TE_TXT_HEADER">
+                <ScalarProperty Name="S_36" ColumnName="S_36" />
+                <ScalarProperty Name="D_42" ColumnName="D_42" />
+                <ScalarProperty Name="D_38" ColumnName="D_38" />
+                <ScalarProperty Name="D_37" ColumnName="D_37" />
+                <ScalarProperty Name="D_25" ColumnName="D_25" />
+                <ScalarProperty Name="D_09" ColumnName="D_09" />
+                <ScalarProperty Name="D_07" ColumnName="D_07" />
+                <ScalarProperty Name="D_06" ColumnName="D_06" />
+                <ScalarProperty Name="D_04" ColumnName="D_04" />
+                <ScalarProperty Name="S_37" ColumnName="S_37" />
+                <ScalarProperty Name="S_16" ColumnName="S_16" />
+                <ScalarProperty Name="S_10" ColumnName="S_10" />
+                <ScalarProperty Name="H4_13" ColumnName="H4_13" />
+                <ScalarProperty Name="H4_03" ColumnName="H4_03" />
+                <ScalarProperty Name="H4_02" ColumnName="H4_02" />
+                <ScalarProperty Name="H2_14" ColumnName="H2_14" />
+                <ScalarProperty Name="H2_13" ColumnName="H2_13" />
+                <ScalarProperty Name="H2_12" ColumnName="H2_12" />
+                <ScalarProperty Name="H2_11" ColumnName="H2_11" />
+                <ScalarProperty Name="H2_09" ColumnName="H2_09" />
+                <ScalarProperty Name="H2_08" ColumnName="H2_08" />
+                <ScalarProperty Name="H2_06" ColumnName="H2_06" />
+                <ScalarProperty Name="H2_05" ColumnName="H2_05" />
+                <ScalarProperty Name="H2_03" ColumnName="H2_03" />
+                <ScalarProperty Name="H2_02" ColumnName="H2_02" />
+                <ScalarProperty Name="H1_50" ColumnName="H1_50" />
+                <ScalarProperty Name="H1_46" ColumnName="H1_46" />
+                <ScalarProperty Name="H1_32" ColumnName="H1_32" />
+                <ScalarProperty Name="H1_31" ColumnName="H1_31" />
+                <ScalarProperty Name="H1_30" ColumnName="H1_30" />
+                <ScalarProperty Name="H1_14" ColumnName="H1_14" />
+                <ScalarProperty Name="H1_11" ColumnName="H1_11" />
+                <ScalarProperty Name="H1_08" ColumnName="H1_08" />
+                <ScalarProperty Name="H1_05" ColumnName="H1_05" />
+                <ScalarProperty Name="headerId" ColumnName="headerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_Nomina">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Nomina">
+              <MappingFragment StoreEntitySet="TE_Nomina">
+                <ScalarProperty Name="Deducciones_TotalImpuestosRetenidos" ColumnName="Deducciones_TotalImpuestosRetenidos" />
+                <ScalarProperty Name="Deducciones_TotalOtrasDeducciones" ColumnName="Deducciones_TotalOtrasDeducciones" />
+                <ScalarProperty Name="Percepciones_TotalExento" ColumnName="Percepciones_TotalExento" />
+                <ScalarProperty Name="Percepciones_TotalGravado" ColumnName="Percepciones_TotalGravado" />
+                <ScalarProperty Name="Percepciones_TotalJubilacionPensionRetiro" ColumnName="Percepciones_TotalJubilacionPensionRetiro" />
+                <ScalarProperty Name="Percepciones_TotalSeparacionIndemnizacion" ColumnName="Percepciones_TotalSeparacionIndemnizacion" />
+                <ScalarProperty Name="Percepciones_TotalSueldos" ColumnName="Percepciones_TotalSueldos" />
+                <ScalarProperty Name="Receptor_c_ClaveEntFed" ColumnName="Receptor_c_ClaveEntFed" />
+                <ScalarProperty Name="Receptor_SalarioDiarioIntegrado" ColumnName="Receptor_SalarioDiarioIntegrado" />
+                <ScalarProperty Name="Receptor_SalarioBaseCotApor" ColumnName="Receptor_SalarioBaseCotApor" />
+                <ScalarProperty Name="Receptor_CuentaBancaria" ColumnName="Receptor_CuentaBancaria" />
+                <ScalarProperty Name="Receptor_c_Banco" ColumnName="Receptor_c_Banco" />
+                <ScalarProperty Name="Receptor_c_PeriodicidadPago" ColumnName="Receptor_c_PeriodicidadPago" />
+                <ScalarProperty Name="Receptor_PeriodicidadPago" ColumnName="Receptor_PeriodicidadPago" />
+                <ScalarProperty Name="Receptor_c_RiesgoPuesto" ColumnName="Receptor_c_RiesgoPuesto" />
+                <ScalarProperty Name="Receptor_Puesto" ColumnName="Receptor_Puesto" />
+                <ScalarProperty Name="Receptor_Departamento" ColumnName="Receptor_Departamento" />
+                <ScalarProperty Name="Receptor_NumEmpleado" ColumnName="Receptor_NumEmpleado" />
+                <ScalarProperty Name="Receptor_c_TipoRegimen" ColumnName="Receptor_c_TipoRegimen" />
+                <ScalarProperty Name="Receptor_TipoRegimen" ColumnName="Receptor_TipoRegimen" />
+                <ScalarProperty Name="Receptor_c_TipoJornada" ColumnName="Receptor_c_TipoJornada" />
+                <ScalarProperty Name="Receptor_Sindicalizado" ColumnName="Receptor_Sindicalizado" />
+                <ScalarProperty Name="Receptor_c_TipoContrato" ColumnName="Receptor_c_TipoContrato" />
+                <ScalarProperty Name="Receptor_Antiguedad" ColumnName="Receptor_Antiguedad" />
+                <ScalarProperty Name="Receptor_FechaInicioRelLaboral" ColumnName="Receptor_FechaInicioRelLaboral" />
+                <ScalarProperty Name="Receptor_NumSeguridadSocial" ColumnName="Receptor_NumSeguridadSocial" />
+                <ScalarProperty Name="Receptor_CURP" ColumnName="Receptor_CURP" />
+                <ScalarProperty Name="Emisor_EntidadSNCF_MontoRecursoPropio" ColumnName="Emisor_EntidadSNCF_MontoRecursoPropio" />
+                <ScalarProperty Name="Emisor_EntidadSNCF_c_OrigenRecurso" ColumnName="Emisor_EntidadSNCF_c_OrigenRecurso" />
+                <ScalarProperty Name="Emisor_RfcPatronOrigen" ColumnName="Emisor_RfcPatronOrigen" />
+                <ScalarProperty Name="Emisor_RegistroPatronal" ColumnName="Emisor_RegistroPatronal" />
+                <ScalarProperty Name="Emisor_CURP" ColumnName="Emisor_CURP" />
+                <ScalarProperty Name="TotalOtrosPagos" ColumnName="TotalOtrosPagos" />
+                <ScalarProperty Name="TotalDeducciones" ColumnName="TotalDeducciones" />
+                <ScalarProperty Name="TotalPercepciones" ColumnName="TotalPercepciones" />
+                <ScalarProperty Name="NumDiasPagados" ColumnName="NumDiasPagados" />
+                <ScalarProperty Name="FechaFinalPago" ColumnName="FechaFinalPago" />
+                <ScalarProperty Name="FechaInicialPago" ColumnName="FechaInicialPago" />
+                <ScalarProperty Name="FechaPago" ColumnName="FechaPago" />
+                <ScalarProperty Name="c_TipoNomina" ColumnName="c_TipoNomina" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_Percepcion">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Percepcion">
+              <MappingFragment StoreEntitySet="TE_Percepcion">
+                <ScalarProperty Name="AccionesOTitulos_PrecioAlOtorgarse" ColumnName="AccionesOTitulos_PrecioAlOtorgarse" />
+                <ScalarProperty Name="AccionesOTitulos_ValorMercado" ColumnName="AccionesOTitulos_ValorMercado" />
+                <ScalarProperty Name="ImporteExcento" ColumnName="ImporteExcento" />
+                <ScalarProperty Name="ImporteGravado" ColumnName="ImporteGravado" />
+                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="c_TipoPercepcion" ColumnName="c_TipoPercepcion" />
+                <ScalarProperty Name="TipoPercepcion" ColumnName="TipoPercepcion" />
+                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
+                <ScalarProperty Name="percepcionId" ColumnName="percepcionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_Deduccion">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Deduccion">
+              <MappingFragment StoreEntitySet="TE_Deduccion">
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="c_TipoDeduccion" ColumnName="c_TipoDeduccion" />
+                <ScalarProperty Name="TipoDeduccion" ColumnName="TipoDeduccion" />
+                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
+                <ScalarProperty Name="deduccionId" ColumnName="deduccionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
