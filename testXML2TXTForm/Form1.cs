@@ -22,6 +22,7 @@ namespace testXML2TXTForm
     private void button1_Click(object sender, EventArgs e)
     {
       Xml2TxtProcess obj = new Xml2TxtProcess();
+      label1.Text = "Procesing Payrol...!";
       obj.Processfiles();
       label1.Text = "Done!";
     }
@@ -29,7 +30,16 @@ namespace testXML2TXTForm
     private void button2_Click(object sender, EventArgs e)
     {
       GetUUIDFromXML obj = new GetUUIDFromXML();
+      label1.Text = "Getting UUIDs...!";
       obj.GetUUID();
+      label1.Text = "Done!";
+    }
+
+    private void button3_Click(object sender, EventArgs e)
+    {
+      Xml2TxtProcess obj = new Xml2TxtProcess();
+      label1.Text = "Getting Layouts...!";
+      obj.GetLAyoutsInExcel();
       label1.Text = "Done!";
     }
   }

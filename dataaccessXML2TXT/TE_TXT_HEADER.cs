@@ -49,5 +49,6 @@ namespace dataaccessXML2TXT
         public string D_38 { get; set; }
         public string D_42 { get; set; }
         public string S_36 { get; set; }
+        public string filename { get; set; }
     }
 }

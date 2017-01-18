@@ -308,6 +308,7 @@
           <Property Name="S_16" Type="nvarchar" MaxLength="250" />
           <Property Name="S_36" Type="nvarchar" MaxLength="250" />
           <Property Name="S_37" Type="nvarchar" MaxLength="250" />
+          <Property Name="filename" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <Association Name="FK_TE_Deduccion_c_TipoDeduccion">
           <End Role="c_TipoDeduccion" Type="Self.c_TipoDeduccion" Multiplicity="0..1" />
@@ -1097,6 +1098,7 @@
           <Property Name="D_38" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="D_42" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="S_36" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="filename" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TE_Nomina">
           <Key>
@@ -1642,6 +1644,7 @@
           <EntitySetMapping Name="TE_TXT_HEADER">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_TXT_HEADER">
               <MappingFragment StoreEntitySet="TE_TXT_HEADER">
+                <ScalarProperty Name="filename" ColumnName="filename" />
                 <ScalarProperty Name="S_36" ColumnName="S_36" />
                 <ScalarProperty Name="D_42" ColumnName="D_42" />
                 <ScalarProperty Name="D_38" ColumnName="D_38" />
