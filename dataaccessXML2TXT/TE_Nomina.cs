@@ -68,6 +68,7 @@ namespace dataaccessXML2TXT
         public Nullable<decimal> Percepciones_TotalExento { get; set; }
         public Nullable<decimal> Deducciones_TotalOtrasDeducciones { get; set; }
         public Nullable<decimal> Deducciones_TotalImpuestosRetenidos { get; set; }
+        public string periodo { get; set; }
     
         public virtual c_Banco c_Banco { get; set; }
         public virtual c_Estado c_Estado { get; set; }

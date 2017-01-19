@@ -164,6 +164,7 @@
             <PropertyRef Name="nominaId" />
           </Key>
           <Property Name="nominaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="periodo" Type="nvarchar" MaxLength="50" />
           <Property Name="version" Type="nvarchar" MaxLength="50" />
           <Property Name="c_TipoNomina" Type="nvarchar" MaxLength="255" />
           <Property Name="FechaPago" Type="nvarchar" MaxLength="50" />
@@ -274,6 +275,7 @@
             <PropertyRef Name="headerId" />
           </Key>
           <Property Name="headerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="periodo" Type="nvarchar" MaxLength="50" />
           <Property Name="H1_05" Type="nvarchar" MaxLength="250" />
           <Property Name="H1_08" Type="nvarchar" MaxLength="250" />
           <Property Name="H1_11" Type="nvarchar" MaxLength="250" />
@@ -1099,6 +1101,7 @@
           <Property Name="D_42" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="S_36" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="filename" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="periodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TE_Nomina">
           <Key>
@@ -1162,6 +1165,7 @@
           <NavigationProperty Name="TE_Receptor_Subcontratacion" Relationship="AvantCraft_nomina2017Model.FK_TE_Receptor_Subcontratacion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Receptor_Subcontratacion" />
           <NavigationProperty Name="TE_SeparacionIndemnizacion" Relationship="AvantCraft_nomina2017Model.FK_TE_SeparacionIndemnizacion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_SeparacionIndemnizacion" />
           <NavigationProperty Name="TE_Deduccion" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Deduccion" />
+          <Property Name="periodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TE_Percepcion">
           <Key>
@@ -1644,6 +1648,7 @@
           <EntitySetMapping Name="TE_TXT_HEADER">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_TXT_HEADER">
               <MappingFragment StoreEntitySet="TE_TXT_HEADER">
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
                 <ScalarProperty Name="filename" ColumnName="filename" />
                 <ScalarProperty Name="S_36" ColumnName="S_36" />
                 <ScalarProperty Name="D_42" ColumnName="D_42" />
@@ -1686,6 +1691,7 @@
           <EntitySetMapping Name="TE_Nomina">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Nomina">
               <MappingFragment StoreEntitySet="TE_Nomina">
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
                 <ScalarProperty Name="Deducciones_TotalImpuestosRetenidos" ColumnName="Deducciones_TotalImpuestosRetenidos" />
                 <ScalarProperty Name="Deducciones_TotalOtrasDeducciones" ColumnName="Deducciones_TotalOtrasDeducciones" />
                 <ScalarProperty Name="Percepciones_TotalExento" ColumnName="Percepciones_TotalExento" />

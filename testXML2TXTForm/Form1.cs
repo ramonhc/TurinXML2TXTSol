@@ -42,5 +42,25 @@ namespace testXML2TXTForm
       obj.GetLAyoutsInExcel();
       label1.Text = "Done!";
     }
+
+    private void groupBox1_Enter(object sender, EventArgs e)
+    {
+
+    }
+
+    private void label1_Click(object sender, EventArgs e)
+    {
+
+    }
+
+
+    // LOAD COMPLEMENTARY DATA
+    private void button4_Click(object sender, EventArgs e)
+    {
+      Xml2TxtProcess obj = new Xml2TxtProcess();
+      label1.Text = "Getting Complementary Data...!";
+      obj.GetComplementaryDataFromExcel();
+      label1.Text = "Done!";
+    }
   }
 }

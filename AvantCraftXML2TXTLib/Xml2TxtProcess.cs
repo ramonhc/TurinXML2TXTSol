@@ -411,6 +411,8 @@ namespace AvantCraftXML2TXTLib
 
             db.TE_Percepcion.Add(dbPE);
             db.SaveChanges();
+
+            //dbHead
           }
 
         }
@@ -600,7 +602,7 @@ namespace AvantCraftXML2TXTLib
         //}
       }
     } // END IF - NO DUP VALIDATION
-
+    
     private static double getClavePeriodidicadPago(string txtPeriodicidadPago)
     {
       double retPErPag = 0;
@@ -696,7 +698,13 @@ namespace AvantCraftXML2TXTLib
 
     public void GetLAyoutsInExcel()
     {
-      throw new NotImplementedException();
+      GetLayoutsInExcel.GetLayouts();
+    }
+
+    //----------------------------------------------------------------------
+    public void GetComplementaryDataFromExcel()
+    {
+      GetComplementaryData.Load();
     }
   }
 }
