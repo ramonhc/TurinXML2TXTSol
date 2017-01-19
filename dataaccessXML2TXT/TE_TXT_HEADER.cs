@@ -15,6 +15,7 @@ namespace dataaccessXML2TXT
     public partial class TE_TXT_HEADER
     {
         public int headerId { get; set; }
+        public Nullable<int> nominaId { get; set; }
         public string H1_05 { get; set; }
         public string H1_08 { get; set; }
         public string H1_11 { get; set; }
@@ -37,9 +38,6 @@ namespace dataaccessXML2TXT
         public string H4_02 { get; set; }
         public string H4_03 { get; set; }
         public string H4_13 { get; set; }
-        public string S_10 { get; set; }
-        public string S_16 { get; set; }
-        public string S_37 { get; set; }
         public string D_04 { get; set; }
         public string D_06 { get; set; }
         public string D_07 { get; set; }
@@ -48,8 +46,12 @@ namespace dataaccessXML2TXT
         public string D_37 { get; set; }
         public string D_38 { get; set; }
         public string D_42 { get; set; }
+        public string S_10 { get; set; }
+        public string S_16 { get; set; }
         public string S_36 { get; set; }
+        public string S_37 { get; set; }
         public string filename { get; set; }
-        public string periodo { get; set; }
+    
+        public virtual TE_Nomina TE_Nomina { get; set; }
     }
 }

@@ -367,6 +367,9 @@ namespace AvantCraftXML2TXTLib
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         db.TE_Nomina.Add(dbNO);
         db.SaveChanges();
+
+        dbHead.nominaId = dbNO.nominaId;
+        db.SaveChanges();
         //----------------------------------------------------------------------------------------------------
 
         var complemento_nomina_percepciones_coll = (from c in root.Elements(cfdi + "Complemento").Elements(nomina + "Nomina").Elements(nomina + "Percepciones").Elements(nomina + "Percepcion") select c).DefaultIfEmpty();
@@ -411,8 +414,6 @@ namespace AvantCraftXML2TXTLib
 
             db.TE_Percepcion.Add(dbPE);
             db.SaveChanges();
-
-            //dbHead
           }
 
         }

@@ -17,16 +17,18 @@ namespace dataaccessXML2TXT
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TE_Nomina()
         {
+            this.TE_Deduccion = new HashSet<TE_Deduccion>();
             this.TE_Incapacidad = new HashSet<TE_Incapacidad>();
             this.TE_JubilacionPensionRetiro = new HashSet<TE_JubilacionPensionRetiro>();
             this.TE_OtroPago = new HashSet<TE_OtroPago>();
             this.TE_Percepcion = new HashSet<TE_Percepcion>();
             this.TE_Receptor_Subcontratacion = new HashSet<TE_Receptor_Subcontratacion>();
             this.TE_SeparacionIndemnizacion = new HashSet<TE_SeparacionIndemnizacion>();
-            this.TE_Deduccion = new HashSet<TE_Deduccion>();
+            this.TE_TXT_HEADER = new HashSet<TE_TXT_HEADER>();
         }
     
         public int nominaId { get; set; }
+        public string periodo { get; set; }
         public string version { get; set; }
         public string c_TipoNomina { get; set; }
         public string FechaPago { get; set; }
@@ -68,7 +70,6 @@ namespace dataaccessXML2TXT
         public Nullable<decimal> Percepciones_TotalExento { get; set; }
         public Nullable<decimal> Deducciones_TotalOtrasDeducciones { get; set; }
         public Nullable<decimal> Deducciones_TotalImpuestosRetenidos { get; set; }
-        public string periodo { get; set; }
     
         public virtual c_Banco c_Banco { get; set; }
         public virtual c_Estado c_Estado { get; set; }
@@ -79,6 +80,8 @@ namespace dataaccessXML2TXT
         public virtual c_TipoJornada c_TipoJornada { get; set; }
         public virtual c_TipoNomina c_TipoNomina1 { get; set; }
         public virtual c_TipoRegimen c_TipoRegimen { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TE_Deduccion> TE_Deduccion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TE_Incapacidad> TE_Incapacidad { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -92,6 +95,6 @@ namespace dataaccessXML2TXT
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TE_SeparacionIndemnizacion> TE_SeparacionIndemnizacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TE_Deduccion> TE_Deduccion { get; set; }
+        public virtual ICollection<TE_TXT_HEADER> TE_TXT_HEADER { get; set; }
     }
 }
