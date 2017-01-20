@@ -24,12 +24,32 @@ namespace AvantCraftXML2TXTLib
       excelReader.IsFirstRowAsColumnNames = true;
       DataSet result = excelReader.AsDataSet();
       excelReader.Close();
-      
+
       AvantCraft_nomina2017Entities db = new AvantCraft_nomina2017Entities();
-      
+
+      //--->>> fijosXempleado
       foreach (DataRow r in result.Tables["fijosXempleado"].Rows)
       {
+        //VALIDATE (if exists then remove)
+        TC_Subcontratacion isthere = (from a in db.TC_Subcontratacion where a.RfcEmpleado == r["rfcEmpleado"].ToString() && a.RfcLabora == r["RfcLabora"].ToString() select a).FirstOrDefault();
+        if (isthere != null)
+        {
+          db.TC_Subcontratacion.Remove(isthere);
+        }
 
+        //ADD NEW
+        TC_Subcontratacion s = new TC_Subcontratacion();
+        s.RfcEmpleado = r["rfcEmpleado"].ToString();
+        s.RfcLabora = r["RfcLabora"].ToString();
+        s.PorcentajeTiempo = decimal.Parse(r["PorcentajeTiempo"].ToString());
+
+        db.TC_Subcontratacion.Add(s);
+        db.SaveChanges();
+      }
+
+      //--->>>
+      foreach (DataRow r in result.Tables["camposNuevos"].Rows)
+      {
       }
     }
   }

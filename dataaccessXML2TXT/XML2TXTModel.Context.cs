@@ -51,5 +51,6 @@ namespace dataaccessXML2TXT
         public virtual DbSet<TE_Deduccion> TE_Deduccion { get; set; }
         public virtual DbSet<TE_Nomina> TE_Nomina { get; set; }
         public virtual DbSet<TE_TXT_HEADER> TE_TXT_HEADER { get; set; }
+        public virtual DbSet<TC_Subcontratacion> TC_Subcontratacion { get; set; }
     }
 }

@@ -124,6 +124,15 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="TC_Subcontratacion">
+          <Key>
+            <PropertyRef Name="subcontratacionId" />
+          </Key>
+          <Property Name="subcontratacionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RfcEmpleado" Type="nvarchar" MaxLength="50" />
+          <Property Name="RfcLabora" Type="nvarchar" MaxLength="50" />
+          <Property Name="PorcentajeTiempo" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="TE_Deduccion">
           <Key>
             <PropertyRef Name="deduccionId" />
@@ -605,6 +614,7 @@
           <EntitySet Name="c_TipoPercepcion" EntityType="Self.c_TipoPercepcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="c_TipoRegimen" EntityType="Self.c_TipoRegimen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TC_Subcontratacion" EntityType="Self.TC_Subcontratacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_Deduccion" EntityType="Self.TE_Deduccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_Incapacidad" EntityType="Self.TE_Incapacidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_JubilacionPensionRetiro" EntityType="Self.TE_JubilacionPensionRetiro" Schema="dbo" store:Type="Tables" />
@@ -1080,6 +1090,7 @@
             <End Role="TE_Nomina" EntitySet="TE_Nomina" />
             <End Role="TE_TXT_HEADER" EntitySet="TE_TXT_HEADER" />
           </AssociationSet>
+          <EntitySet Name="TC_Subcontratacion" EntityType="AvantCraft_nomina2017Model.TC_Subcontratacion" />
           </EntityContainer>
         <EntityType Name="TE_Percepcion">
           <Key>
@@ -1461,6 +1472,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TC_Subcontratacion">
+          <Key>
+            <PropertyRef Name="subcontratacionId" />
+          </Key>
+          <Property Name="subcontratacionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RfcEmpleado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RfcLabora" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PorcentajeTiempo" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1797,6 +1817,16 @@
                 <ScalarProperty Name="H1_05" ColumnName="H1_05" />
                 <ScalarProperty Name="nominaId" ColumnName="nominaId" />
                 <ScalarProperty Name="headerId" ColumnName="headerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TC_Subcontratacion">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_Subcontratacion">
+              <MappingFragment StoreEntitySet="TC_Subcontratacion">
+                <ScalarProperty Name="PorcentajeTiempo" ColumnName="PorcentajeTiempo" />
+                <ScalarProperty Name="RfcLabora" ColumnName="RfcLabora" />
+                <ScalarProperty Name="RfcEmpleado" ColumnName="RfcEmpleado" />
+                <ScalarProperty Name="subcontratacionId" ColumnName="subcontratacionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

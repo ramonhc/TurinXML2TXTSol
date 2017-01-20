@@ -54,6 +54,7 @@
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Receptor_Subcontratacion_TE_Nomina" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_SeparacionIndemnizacion_TE_Nomina" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_TXT_HEADER_TE_Nomina" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TC_Subcontratacion" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
