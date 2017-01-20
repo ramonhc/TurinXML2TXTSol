@@ -67,5 +67,22 @@ namespace AvantCraftXML2TXTLib
       return confValue;
     }
     //----------------------------------------------------------------------
+
+    public static decimal s2d(string value) //GetStringAsDecimal
+    {
+      decimal theResult;
+
+      if (Decimal.TryParse(value, out theResult))
+        return theResult;
+      else
+        return 0.0M;
+    }
+
+    //-----------------------------------------------------------------------
+    public static string d2s(decimal value) //GetDecimalAsStringWith4Decimals
+    {
+      return value.ToString("F4");
+    }
+    //----------------------------------------------------------------------
   }
 }

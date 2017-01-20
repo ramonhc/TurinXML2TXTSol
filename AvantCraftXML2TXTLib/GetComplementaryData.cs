@@ -50,6 +50,22 @@ namespace AvantCraftXML2TXTLib
       //--->>>
       foreach (DataRow r in result.Tables["camposNuevos"].Rows)
       {
+        //Get Record and validate
+        TE_Nomina n = (from a in db.TE_Nomina where a.periodo == r["periodo"].ToString() && a.Receptor_NumEmpleado == r["Num_Emp"].ToString() select a).FirstOrDefault();
+        if (n != null)
+        {
+          n.c_TipoNomina = r["c_TipoNomina"].ToString();
+          n.TotalPercepciones = Utils.s2d(r["TotalPercepciones"].ToString());
+          n.TotalDeducciones = Utils.s2d(r["TotalDeducciones"].ToString());
+          n.TotalOtrosPagos = Utils.s2d(r["TotalOtrosPagos"].ToString());
+          n.Emisor_EntidadSNCF_c_OrigenRecurso = r["c_OrigenRecurso"].ToString();
+          n.Emisor_EntidadSNCF_MontoRecursoPropio = Utils.s2d(r["MontoRecursoPropio"].ToString());
+          n.Receptor_Antiguedad = r["Antiguedad"].ToString();
+          n.Receptor_c_TipoContrato = double.Parse(r["c_TipoContrato"].ToString());
+          n.TotalSueldos = Utils.s2d(r["TotalSueldos"].ToString());
+          n.TotalSeparacionIndemnizacion = r["TotalSeparacionIndemnizacion"].ToString();
+          n.TotalJubilacionPensionRetiro = r["TotalJubilacionPensionRetiro"].ToString();
+        }
       }
     }
   }

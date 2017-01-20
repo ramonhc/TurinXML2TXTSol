@@ -603,7 +603,7 @@ namespace AvantCraftXML2TXTLib
         //}
       }
     } // END IF - NO DUP VALIDATION
-    
+
     private static double getClavePeriodidicadPago(string txtPeriodicidadPago)
     {
       double retPErPag = 0;
@@ -633,18 +633,13 @@ namespace AvantCraftXML2TXTLib
     //---------------------------------------------------------------------------+
     private static decimal s2d(string value) //GetStringAsDecimal
     {
-      decimal theResult;
-
-      if (Decimal.TryParse(value, out theResult))
-        return theResult;
-      else
-        return 0.0M;
+      return Utils.s2d(value);
     }
 
     //---------------------------------------------------------------------------+
     private static string d2s(decimal value) //GetDecimalAsStringWith4Decimals
     {
-      return value.ToString("F4");
+      return Utils.d2s(value);
     }
 
     //---------------------------------------------------------------------------+
