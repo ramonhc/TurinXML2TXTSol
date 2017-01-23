@@ -307,6 +307,7 @@ namespace AvantCraftXML2TXTLib
 
             //p = percepcion.Element(nomina + "Percepcion");
             PE_1 = percepcion.Attribute("TipoPercepcion").Value;
+
             dbPE.TipoPercepcion = PE_1;
             PE_2 = percepcion.Attribute("Clave").Value;
             dbPE.Clave = PE_2;
@@ -467,7 +468,37 @@ namespace AvantCraftXML2TXTLib
             db.SaveChanges();
           }
         }
-      }
+        //FIX CATALOG REFERENCES
+        //-- c_TipoPercepcion
+        IQueryable<TE_Percepcion> fixPer = (from per in db.TE_Percepcion where per.nominaId == dbNO.nominaId).DefaultIfEmpty();
+        if (!(fixPer.Count() == 1 && fixPer.First() == null))
+        {
+          foreach (TE_Percepcion p in fixPer)
+          {
+            try
+            {
+              double parsedRef = 1;
+              if (double.TryParse(p.TipoPercepcion, out parsedRef))
+              {
+                p.c_TipoPercepcion = parsedRef;
+              }
+            }
+            catch
+            {
+              switch (p.TipoPercepcion)
+              {
+                case "Horas Extra":
+                  p.c_TipoPercepcion = 19;
+                  break;
+                default:
+                  p.c_TipoPercepcion = 1;
+                  break;
+              }
+            }
+            db.SaveChanges();
+          }
+        }
+      } // end if found
     }
 
     //---------------------------------------------------------------------------+
