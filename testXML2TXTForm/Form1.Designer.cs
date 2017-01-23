@@ -37,12 +37,16 @@
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.button4 = new System.Windows.Forms.Button();
       this.boxSeleccion = new System.Windows.Forms.GroupBox();
-      this.chkCargaSubcontratacion = new System.Windows.Forms.CheckBox();
       this.chkFijos = new System.Windows.Forms.CheckBox();
+      this.chkCargaSubcontratacion = new System.Windows.Forms.CheckBox();
       this.button5 = new System.Windows.Forms.Button();
+      this.groupBox2 = new System.Windows.Forms.GroupBox();
+      this.txtPeriodo = new System.Windows.Forms.TextBox();
+      this.label2 = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.groupBox1.SuspendLayout();
       this.boxSeleccion.SuspendLayout();
+      this.groupBox2.SuspendLayout();
       this.SuspendLayout();
       // 
       // button1
@@ -128,10 +132,22 @@
       this.boxSeleccion.Controls.Add(this.chkCargaSubcontratacion);
       this.boxSeleccion.Location = new System.Drawing.Point(427, 27);
       this.boxSeleccion.Name = "boxSeleccion";
-      this.boxSeleccion.Size = new System.Drawing.Size(266, 209);
+      this.boxSeleccion.Size = new System.Drawing.Size(266, 108);
       this.boxSeleccion.TabIndex = 7;
       this.boxSeleccion.TabStop = false;
       this.boxSeleccion.Text = "Carga datos";
+      // 
+      // chkFijos
+      // 
+      this.chkFijos.AutoSize = true;
+      this.chkFijos.Checked = true;
+      this.chkFijos.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chkFijos.Location = new System.Drawing.Point(16, 62);
+      this.chkFijos.Name = "chkFijos";
+      this.chkFijos.Size = new System.Drawing.Size(100, 21);
+      this.chkFijos.TabIndex = 1;
+      this.chkFijos.Text = "Datos Fijos";
+      this.chkFijos.UseVisualStyleBackColor = true;
       // 
       // chkCargaSubcontratacion
       // 
@@ -145,23 +161,11 @@
       this.chkCargaSubcontratacion.Text = "SubContratacion";
       this.chkCargaSubcontratacion.UseVisualStyleBackColor = true;
       // 
-      // chkFijos
-      // 
-      this.chkFijos.AutoSize = true;
-      this.chkFijos.Checked = true;
-      this.chkFijos.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chkFijos.Location = new System.Drawing.Point(16, 83);
-      this.chkFijos.Name = "chkFijos";
-      this.chkFijos.Size = new System.Drawing.Size(100, 21);
-      this.chkFijos.TabIndex = 1;
-      this.chkFijos.Text = "Datos Fijos";
-      this.chkFijos.UseVisualStyleBackColor = true;
-      // 
       // button5
       // 
       this.button5.BackColor = System.Drawing.Color.Red;
       this.button5.ForeColor = System.Drawing.Color.Yellow;
-      this.button5.Location = new System.Drawing.Point(427, 272);
+      this.button5.Location = new System.Drawing.Point(427, 366);
       this.button5.Margin = new System.Windows.Forms.Padding(4);
       this.button5.Name = "button5";
       this.button5.Size = new System.Drawing.Size(266, 76);
@@ -170,11 +174,39 @@
       this.button5.UseVisualStyleBackColor = false;
       this.button5.Click += new System.EventHandler(this.button5_Click);
       // 
+      // groupBox2
+      // 
+      this.groupBox2.Controls.Add(this.label2);
+      this.groupBox2.Controls.Add(this.txtPeriodo);
+      this.groupBox2.Location = new System.Drawing.Point(427, 182);
+      this.groupBox2.Name = "groupBox2";
+      this.groupBox2.Size = new System.Drawing.Size(265, 165);
+      this.groupBox2.TabIndex = 9;
+      this.groupBox2.TabStop = false;
+      this.groupBox2.Text = "params";
+      // 
+      // txtPeriodo
+      // 
+      this.txtPeriodo.Location = new System.Drawing.Point(18, 37);
+      this.txtPeriodo.Name = "txtPeriodo";
+      this.txtPeriodo.Size = new System.Drawing.Size(132, 22);
+      this.txtPeriodo.TabIndex = 0;
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Location = new System.Drawing.Point(174, 40);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(57, 17);
+      this.label2.TabIndex = 1;
+      this.label2.Text = "Periodo";
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(708, 544);
+      this.Controls.Add(this.groupBox2);
       this.Controls.Add(this.button5);
       this.Controls.Add(this.boxSeleccion);
       this.Controls.Add(this.button4);
@@ -191,6 +223,8 @@
       this.groupBox1.PerformLayout();
       this.boxSeleccion.ResumeLayout(false);
       this.boxSeleccion.PerformLayout();
+      this.groupBox2.ResumeLayout(false);
+      this.groupBox2.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -208,6 +242,9 @@
     private System.Windows.Forms.CheckBox chkCargaSubcontratacion;
     private System.Windows.Forms.CheckBox chkFijos;
     private System.Windows.Forms.Button button5;
+    private System.Windows.Forms.GroupBox groupBox2;
+    private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.TextBox txtPeriodo;
   }
 }
 

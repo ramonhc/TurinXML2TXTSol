@@ -536,11 +536,11 @@ namespace AvantCraftXML2TXTLib
     }
 
     //----------------------------------------------------------------------
-    public void PayRoll2TXT()
+    public void PayRoll2TXT(string txt_Periodo)
     {
       AvantCraft_nomina2017Entities db = new AvantCraft_nomina2017Entities();
       //---------------------- H1
-      IQueryable<TE_Nomina> nominas = (from a in db.TE_Nomina select a).DefaultIfEmpty();
+      IQueryable<TE_Nomina> nominas = (from a in db.TE_Nomina where a.periodo == txt_Periodo select a).DefaultIfEmpty();
 
       foreach (TE_Nomina n in nominas)
       {
@@ -552,7 +552,7 @@ namespace AvantCraftXML2TXTLib
         string H5 = "[H5]|||||||||||||||||||||||||";
         string D = string.Format("[D]|||{0}||{1}|{2}||{3}||||||||||||||||{4}||||||||||||{5}|{6}||||{7}||||||||||||||||||||||||||||||||", h.D_04, h.D_06, h.D_07, h.D_09, h.D_25, h.D_37, h.D_38, h.D_42);
         string S = string.Format("[S]|||||||||{3}||||||{0}||||||||||||||||||||{1}|{2}||||", h.S_16, h.S_36, h.S_37, h.S_10);
-        
+
         //====================================================================================================
         //============================= .NOM =================================================================
         //====================================================================================================
@@ -589,12 +589,26 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.Receptor_Antiguedad + "|");
         sb.Append(n.c_TipoContrato.c_TipoContrato1 + "|");
         sb.Append(n.Receptor_Sindicalizado + "|");
-        sb.Append(n.c_TipoJornada.c_TipoJornada1 + "|");
+        try
+        {
+          sb.Append(n.c_TipoJornada.c_TipoJornada1 + "|");
+        }
+        catch
+        {
+          sb.Append("|");
+        }
         sb.Append(n.c_TipoRegimen.c_TipoRegimen1 + "|");
         sb.Append(n.Receptor_NumEmpleado + "|");
         sb.Append(n.Receptor_Departamento + "|");
         sb.Append(n.Receptor_Puesto + "|");
-        sb.Append(n.c_RiesgoPuesto.c_RiesgoPuesto1 + "|");
+        try
+        {
+          sb.Append(n.c_RiesgoPuesto.c_RiesgoPuesto1 + "|");
+        }
+        catch
+        {
+          sb.Append("|");
+        }
         sb.Append(n.c_PeriodicidadPago.c_PeriodicidadPago1 + "|");
         sb.Append(n.c_Banco.c_Banco1 + "|");
         sb.Append(n.Receptor_CuentaBancaria + "|");
@@ -624,7 +638,14 @@ namespace AvantCraftXML2TXTLib
         foreach (TE_Percepcion p in ps)
         {
           sb.Append("[Percepcion]" + "|");
-          sb.Append(p.c_TipoPercepcion1.c_TipoPercepcion1 + "|");
+          try
+          {
+            sb.Append(p.c_TipoPercepcion1.c_TipoPercepcion1 + "|");
+          }
+          catch
+          {
+            sb.Append("|");
+          }
           sb.Append(p.Clave + "|");
           sb.Append(p.Concepto + "|");
           sb.Append(p.ImporteGravado + "|");
@@ -697,7 +718,7 @@ namespace AvantCraftXML2TXTLib
           sb.Append(Environment.NewLine);
         }
 
-        
+
         try
         {
           string textToPrintHead = H1 + Environment.NewLine + H2 + Environment.NewLine + H3 + Environment.NewLine + H4 + Environment.NewLine + H5 + Environment.NewLine + D + Environment.NewLine + S + Environment.NewLine;
@@ -708,7 +729,7 @@ namespace AvantCraftXML2TXTLib
         catch (Exception e)
         {
           StreamWriter sw = new StreamWriter(GetConfigurationValues("ErrorFolder") + "LogDeErrores.txt", true, Encoding.GetEncoding(1252), 512);
-          sw.Write(h.H4_03 + "_" + h.H1_05 + " :: " + e.Message + " (" + e.InnerException + ")"  + Environment.NewLine + Environment.NewLine);
+          sw.Write(h.H4_03 + "_" + h.H1_05 + " :: " + e.Message + " (" + e.InnerException + ")" + Environment.NewLine + Environment.NewLine);
           sw.Close();
         }
       } // for each nomina
