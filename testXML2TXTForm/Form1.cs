@@ -22,7 +22,7 @@ namespace testXML2TXTForm
     private void button1_Click(object sender, EventArgs e)
     {
       Xml2TxtProcess obj = new Xml2TxtProcess();
-      label1.Text = "Procesing Payrol...!";
+      label1.Text = "Loading Payrol from XML...!";
       obj.Processfiles();
       label1.Text = "Done!";
     }
@@ -59,7 +59,15 @@ namespace testXML2TXTForm
     {
       Xml2TxtProcess obj = new Xml2TxtProcess();
       label1.Text = "Getting Complementary Data...!";
-      obj.GetComplementaryDataFromExcel();
+      obj.GetComplementaryDataFromExcel(chkCargaSubcontratacion.Checked, chkFijos.Checked);
+      label1.Text = "Done!";
+    }
+
+    private void button5_Click(object sender, EventArgs e)
+    {
+      Xml2TxtProcess obj = new Xml2TxtProcess();
+      label1.Text = "Procesing Payrol 2 TXT...!";
+      obj.PayRoll2TXT();
       label1.Text = "Done!";
     }
   }

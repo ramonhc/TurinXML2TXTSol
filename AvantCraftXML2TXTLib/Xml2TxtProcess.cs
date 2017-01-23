@@ -103,8 +103,6 @@ namespace AvantCraftXML2TXTLib
         string H1_50 = "NOM";//8
         dbHead.H1_50 = H1_50;
 
-        //>>>>>>>>>>> string H1 = string.Format("[H1]||||{0}|||{1}|||{2}|||{3}||||||||||||||||{4}|{5}|{6}||||||||||||||{7}||||{8}|||||||||", H1_5, H1_8, H1_11, H1_14, H1_30, H1_31, H1_32, H1_46, H1_50);
-
         //----------------------------------------------------------------------------------------------------
         //H2- DATOS DEL EMISOR
 
@@ -133,13 +131,6 @@ namespace AvantCraftXML2TXTLib
         string H2_14 = domicilioFiscal.Attribute("codigoPostal").Value; //9
         dbHead.H2_14 = H2_14;
 
-        //>>>>>>>>>>>>>>> string H2 = string.Format("[H2]|{0}|{1}||{2}|{3}||{4}|{5}||{6}|{7}|{8}|{9}||||||||||||", H2_2, H2_3, H2_5, H2_6, H2_8, H2_9, H2_11, H2_12, H2_13, H2_14);
-
-        //----------------------------------------------------------------------------------------------------
-        //H3-**SECCION OPCIONAL PARA EL LUGAR DE EXPEDICIÓN ** "EXPEDIDO EN" - (DOMICILIO DE SUCURSAL)
-
-        //>>>>>>>>>>>>>>>> string H3 = "[H3]|||||||||||||||||||||||||";
-
         //----------------------------------------------------------------------------------------------------
         //H4- DATOS DEL RECEPTOR DEL CFDI
 
@@ -154,13 +145,6 @@ namespace AvantCraftXML2TXTLib
 
         string H4_13 = receptorDomicilio.Attribute("pais").Value; //2
         dbHead.H4_13 = H4_13;
-
-        //>>>>>>>>>>>>>>>> string H4 = string.Format("[H4]|{0}|{1}||||||||||{2}|||||||||||||", H4_2, H4_3, H4_13);
-
-        //----------------------------------------------------------------------------------------------------
-        //H5- DATOS DEL LUGAR DE ENTREGA  DE LA MERCANCIA
-
-        //>>>>>>>>>>>>> string H5 = "[H5]|||||||||||||||||||||||||";
 
         //----------------------------------------------------------------------------------------------------
         //D- DATOS POR PARTIDA (PRODUCTOS) DEL CFDI
@@ -189,8 +173,6 @@ namespace AvantCraftXML2TXTLib
         string D_42 = (impuestos.Attribute("totalImpuestosRetenidos") != null) ? d2s(s2d(impuestos.Attribute("totalImpuestosRetenidos").Value)) : "0.0000"; //7
         dbHead.D_42 = D_42;
 
-        //>>>>>>>> string D = string.Format("[D]|||{0}||{1}|{2}||{3}||||||||||||||||{4}||||||||||||{5}|{6}||||{7}||||||||||||||||||||||||||||||||", D_4, D_6, D_7, D_9, D_25, D_37, D_38, D_42);
-
         //----------------------------------------------------------------------------------------------------
         //S- DATOS TOTALES DEL CFDI
 
@@ -209,9 +191,6 @@ namespace AvantCraftXML2TXTLib
 
         var impuestos4 = (from c in root.Elements(cfdi + "Complemento").Elements(nomina + "Nomina").Elements(nomina + "Deducciones") select c).FirstOrDefault();
 
-        //string xxxx = (s2d(impuestos4.Attribute("TotalExento").Value) + s2d(impuestos4.Attribute("TotalGravado").Value)); //2
-
-
         decimal totalExcento = 0.0M;
         decimal totalGravado = 0.0M;
         if (impuestos4 != null)
@@ -224,33 +203,13 @@ namespace AvantCraftXML2TXTLib
         string S_37 = d2s(totalExcento + totalGravado); //2
         dbHead.S_37 = S_37;
 
-
-        //>>>>>>>>>>> string S = string.Format("[S]|||||||||{3}||||||{0}||||||||||||||||||||{1}|{2}||||", S_16, S_36, S_37, S_10);
-
         //----------------------------------------------------------------------------------------------------
-
-
-        //>>>>>>>>>>>> 
-        /*
-        string textToPrint = H1 + "\r\n" + H2 + "\r\n" + H3 + "\r\n" + H4 + "\r\n" + H5 + "\r\n" + D + "\r\n" + S + "\r\n";
-
-        //TextWriter sw = new StreamWriter(GetConfigurationValues("dirXML") + H4_3 + "_" + H1_5 + ".txt", false, Encoding.GetEncoding(1252), 512);
-        TextWriter sw = new StreamWriter(GetFinalDestination(H2_3) + H4_3 + "_" + H1_5 + ".txt", false, Encoding.GetEncoding(1252), 512);
-        sw.Write(textToPrint);
-        sw.Close();
-        */
-        //>>>>>>>>>>>> 
-
-        //string H2_3 = emisor.Attribute("rfc").Value; //1
 
         db.TE_TXT_HEADER.Add(dbHead);
         db.SaveChanges();
         //====================================================================================================
         //============================= .NOM =================================================================
         //====================================================================================================
-
-        //>>>>>>>>>>>>>>>>>> StringBuilder sb = new StringBuilder();
-
 
         TE_Nomina dbNO = new TE_Nomina();
 
@@ -304,47 +263,10 @@ namespace AvantCraftXML2TXTLib
         //string NO_19 = (complemento_nomina.Attribute("SalarioBaseCotApor") != null) ? d2s(s2d(complemento_nomina.Attribute("SalarioBaseCotApor").Value)) : "0.00"; //3
         dbNO.Receptor_SalarioBaseCotApor = (complemento_nomina.Attribute("SalarioBaseCotApor") != null) ? s2d(complemento_nomina.Attribute("SalarioBaseCotApor").Value) : s2d("0.00"); //3
 
-        //string NO_19 = "";
-        //if (complemento_nomina.Attribute("SalarioBaseCotApor") != null)
-        //{
-        //  NO_19 = d2s(s2d(complemento_nomina.Attribute("SalarioBaseCotApor").Value));
-        //}
-        //else
-        //{
-        //  file.CopyTo(GetConfigurationValues("ErrorFolder") + file.Name, true);
-        //  return;
-        //}
-
-
         string NO_20 = "";
         string NO_21 = (complemento_nomina.Attribute("SalarioDiarioIntegrado") != null) ? d2s(s2d(complemento_nomina.Attribute("SalarioDiarioIntegrado").Value)) : "0.00"; //3
         dbNO.Receptor_SalarioDiarioIntegrado = decimal.Parse(NO_21);
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        /*
-        sb.Append(NO_00 + "|");
-        sb.Append(NO_01 + "|");
-        sb.Append(NO_02 + "|");
-        sb.Append(NO_03 + "|");
-        sb.Append(NO_04 + "|");
-        sb.Append(NO_05 + "|");
-        sb.Append(NO_06 + "|");
-        sb.Append(NO_07 + "|");
-        sb.Append(NO_08 + "|");
-        sb.Append(NO_09 + "|");
-        sb.Append(NO_10 + "|");
-        sb.Append(NO_11 + "|");
-        sb.Append(NO_12 + "|");
-        sb.Append(NO_13 + "|");
-        sb.Append(NO_14 + "|");
-        sb.Append(NO_15 + "|");
-        sb.Append(NO_16 + "|");
-        sb.Append(NO_17 + "|");
-        sb.Append(NO_18 + "|");
-        sb.Append(NO_19 + "|");
-        sb.Append(NO_20 + "|");
-        sb.Append(NO_21 + "\r\n");
-        */
-        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
         //----------------------------------------------------------------------------------------------------
 
         var complemento_nomina_percepciones = (from c in root.Elements(cfdi + "Complemento").Elements(nomina + "Nomina").Elements(nomina + "Percepciones") select c).FirstOrDefault();
@@ -358,13 +280,7 @@ namespace AvantCraftXML2TXTLib
 
         dbNO.TotalPercepciones = s2d(complemento_nomina_percepciones.Attribute("TotalGravado").Value) + s2d(complemento_nomina_percepciones.Attribute("TotalExento").Value);
         dbNO.Emisor_EntidadSNCF_MontoRecursoPropio = s2d(complemento_nomina_percepciones.Attribute("TotalGravado").Value) + s2d(complemento_nomina_percepciones.Attribute("TotalExento").Value);
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        /*
-        sb.Append(PES_0 + "|");
-        sb.Append(PES_1 + "|");
-        sb.Append(PES_2 + "\r\n");
-        */
-        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
         db.TE_Nomina.Add(dbNO);
         db.SaveChanges();
 
@@ -401,17 +317,6 @@ namespace AvantCraftXML2TXTLib
             PE_5 = d2s(s2d(percepcion.Attribute("ImporteExento").Value));
             dbPE.ImporteExcento = s2d(percepcion.Attribute("ImporteExento").Value);
 
-            //>>>>>>>>>>>>>>>>>>>
-            /*
-            sb.Append(PE_0 + "|");
-            sb.Append(PE_1 + "|");
-            sb.Append(PE_2 + "|");
-            sb.Append(PE_3 + "|");
-            sb.Append(PE_4 + "|");
-            sb.Append(PE_5 + "\r\n");
-            */
-            //<<<<<<<<<<<<<<<<<<<
-
             db.TE_Percepcion.Add(dbPE);
             db.SaveChanges();
           }
@@ -426,15 +331,6 @@ namespace AvantCraftXML2TXTLib
           string DES_1 = d2s(s2d(complemento_nomina_deducciones.Attribute("TotalGravado").Value));
           string DES_2 = d2s(s2d(complemento_nomina_deducciones.Attribute("TotalExento").Value));
 
-          //>>>>>>>>>>>>>>>>>>>>>>>>
-          /*
-          sb.Append(DES_0 + "|");
-          sb.Append(DES_1 + "|");
-          sb.Append(DES_2 + "\r\n");
-          */
-          //<<<<<<<<<<<<<<<<<<<<<<<<
-
-          //++++
           decimal totalDeducciones = s2d(complemento_nomina_deducciones.Attribute("TotalGravado").Value) + s2d(complemento_nomina_deducciones.Attribute("TotalExento").Value);
           dbNO.TotalDeducciones = totalDeducciones;
           db.SaveChanges();
@@ -473,16 +369,7 @@ namespace AvantCraftXML2TXTLib
             dbDE.Importe = importe;
             db.TE_Deduccion.Add(dbDE);
             db.SaveChanges();
-            //>>>>>>>>>>>>>>>>>>>>>>>>
-            /*
-              sb.Append(DE_0 + "|");
-              sb.Append(DE_1 + "|");
-              sb.Append(DE_2 + "|");
-              sb.Append(DE_3 + "|");
-              sb.Append(DE_4 + "|");
-              sb.Append(DE_5 + "\r\n");
-              */
-            //<<<<<<<<<<<<<<<<<<<<<<<<
+
           }
         }
 
@@ -513,14 +400,7 @@ namespace AvantCraftXML2TXTLib
 
             db.TE_Incapacidad.Add(dbIN);
             db.SaveChanges();
-            //>>>>>>>>>>>>>>>>>>>>>>>>
-            /*
-            sb.Append(IN_0 + "|");
-            sb.Append(IN_1 + "|");
-            sb.Append(IN_2 + "|");
-            sb.Append(IN_3 + "\r\n");
-            */
-            //<<<<<<<<<<<<<<<<<<<<<<<<
+
           }
         }
 
@@ -545,8 +425,6 @@ namespace AvantCraftXML2TXTLib
             HE_3 = he.Attribute("HorasExtra").Value;
             HE_4 = d2s(s2d(he.Attribute("ImportePagado").Value));
 
-
-
             //p = percepcion.Element(nomina + "Percepcion");
             TE_Percepcion dbPE = new TE_Percepcion();
             dbPE.nominaId = dbNO.nominaId;
@@ -568,42 +446,31 @@ namespace AvantCraftXML2TXTLib
 
             db.TE_Percepcion_HorasExtra.Add(dbPEHE);
             db.SaveChanges();
-
-            //>>>>>>>>>>>>>>>>>>>>>>>>>>>
-            /*
-            sb.Append(HE_0 + "|");
-            sb.Append(HE_1 + "|");
-            sb.Append(HE_2 + "|");
-            sb.Append(HE_3 + "|");
-            sb.Append(HE_4 + "\r\n");
-            */
-            //<<<<<<<<<<<<<<<<<<<<<<<<<<<
           }
         }
 
-        //sw = new StreamWriter(GetConfigurationValues("dirXML") + H4_3 + "_" + H1_5 + ".NOM", false, Encoding.GetEncoding(1252), 512);
-
-        //>>>>>>>>>>>>>>>>>>>
-        /*
-        sw = new StreamWriter(GetFinalDestination(H2_3) + H4_3 + "_" + H1_5 + ".NOM", false, Encoding.GetEncoding(1252), 512);
-        sw.Write(sb.ToString());
-        sw.Close();
-        */
-        //>>>>>>>>>>>>>>>>>>>
-
-        //}
-        //catch (Exception e)
-        //{
-        //  file.CopyTo(GetConfigurationValues("ErrorFolder") + file.Name, true);
-
-        //  StreamWriter sw = new StreamWriter(GetConfigurationValues("ErrorFolder") + "LogDeErrores.txt", true, Encoding.GetEncoding(1252), 512);
-        //  sw.Write(file.Name + " - " + e.Message + " (" + e.InnerException + ") \n\n");
-        //  sw.Close();
-
-        //}
+        //DATOS FIJOS
+        TC_DatosFijosPorEmpleado dfxe = (from c in db.TC_DatosFijosPorEmpleado where c.rfcEmpleado == dbHead.H4_03 select c).FirstOrDefault();
+        dbNO.Receptor_c_Banco = double.Parse(dfxe.c_Banco);
+        dbNO.Receptor_CuentaBancaria = dfxe.CuentaBancaria;
+        db.SaveChanges();
+        //SUBCONTRATACION
+        IQueryable<TC_Subcontratacion> sc = (from s in db.TC_Subcontratacion where s.RfcEmpleado == dbHead.H4_03 select s).DefaultIfEmpty();
+        if (!(sc.Count() == 1 && sc.First() == null))
+        {
+          foreach (TC_Subcontratacion s in sc)
+          {
+            TE_Receptor_Subcontratacion rsc = new TE_Receptor_Subcontratacion();
+            rsc.nominaId = dbNO.nominaId;
+            rsc.RfcLabora = s.RfcLabora;
+            rsc.PorcentajeTiempo = s.PorcentajeTiempo;
+            db.SaveChanges();
+          }
+        }
       }
-    } // END IF - NO DUP VALIDATION
+    }
 
+    //---------------------------------------------------------------------------+
     private static double getClavePeriodidicadPago(string txtPeriodicidadPago)
     {
       double retPErPag = 0;
@@ -643,41 +510,6 @@ namespace AvantCraftXML2TXTLib
     }
 
     //---------------------------------------------------------------------------+
-    //private static string GetNumberPart(string cell)
-    //{
-    //  //string cell = "ABCD4321";
-    //  string numberpart = "0";
-
-    //  int a = GetIndexofNumber(cell);
-
-    //  if (a != -1)
-    //  {
-    //    numberpart = cell.Substring(a, cell.Length - a);
-    //  }
-    //  return numberpart;
-    //  //return Convert.ToDecimal(numberpart);
-    //  //string stringpart = cell.Substring(0, a);
-    //}
-
-    //---------------------------------------------------------------------------+
-    //private static int GetIndexofNumber(string cell)
-    //{
-    //  int indexofNum = -1;
-    //  foreach (char c in cell)
-    //  {
-    //    indexofNum++;
-    //    if (Char.IsDigit(c))
-    //    {
-    //      return indexofNum;
-    //    }
-    //  }
-    //  return -1;
-    //}
-
-    //
-
-    //---------------------------------------------------------------------------+
-
     public static string GetConfigurationValues(string configKey)
     {
       return Utils.GetConfigurationValues(configKey);
@@ -698,9 +530,190 @@ namespace AvantCraftXML2TXTLib
     }
 
     //----------------------------------------------------------------------
-    public void GetComplementaryDataFromExcel()
+    public void GetComplementaryDataFromExcel(bool chkCargaSubcontratacion, bool chkFijos)
     {
-      GetComplementaryData.Load();
+      GetComplementaryData.Load(chkCargaSubcontratacion, chkFijos);
+    }
+
+    //----------------------------------------------------------------------
+    public void PayRoll2TXT()
+    {
+      AvantCraft_nomina2017Entities db = new AvantCraft_nomina2017Entities();
+      //---------------------- H1
+      IQueryable<TE_Nomina> nominas = (from a in db.TE_Nomina select a).DefaultIfEmpty();
+
+      foreach (TE_Nomina n in nominas)
+      {
+        TE_TXT_HEADER h = (from b in db.TE_TXT_HEADER where b.nominaId == n.nominaId select b).FirstOrDefault();
+        string H1 = string.Format("[H1]||||{0}|||{1}|||{2}|||{3}||||||||||||||||{4}|{5}|{6}||||||||||||||{7}||||{8}|||||||||", h.H1_05, h.H1_08, h.H1_11, h.H1_14, h.H1_30, h.H1_31, h.H1_32, h.H1_46, h.H1_50);
+        string H2 = string.Format("[H2]|{0}|{1}||{2}|{3}||{4}|{5}||{6}|{7}|{8}|{9}||||||||||||", h.H2_02, h.H2_03, h.H2_05, h.H2_06, h.H2_08, h.H2_09, h.H2_11, h.H2_12, h.H2_13, h.H2_14);
+        string H3 = "[H3]|||||||||||||||||||||||||";
+        string H4 = string.Format("[H4]|{0}|{1}||||||||||{2}|||||||||||||", h.H4_02, h.H4_03, h.H4_13);
+        string H5 = "[H5]|||||||||||||||||||||||||";
+        string D = string.Format("[D]|||{0}||{1}|{2}||{3}||||||||||||||||{4}||||||||||||{5}|{6}||||{7}||||||||||||||||||||||||||||||||", h.D_04, h.D_06, h.D_07, h.D_09, h.D_25, h.D_37, h.D_38, h.D_42);
+        string S = string.Format("[S]|||||||||{3}||||||{0}||||||||||||||||||||{1}|{2}||||", h.S_16, h.S_36, h.S_37, h.S_10);
+        
+        //====================================================================================================
+        //============================= .NOM =================================================================
+        //====================================================================================================
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.Append("[Nomina]" + "|");   //--- 0 fixed
+        sb.Append("1.2" + "|");        //--- 1 fixed
+        sb.Append("O" + "|");          //--- 2 fixed
+        sb.Append(n.FechaPago + "|");
+        sb.Append(n.FechaInicialPago + "|");
+        sb.Append(n.FechaFinalPago + "|");
+        sb.Append(n.NumDiasPagados + "|");
+        sb.Append(n.TotalPercepciones + "|");
+        sb.Append(n.TotalDeducciones + "|");
+        sb.Append(n.TotalOtrosPagos + "|");
+        sb.Append(Environment.NewLine);
+
+        sb.Append("[EMISOR]" + "|");
+        sb.Append(n.Emisor_CURP + "|");
+        sb.Append(n.Emisor_RegistroPatronal + "|");
+        sb.Append(n.Emisor_RfcPatronOrigen + "|");
+        sb.Append(Environment.NewLine);
+
+        sb.Append("[EntSNCF]" + "|");
+        sb.Append(n.Emisor_EntidadSNCF_c_OrigenRecurso + "|");
+        sb.Append(n.Emisor_EntidadSNCF_MontoRecursoPropio + "|");
+        sb.Append(Environment.NewLine);
+
+        sb.Append("[Receptor]" + " | ");
+        sb.Append(n.Receptor_CURP + "|");
+        sb.Append(n.Receptor_NumSeguridadSocial + "|");
+        sb.Append(n.Receptor_FechaInicioRelLaboral + "|");
+        sb.Append(n.Receptor_Antiguedad + "|");
+        sb.Append(n.c_TipoContrato.c_TipoContrato1 + "|");
+        sb.Append(n.Receptor_Sindicalizado + "|");
+        sb.Append(n.c_TipoJornada.c_TipoJornada1 + "|");
+        sb.Append(n.c_TipoRegimen.c_TipoRegimen1 + "|");
+        sb.Append(n.Receptor_NumEmpleado + "|");
+        sb.Append(n.Receptor_Departamento + "|");
+        sb.Append(n.Receptor_Puesto + "|");
+        sb.Append(n.c_RiesgoPuesto.c_RiesgoPuesto1 + "|");
+        sb.Append(n.c_PeriodicidadPago.c_PeriodicidadPago1 + "|");
+        sb.Append(n.c_Banco.c_Banco1 + "|");
+        sb.Append(n.Receptor_CuentaBancaria + "|");
+        sb.Append(n.Receptor_SalarioBaseCotApor + "|");
+        sb.Append(n.Receptor_SalarioDiarioIntegrado + "|");
+        sb.Append(n.Receptor_c_ClaveEntFed + "|");
+        sb.Append(Environment.NewLine);
+
+        var subc = (from suc in db.TE_Receptor_Subcontratacion where suc.nominaId == n.nominaId select suc).DefaultIfEmpty();
+        foreach (TE_Receptor_Subcontratacion sub in subc)
+        {
+          sb.Append("[Subcontratacion]" + " | ");
+          sb.Append(sub.RfcLabora + "|");
+          sb.Append(sub.PorcentajeTiempo + "|");
+          sb.Append(Environment.NewLine);
+        }
+
+        sb.Append("[Percepciones]" + " | ");
+        sb.Append(n.Percepciones_TotalSueldos + "|");
+        sb.Append(n.Percepciones_TotalSeparacionIndemnizacion + "|");
+        sb.Append(n.Percepciones_TotalJubilacionPensionRetiro + "|");
+        sb.Append(n.Percepciones_TotalGravado + "|");
+        sb.Append(n.Percepciones_TotalExento + "|");
+        sb.Append(Environment.NewLine);
+
+        var ps = (from per in db.TE_Percepcion where per.nominaId == n.nominaId select per).DefaultIfEmpty();
+        foreach (TE_Percepcion p in ps)
+        {
+          sb.Append("[Percepcion]" + "|");
+          sb.Append(p.c_TipoPercepcion1.c_TipoPercepcion1 + "|");
+          sb.Append(p.Clave + "|");
+          sb.Append(p.Concepto + "|");
+          sb.Append(p.ImporteGravado + "|");
+          sb.Append(p.ImporteExcento + "|");
+          sb.Append(Environment.NewLine);
+        }
+
+        //[AccionesOTitulos] contained in TE_Percepcion, not implemented by now
+
+        IQueryable<TE_Percepcion_HorasExtra> hes = (from horexts in db.TE_Percepcion_HorasExtra where horexts.TE_Percepcion.nominaId == n.nominaId select horexts).DefaultIfEmpty();
+        if (!(hes.Count() == 1 && hes.First() == null))
+        {
+          foreach (TE_Percepcion_HorasExtra he in hes)
+          {
+            sb.Append("[HorasExtra]" + "|");
+            sb.Append(he.Dias + "|");
+            sb.Append(he.c_TipoHoras1.c_TipoHoras1 + "|");
+            sb.Append(he.HorasExtra + "|");
+            sb.Append(he.ImportePagado + "|");
+            sb.Append(Environment.NewLine);
+          }
+        }
+
+        //[JubilacionPensionRetiro]  To implement
+        //[SeparacionIndemnizacion]  To implement
+
+        sb.Append("[Deducciones]" + " | ");
+        sb.Append(n.Deducciones_TotalOtrasDeducciones + "|");
+        sb.Append(n.Deducciones_TotalImpuestosRetenidos + "|");
+        sb.Append(Environment.NewLine);
+
+        var ds = (from ded in db.TE_Deduccion where ded.nominaId == n.nominaId select ded).DefaultIfEmpty();
+        foreach (TE_Deduccion d in ds)
+        {
+          sb.Append("[Deduccion]" + "|");
+          sb.Append(d.c_TipoDeduccion1.c_TipoDeduccion1 + "|");
+          sb.Append(d.Clave + "|");
+          sb.Append(d.Concepto + "|");
+          sb.Append(d.Importe + "|");
+          sb.Append(Environment.NewLine);
+        }
+
+        sb.Append("[OtrosPagos]" + " | ");
+        sb.Append(Environment.NewLine);
+
+        var os = (from ops in db.TE_OtroPago where ops.nominaId == n.nominaId select ops).DefaultIfEmpty();
+        foreach (TE_OtroPago o in os)
+        {
+          sb.Append("[OtroPago]" + "|");
+          sb.Append(o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
+          sb.Append(o.Clave + "|");
+          sb.Append(o.Concepto + "|");
+          sb.Append(o.Importe + "|");
+          sb.Append(Environment.NewLine);
+        }
+
+        //[SubsidioAlEmpleo]  To implement
+        //[CompensacionSaldosAFavor]  To implement
+
+        sb.Append("[Incapacidades]" + " | ");
+        sb.Append(Environment.NewLine);
+
+        var ins = (from incs in db.TE_Incapacidad where incs.nominaId == n.nominaId select incs).DefaultIfEmpty();
+        foreach (TE_Incapacidad i in ins)
+        {
+          sb.Append("[Incapacidad]" + "|");
+          sb.Append(i.DiasIncapacidad + "|");
+          sb.Append(i.c_TipoIncapacidad1.c_TipoIncapacidad1 + "|");
+          sb.Append(i.ImporteMonetario + "|");
+          sb.Append(Environment.NewLine);
+        }
+
+        
+        try
+        {
+          string textToPrintHead = H1 + Environment.NewLine + H2 + Environment.NewLine + H3 + Environment.NewLine + H4 + Environment.NewLine + H5 + Environment.NewLine + D + Environment.NewLine + S + Environment.NewLine;
+          TextWriter sw = new StreamWriter(GetFinalDestination(h.H2_03) + h.H4_03 + "_" + h.H1_05 + ".txt", false, Encoding.GetEncoding(1252), 512);
+          sw.Write(textToPrintHead + sb.ToString());
+          sw.Close();
+        }
+        catch (Exception e)
+        {
+          StreamWriter sw = new StreamWriter(GetConfigurationValues("ErrorFolder") + "LogDeErrores.txt", true, Encoding.GetEncoding(1252), 512);
+          sw.Write(h.H4_03 + "_" + h.H1_05 + " :: " + e.Message + " (" + e.InnerException + ")"  + Environment.NewLine + Environment.NewLine);
+          sw.Close();
+        }
+      } // for each nomina
+
     }
   }
 }
+

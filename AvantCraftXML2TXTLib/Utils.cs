@@ -83,6 +83,39 @@ namespace AvantCraftXML2TXTLib
     {
       return value.ToString("F4");
     }
-    //----------------------------------------------------------------------
+
+    //---------------------------------------------------------------------------+
+    private static string GetNumberPart(string cell)
+    {
+      //string cell = "ABCD4321";
+      string numberpart = "0";
+
+      int a = GetIndexofNumber(cell);
+
+      if (a != -1)
+      {
+        numberpart = cell.Substring(a, cell.Length - a);
+      }
+      return numberpart;
+      //return Convert.ToDecimal(numberpart);
+      //string stringpart = cell.Substring(0, a);
+    }
+
+    //---------------------------------------------------------------------------+
+    private static int GetIndexofNumber(string cell)
+    {
+      int indexofNum = -1;
+      foreach (char c in cell)
+      {
+        indexofNum++;
+        if (Char.IsDigit(c))
+        {
+          return indexofNum;
+        }
+      }
+      return -1;
+    }
+    //---------------------------------------------------------------------------+
+
   }
 }

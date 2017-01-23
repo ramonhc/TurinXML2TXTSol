@@ -102,6 +102,9 @@
     <Compile Include="sysdiagram.cs">
       <DependentUpon>XML2TXTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TC_DatosFijosPorEmpleado.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TC_Subcontratacion.cs">
       <DependentUpon>XML2TXTModel.tt</DependentUpon>
     </Compile>

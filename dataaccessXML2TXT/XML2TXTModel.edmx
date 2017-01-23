@@ -124,6 +124,20 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="TC_DatosFijosPorEmpleado">
+          <Key>
+            <PropertyRef Name="fijoPorEmpId" />
+          </Key>
+          <Property Name="fijoPorEmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rfcEmpleado" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sindicalizado" Type="nvarchar" MaxLength="50" />
+          <Property Name="c_TipoJornada" Type="nvarchar" MaxLength="50" />
+          <Property Name="Departamento" Type="nvarchar" MaxLength="250" />
+          <Property Name="c_RiesgoPuesto" Type="nvarchar" MaxLength="50" />
+          <Property Name="c_Banco" Type="nvarchar" MaxLength="50" />
+          <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="50" />
+          <Property Name="c_Estado" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="TC_Subcontratacion">
           <Key>
             <PropertyRef Name="subcontratacionId" />
@@ -614,6 +628,7 @@
           <EntitySet Name="c_TipoPercepcion" EntityType="Self.c_TipoPercepcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="c_TipoRegimen" EntityType="Self.c_TipoRegimen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TC_DatosFijosPorEmpleado" EntityType="Self.TC_DatosFijosPorEmpleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TC_Subcontratacion" EntityType="Self.TC_Subcontratacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_Deduccion" EntityType="Self.TE_Deduccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_Incapacidad" EntityType="Self.TE_Incapacidad" Schema="dbo" store:Type="Tables" />
@@ -1091,6 +1106,7 @@
             <End Role="TE_TXT_HEADER" EntitySet="TE_TXT_HEADER" />
           </AssociationSet>
           <EntitySet Name="TC_Subcontratacion" EntityType="AvantCraft_nomina2017Model.TC_Subcontratacion" />
+          <EntitySet Name="TC_DatosFijosPorEmpleado" EntityType="AvantCraft_nomina2017Model.TC_DatosFijosPorEmpleado" />
           </EntityContainer>
         <EntityType Name="TE_Percepcion">
           <Key>
@@ -1481,6 +1497,20 @@
           <Property Name="RfcLabora" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PorcentajeTiempo" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
+        <EntityType Name="TC_DatosFijosPorEmpleado">
+          <Key>
+            <PropertyRef Name="fijoPorEmpId" />
+          </Key>
+          <Property Name="fijoPorEmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rfcEmpleado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sindicalizado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="c_TipoJornada" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Departamento" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="c_RiesgoPuesto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="c_Banco" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CuentaBancaria" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="c_Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1827,6 +1857,21 @@
                 <ScalarProperty Name="RfcLabora" ColumnName="RfcLabora" />
                 <ScalarProperty Name="RfcEmpleado" ColumnName="RfcEmpleado" />
                 <ScalarProperty Name="subcontratacionId" ColumnName="subcontratacionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TC_DatosFijosPorEmpleado">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_DatosFijosPorEmpleado">
+              <MappingFragment StoreEntitySet="TC_DatosFijosPorEmpleado">
+                <ScalarProperty Name="c_Estado" ColumnName="c_Estado" />
+                <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
+                <ScalarProperty Name="c_Banco" ColumnName="c_Banco" />
+                <ScalarProperty Name="c_RiesgoPuesto" ColumnName="c_RiesgoPuesto" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="c_TipoJornada" ColumnName="c_TipoJornada" />
+                <ScalarProperty Name="Sindicalizado" ColumnName="Sindicalizado" />
+                <ScalarProperty Name="rfcEmpleado" ColumnName="rfcEmpleado" />
+                <ScalarProperty Name="fijoPorEmpId" ColumnName="fijoPorEmpId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

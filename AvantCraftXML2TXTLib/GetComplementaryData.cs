@@ -13,7 +13,7 @@ namespace AvantCraftXML2TXTLib
 {
   public class GetComplementaryData
   {
-    public static void Load()
+    public static void Load(bool chkCargaSubcontratacion, bool chkFijos)
     {
       string LayOutsFolder = ConfigurationManager.AppSettings["LayOutsFolder"].ToString();
       bool exists = System.IO.Directory.Exists(LayOutsFolder);
@@ -27,31 +27,64 @@ namespace AvantCraftXML2TXTLib
 
       AvantCraft_nomina2017Entities db = new AvantCraft_nomina2017Entities();
 
-      //--->>> fijosXempleado
+      //--->>> fijosXempleado -- Subontratación
       foreach (DataRow r in result.Tables["fijosXempleado"].Rows)
       {
-        //VALIDATE (if exists then remove)
-        TC_Subcontratacion isthere = (from a in db.TC_Subcontratacion where a.RfcEmpleado == r["rfcEmpleado"].ToString() && a.RfcLabora == r["RfcLabora"].ToString() select a).FirstOrDefault();
-        if (isthere != null)
+        string rfcEmpleado = r["rfcEmpleado"].ToString();
+        string RfcLabora = r["RfcLabora"].ToString();
+        //---------->>>>>>>>>>>>>> Subcontratacion
+        if (chkCargaSubcontratacion)
         {
-          db.TC_Subcontratacion.Remove(isthere);
+          //VALIDATE (if exists then remove)
+          TC_Subcontratacion isthere = (from a in db.TC_Subcontratacion where a.RfcEmpleado == rfcEmpleado && a.RfcLabora == RfcLabora select a).FirstOrDefault();
+          if (isthere != null)
+          {
+            db.TC_Subcontratacion.Remove(isthere);
+          }
+
+          //ADD NEW
+          TC_Subcontratacion s = new TC_Subcontratacion();
+          s.RfcEmpleado = rfcEmpleado;
+          s.RfcLabora = RfcLabora;
+          s.PorcentajeTiempo = decimal.Parse(r["PorcentajeTiempo"].ToString());
+
+          db.TC_Subcontratacion.Add(s);
+          db.SaveChanges();
         }
 
-        //ADD NEW
-        TC_Subcontratacion s = new TC_Subcontratacion();
-        s.RfcEmpleado = r["rfcEmpleado"].ToString();
-        s.RfcLabora = r["RfcLabora"].ToString();
-        s.PorcentajeTiempo = decimal.Parse(r["PorcentajeTiempo"].ToString());
+        //---------->>>>>>>>>>>>>> fijosXempleado
+        if (chkFijos)
+        {
+          //VALIDATE (if exists then remove)
+          TC_DatosFijosPorEmpleado isthere = (from a in db.TC_DatosFijosPorEmpleado where a.rfcEmpleado == rfcEmpleado select a).FirstOrDefault();
+          if (isthere != null)
+          {
+            db.TC_DatosFijosPorEmpleado.Remove(isthere);
+          }
 
-        db.TC_Subcontratacion.Add(s);
-        db.SaveChanges();
+          //ADD NEW
+          TC_DatosFijosPorEmpleado s = new TC_DatosFijosPorEmpleado();
+          s.rfcEmpleado = rfcEmpleado;
+          s.Sindicalizado = r["Sindicalizado"].ToString();
+          s.c_TipoJornada = r["c_TipoJornada"].ToString();
+          s.Departamento = r["Departamento"].ToString();
+          s.c_RiesgoPuesto = r["c_RiesgoPuesto"].ToString();
+          s.c_Banco = r["c_Banco"].ToString();
+          s.CuentaBancaria = r["CuentaBancaria"].ToString();
+          s.c_Estado = r["c_Estado"].ToString();
+
+          db.TC_DatosFijosPorEmpleado.Add(s);
+          db.SaveChanges();
+        }
       }
 
       //--->>>
       foreach (DataRow r in result.Tables["camposNuevos"].Rows)
       {
         //Get Record and validate
-        TE_Nomina n = (from a in db.TE_Nomina where a.periodo == r["periodo"].ToString() && a.Receptor_NumEmpleado == r["Num_Emp"].ToString() select a).FirstOrDefault();
+        string periodo = r["periodo"].ToString();
+        string Num_Emp = r["Num_Emp"].ToString();
+        TE_Nomina n = (from a in db.TE_Nomina where a.periodo == periodo && a.Receptor_NumEmpleado == Num_Emp select a).FirstOrDefault();
         if (n != null)
         {
           n.c_TipoNomina = r["c_TipoNomina"].ToString();
@@ -62,9 +95,9 @@ namespace AvantCraftXML2TXTLib
           n.Emisor_EntidadSNCF_MontoRecursoPropio = Utils.s2d(r["MontoRecursoPropio"].ToString());
           n.Receptor_Antiguedad = r["Antiguedad"].ToString();
           n.Receptor_c_TipoContrato = double.Parse(r["c_TipoContrato"].ToString());
-          n.TotalSueldos = Utils.s2d(r["TotalSueldos"].ToString());
-          n.TotalSeparacionIndemnizacion = r["TotalSeparacionIndemnizacion"].ToString();
-          n.TotalJubilacionPensionRetiro = r["TotalJubilacionPensionRetiro"].ToString();
+          n.Percepciones_TotalSueldos = Utils.s2d(r["TotalSueldos"].ToString());
+          n.Percepciones_TotalSeparacionIndemnizacion = Utils.s2d(r["TotalSeparacionIndemnizacion"].ToString());
+          n.Percepciones_TotalJubilacionPensionRetiro = Utils.s2d(r["TotalJubilacionPensionRetiro"].ToString());
         }
       }
     }
