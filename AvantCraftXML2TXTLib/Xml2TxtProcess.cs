@@ -470,7 +470,7 @@ namespace AvantCraftXML2TXTLib
         }
         //FIX CATALOG REFERENCES
         //-- c_TipoPercepcion
-        IQueryable<TE_Percepcion> fixPer = (from per in db.TE_Percepcion where per.nominaId == dbNO.nominaId).DefaultIfEmpty();
+        IQueryable<TE_Percepcion> fixPer = (from per in db.TE_Percepcion where per.nominaId == dbNO.nominaId select per).DefaultIfEmpty();
         if (!(fixPer.Count() == 1 && fixPer.First() == null))
         {
           foreach (TE_Percepcion p in fixPer)
@@ -494,6 +494,71 @@ namespace AvantCraftXML2TXTLib
                   p.c_TipoPercepcion = 1;
                   break;
               }
+            }
+            db.SaveChanges();
+          }
+        }
+        //--c_TipoHoras
+        IQueryable<TE_Percepcion_HorasExtra> hexs = (from hexss in db.TE_Percepcion_HorasExtra where hexss.TE_Percepcion.nominaId == dbNO.nominaId select hexss).DefaultIfEmpty();
+        if (!(hexs.Count() == 1 && hexs.First() == null))
+        {
+          foreach (TE_Percepcion_HorasExtra p in hexs)
+          {
+            switch (p.TipoHoras)
+            {
+              case "Dobles":
+                p.c_TipoHoras = 1;
+                break;
+              case "Triples":
+                p.c_TipoHoras = 2;
+                break;
+              default:
+                p.c_TipoHoras = 3;
+                break;
+            }
+            db.SaveChanges();
+          }
+        }
+
+        //--c_TipoDeduccion
+        IQueryable<TE_Deduccion> dexs = (from d in db.TE_Deduccion where d.nominaId == dbNO.nominaId select d).DefaultIfEmpty();
+        if (!(dexs.Count() == 1 && dexs.First() == null))
+        {
+          foreach (TE_Deduccion p in dexs)
+          {
+            try
+            {
+              double parsedRef = 4;
+              if (double.TryParse(p.TipoDeduccion, out parsedRef))
+              {
+                p.c_TipoDeduccion = parsedRef;
+              }
+            }
+            catch
+            {
+              p.c_TipoDeduccion = 4;
+            }
+            db.SaveChanges();
+          }
+        }
+
+        //--c_TipoIncapacidad
+        IQueryable<TE_Incapacidad> incs = (from d in db.TE_Incapacidad where d.nominaId == dbNO.nominaId select d).DefaultIfEmpty();
+        if (!(incs.Count() == 1 && incs.First() == null))
+        {
+          foreach (TE_Incapacidad p in incs)
+          {
+            try
+            {
+              double parsedRef = 4;
+              if (double.TryParse(p.TipoIncapacidad, out parsedRef))
+              {
+                p.c_TipoIncapacidad = parsedRef;
+              }
+            }
+            catch
+            {
+              p.c_TipoIncapacidad = 2;
             }
             db.SaveChanges();
           }
@@ -709,28 +774,34 @@ namespace AvantCraftXML2TXTLib
         sb.Append(Environment.NewLine);
 
         var ds = (from ded in db.TE_Deduccion where ded.nominaId == n.nominaId select ded).DefaultIfEmpty();
-        foreach (TE_Deduccion d in ds)
+        if (!(ds.Count() == 1 && ds.First() == null))
         {
-          sb.Append("[Deduccion]" + "|");
-          sb.Append(d.c_TipoDeduccion1.c_TipoDeduccion1 + "|");
-          sb.Append(d.Clave + "|");
-          sb.Append(d.Concepto + "|");
-          sb.Append(d.Importe + "|");
-          sb.Append(Environment.NewLine);
+          foreach (TE_Deduccion d in ds)
+          {
+            sb.Append("[Deduccion]" + "|");
+            sb.Append(d.c_TipoDeduccion1.c_TipoDeduccion1 + "|");
+            sb.Append(d.Clave + "|");
+            sb.Append(d.Concepto + "|");
+            sb.Append(d.Importe + "|");
+            sb.Append(Environment.NewLine);
+          }
         }
 
         sb.Append("[OtrosPagos]" + " | ");
         sb.Append(Environment.NewLine);
 
         var os = (from ops in db.TE_OtroPago where ops.nominaId == n.nominaId select ops).DefaultIfEmpty();
-        foreach (TE_OtroPago o in os)
+        if (!(os.Count() == 1 && os.First() == null))
         {
-          sb.Append("[OtroPago]" + "|");
-          sb.Append(o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
-          sb.Append(o.Clave + "|");
-          sb.Append(o.Concepto + "|");
-          sb.Append(o.Importe + "|");
-          sb.Append(Environment.NewLine);
+          foreach (TE_OtroPago o in os)
+          {
+            sb.Append("[OtroPago]" + "|");
+            sb.Append(o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
+            sb.Append(o.Clave + "|");
+            sb.Append(o.Concepto + "|");
+            sb.Append(o.Importe + "|");
+            sb.Append(Environment.NewLine);
+          }
         }
 
         //[SubsidioAlEmpleo]  To implement
@@ -740,16 +811,19 @@ namespace AvantCraftXML2TXTLib
         sb.Append(Environment.NewLine);
 
         var ins = (from incs in db.TE_Incapacidad where incs.nominaId == n.nominaId select incs).DefaultIfEmpty();
-        foreach (TE_Incapacidad i in ins)
+        if (!(ins.Count() == 1 && ins.First() == null))
         {
-          sb.Append("[Incapacidad]" + "|");
-          sb.Append(i.DiasIncapacidad + "|");
-          sb.Append(i.c_TipoIncapacidad1.c_TipoIncapacidad1 + "|");
-          sb.Append(i.ImporteMonetario + "|");
-          sb.Append(Environment.NewLine);
+          foreach (TE_Incapacidad i in ins)
+          {
+            sb.Append("[Incapacidad]" + "|");
+            sb.Append(i.DiasIncapacidad + "|");
+            sb.Append(i.c_TipoIncapacidad1.c_TipoIncapacidad1 + "|");
+            sb.Append(i.ImporteMonetario + "|");
+            sb.Append(Environment.NewLine);
+          }
         }
 
-
+        // MAKE FILE ----
         try
         {
           string textToPrintHead = H1 + Environment.NewLine + H2 + Environment.NewLine + H3 + Environment.NewLine + H4 + Environment.NewLine + H5 + Environment.NewLine + D + Environment.NewLine + S + Environment.NewLine;
