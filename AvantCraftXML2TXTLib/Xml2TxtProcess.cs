@@ -664,21 +664,21 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.NumDiasPagados + "|");
         sb.Append(n.TotalPercepciones + "|");
         sb.Append(n.TotalDeducciones + "|");
-        sb.Append(n.TotalOtrosPagos + "|");
+        sb.Append(n.TotalOtrosPagos);
         sb.Append(Environment.NewLine);
 
-        sb.Append("[EMISOR]" + "|");
+        sb.Append("[Emisor]" + "|");
         sb.Append(n.Emisor_CURP + "|");
         sb.Append(n.Emisor_RegistroPatronal + "|");
-        sb.Append(n.Emisor_RfcPatronOrigen + "|");
+        sb.Append(n.Emisor_RfcPatronOrigen);
         sb.Append(Environment.NewLine);
 
         sb.Append("[EntSNCF]" + "|");
         sb.Append(n.Emisor_EntidadSNCF_c_OrigenRecurso + "|");
-        sb.Append(n.Emisor_EntidadSNCF_MontoRecursoPropio + "|");
+        sb.Append(n.Emisor_EntidadSNCF_MontoRecursoPropio);
         sb.Append(Environment.NewLine);
 
-        sb.Append("[Receptor]" + " | ");
+        sb.Append("[Receptor]" + "|");
         sb.Append(n.Receptor_CURP + "|");
         sb.Append(n.Receptor_NumSeguridadSocial + "|");
         sb.Append(n.Receptor_FechaInicioRelLaboral + "|");
@@ -710,24 +710,24 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.Receptor_CuentaBancaria + "|");
         sb.Append(n.Receptor_SalarioBaseCotApor + "|");
         sb.Append(n.Receptor_SalarioDiarioIntegrado + "|");
-        sb.Append(n.Receptor_c_ClaveEntFed + "|");
+        sb.Append(n.Receptor_c_ClaveEntFed);
         sb.Append(Environment.NewLine);
 
         var subc = (from suc in db.TE_Receptor_Subcontratacion where suc.nominaId == n.nominaId select suc).DefaultIfEmpty();
         foreach (TE_Receptor_Subcontratacion sub in subc)
         {
-          sb.Append("[Subcontratacion]" + " | ");
+          sb.Append("[Subcontratacion]" + "|");
           sb.Append(sub.RfcLabora + "|");
-          sb.Append(sub.PorcentajeTiempo + "|");
+          sb.Append(sub.PorcentajeTiempo);
           sb.Append(Environment.NewLine);
         }
 
-        sb.Append("[Percepciones]" + " | ");
+        sb.Append("[Percepciones]" + "|");
         sb.Append(n.Percepciones_TotalSueldos + "|");
         sb.Append(n.Percepciones_TotalSeparacionIndemnizacion + "|");
         sb.Append(n.Percepciones_TotalJubilacionPensionRetiro + "|");
         sb.Append(n.Percepciones_TotalGravado + "|");
-        sb.Append(n.Percepciones_TotalExento + "|");
+        sb.Append(n.Percepciones_TotalExento);
         sb.Append(Environment.NewLine);
 
         var ps = (from per in db.TE_Percepcion where per.nominaId == n.nominaId select per).DefaultIfEmpty();
@@ -745,7 +745,7 @@ namespace AvantCraftXML2TXTLib
           sb.Append(p.Clave + "|");
           sb.Append(p.Concepto + "|");
           sb.Append(p.ImporteGravado + "|");
-          sb.Append(p.ImporteExcento + "|");
+          sb.Append(p.ImporteExcento);
           sb.Append(Environment.NewLine);
         }
 
@@ -760,7 +760,7 @@ namespace AvantCraftXML2TXTLib
             sb.Append(he.Dias + "|");
             sb.Append(he.c_TipoHoras1.c_TipoHoras1 + "|");
             sb.Append(he.HorasExtra + "|");
-            sb.Append(he.ImportePagado + "|");
+            sb.Append(he.ImportePagado);
             sb.Append(Environment.NewLine);
           }
         }
@@ -768,9 +768,9 @@ namespace AvantCraftXML2TXTLib
         //[JubilacionPensionRetiro]  To implement
         //[SeparacionIndemnizacion]  To implement
 
-        sb.Append("[Deducciones]" + " | ");
+        sb.Append("[Deducciones]" + "|");
         sb.Append(n.Deducciones_TotalOtrasDeducciones + "|");
-        sb.Append(n.Deducciones_TotalImpuestosRetenidos + "|");
+        sb.Append(n.Deducciones_TotalImpuestosRetenidos);
         sb.Append(Environment.NewLine);
 
         var ds = (from ded in db.TE_Deduccion where ded.nominaId == n.nominaId select ded).DefaultIfEmpty();
@@ -780,26 +780,28 @@ namespace AvantCraftXML2TXTLib
           {
             sb.Append("[Deduccion]" + "|");
             sb.Append(d.c_TipoDeduccion1.c_TipoDeduccion1 + "|");
-            sb.Append(d.Clave + "|");
+            sb.Append(d.Clave.Replace("/", string.Empty) + "|");
             sb.Append(d.Concepto + "|");
-            sb.Append(d.Importe + "|");
+            sb.Append(d.Importe);
             sb.Append(Environment.NewLine);
           }
         }
 
-        sb.Append("[OtrosPagos]" + " | ");
-        sb.Append(Environment.NewLine);
+        
 
         var os = (from ops in db.TE_OtroPago where ops.nominaId == n.nominaId select ops).DefaultIfEmpty();
         if (!(os.Count() == 1 && os.First() == null))
         {
+          sb.Append("[OtrosPagos]");
+          sb.Append(Environment.NewLine);
+
           foreach (TE_OtroPago o in os)
           {
             sb.Append("[OtroPago]" + "|");
             sb.Append(o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
             sb.Append(o.Clave + "|");
             sb.Append(o.Concepto + "|");
-            sb.Append(o.Importe + "|");
+            sb.Append(o.Importe);
             sb.Append(Environment.NewLine);
           }
         }
@@ -807,18 +809,20 @@ namespace AvantCraftXML2TXTLib
         //[SubsidioAlEmpleo]  To implement
         //[CompensacionSaldosAFavor]  To implement
 
-        sb.Append("[Incapacidades]" + " | ");
-        sb.Append(Environment.NewLine);
+        
 
         var ins = (from incs in db.TE_Incapacidad where incs.nominaId == n.nominaId select incs).DefaultIfEmpty();
         if (!(ins.Count() == 1 && ins.First() == null))
         {
+          sb.Append("[Incapacidades]");
+          sb.Append(Environment.NewLine);
+
           foreach (TE_Incapacidad i in ins)
           {
             sb.Append("[Incapacidad]" + "|");
             sb.Append(i.DiasIncapacidad + "|");
             sb.Append(i.c_TipoIncapacidad1.c_TipoIncapacidad1 + "|");
-            sb.Append(i.ImporteMonetario + "|");
+            sb.Append(i.ImporteMonetario);
             sb.Append(Environment.NewLine);
           }
         }
