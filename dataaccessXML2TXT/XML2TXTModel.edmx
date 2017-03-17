@@ -12,6 +12,7 @@
           <Property Name="c_Banco" Type="float" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
           <Property Name="Nombre o razón social" Type="nvarchar" MaxLength="255" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="c_Estado">
           <Key>
@@ -34,6 +35,7 @@
           </Key>
           <Property Name="c_PeriodicidadPago" Type="float" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="c_RegimenFiscal">
           <Key>
@@ -57,6 +59,7 @@
           </Key>
           <Property Name="c_TipoContrato" Type="float" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="c_TipoDeduccion">
           <Key>
@@ -64,6 +67,7 @@
           </Key>
           <Property Name="c_TipoDeduccion" Type="float" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="c_TipoHoras">
           <Key>
@@ -106,6 +110,7 @@
           </Key>
           <Property Name="c_TipoPercepcion" Type="float" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="c_TipoRegimen">
           <Key>
@@ -113,6 +118,7 @@
           </Key>
           <Property Name="c_TipoRegimen" Type="float" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -745,6 +751,7 @@
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Nombre_o_razón_social" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_Banco" FromRole="c_Banco" ToRole="TE_Nomina" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="c_Estado">
           <Key>
@@ -770,6 +777,7 @@
           <Property Name="c_PeriodicidadPago1" Type="Double" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_PeriodicidadPago" FromRole="c_PeriodicidadPago" ToRole="TE_Nomina" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="c_RegimenFiscal">
           <Key>
@@ -795,6 +803,7 @@
           <Property Name="c_TipoContrato1" Type="Double" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoContrato" FromRole="c_TipoContrato" ToRole="TE_Nomina" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="c_TipoDeduccion">
           <Key>
@@ -803,6 +812,7 @@
           <Property Name="c_TipoDeduccion1" Type="Double" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TE_Deduccion" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion" FromRole="c_TipoDeduccion" ToRole="TE_Deduccion" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="c_TipoHoras">
           <Key>
@@ -851,6 +861,7 @@
           <Property Name="c_TipoPercepcion1" Type="Double" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TE_Percepcion" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion" FromRole="c_TipoPercepcion" ToRole="TE_Percepcion" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="c_TipoRegimen">
           <Key>
@@ -859,6 +870,7 @@
           <Property Name="c_TipoRegimen1" Type="Double" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoRegimen" FromRole="c_TipoRegimen" ToRole="TE_Nomina" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1520,6 +1532,7 @@
           <EntitySetMapping Name="c_Banco">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_Banco">
               <MappingFragment StoreEntitySet="c_Banco">
+                <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="c_Banco1" ColumnName="c_Banco" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Nombre_o_razón_social" ColumnName="Nombre o razón social" />
@@ -1546,6 +1559,7 @@
           <EntitySetMapping Name="c_PeriodicidadPago">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_PeriodicidadPago">
               <MappingFragment StoreEntitySet="c_PeriodicidadPago">
+                <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="c_PeriodicidadPago1" ColumnName="c_PeriodicidadPago" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
               </MappingFragment>
@@ -1572,6 +1586,7 @@
           <EntitySetMapping Name="c_TipoContrato">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoContrato">
               <MappingFragment StoreEntitySet="c_TipoContrato">
+                <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="c_TipoContrato1" ColumnName="c_TipoContrato" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
               </MappingFragment>
@@ -1580,6 +1595,7 @@
           <EntitySetMapping Name="c_TipoDeduccion">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoDeduccion">
               <MappingFragment StoreEntitySet="c_TipoDeduccion">
+                <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="c_TipoDeduccion1" ColumnName="c_TipoDeduccion" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
               </MappingFragment>
@@ -1628,6 +1644,7 @@
           <EntitySetMapping Name="c_TipoPercepcion">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoPercepcion">
               <MappingFragment StoreEntitySet="c_TipoPercepcion">
+                <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="c_TipoPercepcion1" ColumnName="c_TipoPercepcion" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
               </MappingFragment>
@@ -1636,6 +1653,7 @@
           <EntitySetMapping Name="c_TipoRegimen">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.c_TipoRegimen">
               <MappingFragment StoreEntitySet="c_TipoRegimen">
+                <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="c_TipoRegimen1" ColumnName="c_TipoRegimen" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
               </MappingFragment>

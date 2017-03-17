@@ -31,7 +31,7 @@ namespace testXML2TXTForm
     {
       GetUUIDFromXML obj = new GetUUIDFromXML();
       label1.Text = "Getting UUIDs...!";
-      obj.GetUUID();
+      obj.GetUUID(txtFolderUUID.Text);
       label1.Text = "Done!";
     }
 

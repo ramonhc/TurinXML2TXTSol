@@ -93,9 +93,10 @@ namespace AvantCraftXML2TXTLib
         dbHead.H1_14 = H1_14;
 
         string H1_30 = root.Attribute("LugarExpedicion").Value;//4
-        dbHead.H1_30 = H1_30;
+        dbHead.H1_30 = H1_30;  //- - - - - - - - - - - - - - - - - - - > changed to C.P. a few lines below H2_14
         string H1_31 = root.Attribute("metodoDePago").Value;//5
-        dbHead.H1_31 = H1_31;
+        dbHead.H1_31 = H1_31;  // - - - - > should be "NA" so we change it next
+        dbHead.H1_31 = "NA";
         string H1_32 = "MXN";//6
         dbHead.H1_32 = H1_32;
         string H1_46 = "P";//7
@@ -131,6 +132,20 @@ namespace AvantCraftXML2TXTLib
         string H2_14 = domicilioFiscal.Attribute("codigoPostal").Value; //9
         dbHead.H2_14 = H2_14;
 
+        //- - - - - -  < here we change this var
+        dbHead.H1_30 = H2_14;
+
+        //***** NOTA.- No se debe registrar el domicilio fiscal, borramos aquí los campos:
+        dbHead.H2_05 = string.Empty;
+        dbHead.H2_06 = string.Empty;
+        dbHead.H2_08 = string.Empty;
+        dbHead.H2_09 = string.Empty;
+        dbHead.H2_11 = string.Empty;
+        dbHead.H2_12 = string.Empty;
+        dbHead.H2_13 = string.Empty;
+        dbHead.H2_14 = string.Empty;
+
+
         //----------------------------------------------------------------------------------------------------
         //H4- DATOS DEL RECEPTOR DEL CFDI
 
@@ -155,8 +170,9 @@ namespace AvantCraftXML2TXTLib
         dbHead.D_04 = D_4;
         string D_6 = d2s(s2d(concepto.Attribute("cantidad").Value)); //1
         dbHead.D_06 = D_6;
-        string D_7 = concepto.Attribute("unidad").Value; //2
+        string D_7 = concepto.Attribute("unidad").Value; //2   
         dbHead.D_07 = D_7;
+        dbHead.D_07 = "ACT"; //Para este atributo se debe registrar el valor “ACT”
         string D_9 = d2s(s2d(concepto.Attribute("importe").Value)); //3
         dbHead.D_09 = D_9;
         string D_25 = d2s(s2d(concepto.Attribute("valorUnitario").Value)); //4
@@ -172,6 +188,7 @@ namespace AvantCraftXML2TXTLib
 
         string D_42 = (impuestos.Attribute("totalImpuestosRetenidos") != null) ? d2s(s2d(impuestos.Attribute("totalImpuestosRetenidos").Value)) : "0.0000"; //7
         dbHead.D_42 = D_42;
+        dbHead.D_42 = string.Empty; //No debe registrarse
 
         //----------------------------------------------------------------------------------------------------
         //S- DATOS TOTALES DEL CFDI
@@ -273,6 +290,11 @@ namespace AvantCraftXML2TXTLib
 
         string PES_0 = "PES";
 
+        //--- PERCEPCION total percepcion
+        dbNO.Percepciones_TotalSueldos = decimal.Parse(dbHead.D_37);
+        //dbNO.Percepciones_TotalSeparacionIndemnizacion]
+        //dbNO.Percepciones_TotalJubilacionPensionRetiro]
+
         string PES_1 = d2s(s2d(complemento_nomina_percepciones.Attribute("TotalGravado").Value));
         dbNO.Percepciones_TotalGravado = s2d(complemento_nomina_percepciones.Attribute("TotalGravado").Value);
         string PES_2 = d2s(s2d(complemento_nomina_percepciones.Attribute("TotalExento").Value));
@@ -341,6 +363,10 @@ namespace AvantCraftXML2TXTLib
         var complemento_nomina_deducciones_coll = (from c in root.Elements(cfdi + "Complemento").Elements(nomina + "Nomina").Elements(nomina + "Deducciones").Elements(nomina + "Deduccion") select c).DefaultIfEmpty();
         if (!(complemento_nomina_deducciones_coll.Count() == 1 && complemento_nomina_deducciones_coll.First() == null))
         {
+
+          decimal Deducciones_TotalOtrasDeducciones = 0;
+          decimal Deducciones_TotalImpuestosRetenidos = 0;
+
           string DE_0 = "DE";
           string DE_1 = "TipoDeduccion";
           string DE_2 = "Clave";
@@ -361,7 +387,7 @@ namespace AvantCraftXML2TXTLib
             DE_2 = deduccion.Attribute("Clave").Value;
             dbDE.Clave = DE_2;
             DE_3 = deduccion.Attribute("Concepto").Value;
-            dbDE.Concepto = DE_3;
+            dbDE.Concepto = DE_3.Replace(".", string.Empty);
             DE_4 = d2s(s2d(deduccion.Attribute("ImporteGravado").Value));
             DE_5 = d2s(s2d(deduccion.Attribute("ImporteExento").Value));
 
@@ -371,7 +397,19 @@ namespace AvantCraftXML2TXTLib
             db.TE_Deduccion.Add(dbDE);
             db.SaveChanges();
 
+            if (DE_1.Trim() == "002")
+            {
+              Deducciones_TotalImpuestosRetenidos =+ importe;
+            }
+            else
+            {
+              Deducciones_TotalOtrasDeducciones =+ importe;
+            }
           }
+
+          dbNO.Deducciones_TotalOtrasDeducciones = Deducciones_TotalOtrasDeducciones;
+          dbNO.Deducciones_TotalImpuestosRetenidos = Deducciones_TotalImpuestosRetenidos;
+
         }
 
         //----------------------------------------------------------------------------------------------------
@@ -454,6 +492,7 @@ namespace AvantCraftXML2TXTLib
         TC_DatosFijosPorEmpleado dfxe = (from c in db.TC_DatosFijosPorEmpleado where c.rfcEmpleado == dbHead.H4_03 select c).FirstOrDefault();
         dbNO.Receptor_c_Banco = double.Parse(dfxe.c_Banco);
         dbNO.Receptor_CuentaBancaria = dfxe.CuentaBancaria;
+        dbNO.Receptor_c_ClaveEntFed = dfxe.c_Estado;
         db.SaveChanges();
         //SUBCONTRATACION
         IQueryable<TC_Subcontratacion> sc = (from s in db.TC_Subcontratacion where s.RfcEmpleado == dbHead.H4_03 select s).DefaultIfEmpty();
@@ -647,7 +686,7 @@ namespace AvantCraftXML2TXTLib
         string H4 = string.Format("[H4]|{0}|{1}||||||||||{2}|||||||||||||", h.H4_02, h.H4_03, h.H4_13);
         string H5 = "[H5]|||||||||||||||||||||||||";
         string D = string.Format("[D]|||{0}||{1}|{2}||{3}||||||||||||||||{4}||||||||||||{5}|{6}||||{7}||||||||||||||||||||||||||||||||", h.D_04, h.D_06, h.D_07, h.D_09, h.D_25, h.D_37, h.D_38, h.D_42);
-        string S = string.Format("[S]|||||||||{3}||||||{0}||||||||||||||||||||{1}|{2}||||", h.S_16, h.S_36, h.S_37, h.S_10);
+        string S = string.Format("[S]|||||||||{3}||||||{0}|||||||||||||||||||||{1}|{2}|||", h.S_16, h.S_36, h.S_37, h.S_10);
 
         //====================================================================================================
         //============================= .NOM =================================================================
@@ -672,18 +711,18 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.Emisor_RegistroPatronal + "|");
         sb.Append(n.Emisor_RfcPatronOrigen);
         sb.Append(Environment.NewLine);
-
+        /*
         sb.Append("[EntSNCF]" + "|");
         sb.Append(n.Emisor_EntidadSNCF_c_OrigenRecurso + "|");
         sb.Append(n.Emisor_EntidadSNCF_MontoRecursoPropio);
         sb.Append(Environment.NewLine);
-
+        */
         sb.Append("[Receptor]" + "|");
         sb.Append(n.Receptor_CURP + "|");
         sb.Append(n.Receptor_NumSeguridadSocial + "|");
         sb.Append(n.Receptor_FechaInicioRelLaboral + "|");
         sb.Append(n.Receptor_Antiguedad + "|");
-        sb.Append(n.c_TipoContrato.c_TipoContrato1 + "|");
+        sb.Append(n.c_TipoContrato.Value + "|");
         sb.Append(n.Receptor_Sindicalizado + "|");
         try
         {
@@ -693,7 +732,7 @@ namespace AvantCraftXML2TXTLib
         {
           sb.Append("|");
         }
-        sb.Append(n.c_TipoRegimen.c_TipoRegimen1 + "|");
+        sb.Append(n.c_TipoRegimen.Value + "|");
         sb.Append(n.Receptor_NumEmpleado + "|");
         sb.Append(n.Receptor_Departamento + "|");
         sb.Append(n.Receptor_Puesto + "|");
@@ -705,8 +744,8 @@ namespace AvantCraftXML2TXTLib
         {
           sb.Append("|");
         }
-        sb.Append(n.c_PeriodicidadPago.c_PeriodicidadPago1 + "|");
-        sb.Append(n.c_Banco.c_Banco1 + "|");
+        sb.Append(n.c_PeriodicidadPago.Value + "|");
+        sb.Append(n.c_Banco.Value + "|");
         sb.Append(n.Receptor_CuentaBancaria + "|");
         sb.Append(n.Receptor_SalarioBaseCotApor + "|");
         sb.Append(n.Receptor_SalarioDiarioIntegrado + "|");
@@ -736,7 +775,7 @@ namespace AvantCraftXML2TXTLib
           sb.Append("[Percepcion]" + "|");
           try
           {
-            sb.Append(p.c_TipoPercepcion1.c_TipoPercepcion1 + "|");
+            sb.Append(p.c_TipoPercepcion1.Value + "|");
           }
           catch
           {
@@ -779,7 +818,7 @@ namespace AvantCraftXML2TXTLib
           foreach (TE_Deduccion d in ds)
           {
             sb.Append("[Deduccion]" + "|");
-            sb.Append(d.c_TipoDeduccion1.c_TipoDeduccion1 + "|");
+            sb.Append(d.c_TipoDeduccion1.Value + "|");
             sb.Append(d.Clave.Replace("/", string.Empty) + "|");
             sb.Append(d.Concepto + "|");
             sb.Append(d.Importe);
@@ -787,7 +826,7 @@ namespace AvantCraftXML2TXTLib
           }
         }
 
-        
+
 
         var os = (from ops in db.TE_OtroPago where ops.nominaId == n.nominaId select ops).DefaultIfEmpty();
         if (!(os.Count() == 1 && os.First() == null))
@@ -809,7 +848,7 @@ namespace AvantCraftXML2TXTLib
         //[SubsidioAlEmpleo]  To implement
         //[CompensacionSaldosAFavor]  To implement
 
-        
+
 
         var ins = (from incs in db.TE_Incapacidad where incs.nominaId == n.nominaId select incs).DefaultIfEmpty();
         if (!(ins.Count() == 1 && ins.First() == null))
