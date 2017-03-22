@@ -13,6 +13,11 @@ namespace AvantCraftXML2TXTLib
 {
   public class Xml2TxtProcess
   {
+
+    private static XNamespace cfdi = "http://www.sat.gob.mx/cfd/3";
+    private static XNamespace nomina = "http://www.sat.gob.mx/nomina";
+
+
     //----------------------------------------------------------------------------------------------------
     public void Processfiles()
     {
@@ -41,8 +46,7 @@ namespace AvantCraftXML2TXTLib
       //----------------------------------------------------------------------------------------------------
       //H1-DATOS GENERALES DE LOS CFDI´S
 
-      XNamespace cfdi = "http://www.sat.gob.mx/cfd/3";
-      XNamespace nomina = "http://www.sat.gob.mx/nomina";
+
       XElement root = XElement.Load(file.FullName);
 
       //#################### VALIDATION PREVIOUS PROCESSED DOCUMENT ##########################
@@ -89,8 +93,10 @@ namespace AvantCraftXML2TXTLib
         string H1_11 = "RECIBO_NOMINA";//2
         dbHead.H1_11 = H1_11;
 
-        string H1_14 = (root.Attribute("descuento") != null) ? d2s(s2d(root.Attribute("descuento").Value)) : "0.00"; //3
-        dbHead.H1_14 = H1_14;
+        //string H1_14 = (root.Attribute("descuento") != null) ? d2s(s2d(root.Attribute("descuento").Value)) : "0.00"; //3
+        //dbHead.H1_14 = H1_14;
+
+        dbHead.H1_14 = getRealDescuento(root).ToString();
 
         string H1_30 = root.Attribute("LugarExpedicion").Value;//4
         dbHead.H1_30 = H1_30;  //- - - - - - - - - - - - - - - - - - - > changed to C.P. a few lines below H2_14
@@ -308,7 +314,10 @@ namespace AvantCraftXML2TXTLib
 
         dbHead.nominaId = dbNO.nominaId;
         db.SaveChanges();
+
+
         //----------------------------------------------------------------------------------------------------
+
 
         var complemento_nomina_percepciones_coll = (from c in root.Elements(cfdi + "Complemento").Elements(nomina + "Nomina").Elements(nomina + "Percepciones").Elements(nomina + "Percepcion") select c).DefaultIfEmpty();
         if (!(complemento_nomina_percepciones_coll.Count() == 1 && complemento_nomina_percepciones_coll.First() == null))
@@ -399,11 +408,11 @@ namespace AvantCraftXML2TXTLib
 
             if (DE_1.Trim() == "002")
             {
-              Deducciones_TotalImpuestosRetenidos =+ importe;
+              Deducciones_TotalImpuestosRetenidos = +importe;
             }
             else
             {
-              Deducciones_TotalOtrasDeducciones =+ importe;
+              Deducciones_TotalOtrasDeducciones = +importe;
             }
           }
 
@@ -606,6 +615,18 @@ namespace AvantCraftXML2TXTLib
     }
 
     //---------------------------------------------------------------------------+
+    private static decimal getRealDescuento(XElement root)
+    {
+      decimal totalDeducciones = 0;
+      var complemento_nomina_deducciones = (from c in root.Elements(cfdi + "Complemento").Elements(nomina + "Nomina").Elements(nomina + "Deducciones") select c).FirstOrDefault();
+      if (complemento_nomina_deducciones != null)
+      {
+        totalDeducciones = s2d(complemento_nomina_deducciones.Attribute("TotalGravado").Value) + s2d(complemento_nomina_deducciones.Attribute("TotalExento").Value);
+      }
+      return totalDeducciones;
+    }
+
+    //---------------------------------------------------------------------------+
     private static double getClavePeriodidicadPago(string txtPeriodicidadPago)
     {
       double retPErPag = 0;
@@ -683,10 +704,12 @@ namespace AvantCraftXML2TXTLib
         string H1 = string.Format("[H1]||||{0}|||{1}|||{2}|||{3}||||||||||||||||{4}|{5}|{6}||||||||||||||{7}||||{8}|||||||||", h.H1_05, h.H1_08, h.H1_11, h.H1_14, h.H1_30, h.H1_31, h.H1_32, h.H1_46, h.H1_50);
         string H2 = string.Format("[H2]|{0}|{1}||{2}|{3}||{4}|{5}||{6}|{7}|{8}|{9}||||||||||||", h.H2_02, h.H2_03, h.H2_05, h.H2_06, h.H2_08, h.H2_09, h.H2_11, h.H2_12, h.H2_13, h.H2_14);
         string H3 = "[H3]|||||||||||||||||||||||||";
-        string H4 = string.Format("[H4]|{0}|{1}||||||||||{2}|||||||||||||", h.H4_02, h.H4_03, h.H4_13);
+        //string H4 = string.Format("[H4]|{0}|{1}||||||||||{2}|||||||||||||", h.H4_02, h.H4_03, h.H4_13);
+        string H4 = string.Format("[H4]|{0}|{1}|||||||||||||||||||||||", h.H4_02, h.H4_03);
         string H5 = "[H5]|||||||||||||||||||||||||";
         string D = string.Format("[D]|||{0}||{1}|{2}||{3}||||||||||||||||{4}||||||||||||{5}|{6}||||{7}||||||||||||||||||||||||||||||||", h.D_04, h.D_06, h.D_07, h.D_09, h.D_25, h.D_37, h.D_38, h.D_42);
-        string S = string.Format("[S]|||||||||{3}||||||{0}|||||||||||||||||||||{1}|{2}|||", h.S_16, h.S_36, h.S_37, h.S_10);
+        //string S = string.Format("[S]|||||||||{3}||||||{0}|||||||||||||||||||||{1}|{2}|||", h.S_16, h.S_36, h.S_37, h.S_10);
+        string S = string.Format("[S]|||||||||{2}|||||||||||||||||||||||||||{0}|{1}|||", h.S_36, h.S_37, h.S_10);
 
         //====================================================================================================
         //============================= .NOM =================================================================
