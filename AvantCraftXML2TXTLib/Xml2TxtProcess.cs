@@ -341,7 +341,7 @@ namespace AvantCraftXML2TXTLib
 
             dbPE.TipoPercepcion = PE_1;
             PE_2 = percepcion.Attribute("Clave").Value;
-            dbPE.Clave = PE_2;
+            dbPE.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
             PE_3 = percepcion.Attribute("Concepto").Value;
             dbPE.Concepto = PE_3;
             PE_4 = d2s(s2d(percepcion.Attribute("ImporteGravado").Value));
@@ -473,21 +473,27 @@ namespace AvantCraftXML2TXTLib
             HE_3 = he.Attribute("HorasExtra").Value;
             HE_4 = d2s(s2d(he.Attribute("ImportePagado").Value));
 
+
+            //* ***** SE USARA EN EL TXT FINAL EN LUGAR DEL RESTO DE LAS CLAVES 19 PORQUE SE DUPLICA CON NODOS PERCEPCION:TIEMPO EXTRA DOBLE, ETC.
             //p = percepcion.Element(nomina + "Percepcion");
             TE_Percepcion dbPE = new TE_Percepcion();
             dbPE.nominaId = dbNO.nominaId;
             dbPE.TipoPercepcion = "Horas Extra";
-            dbPE.Clave = "";
+            //dbPE.Clave = "";
+            dbPE.Clave = "REMPLAZO";                         //FIXED
             dbPE.Concepto = "Horas Extra";
             dbPE.ImporteGravado = s2d(he.Attribute("ImportePagado").Value);
             dbPE.ImporteExcento = s2d("0.00");
             db.TE_Percepcion.Add(dbPE);
             db.SaveChanges();
 
+
+
             TE_Percepcion_HorasExtra dbPEHE = new TE_Percepcion_HorasExtra();
             dbPEHE.percepcionId = dbPE.percepcionId;
 
-            dbPEHE.Dias = Int32.Parse(HE_1);
+            //dbPEHE.Dias = Int32.Parse(HE_1);
+            dbPEHE.Dias = 1;                           //FIXED
             dbPEHE.TipoHoras = HE_2;
             dbPEHE.HorasExtra = Int32.Parse(HE_3);
             dbPEHE.ImportePagado = s2d(he.Attribute("ImportePagado").Value);
@@ -704,10 +710,14 @@ namespace AvantCraftXML2TXTLib
         string H1 = string.Format("[H1]||||{0}|||{1}|||{2}|||{3}||||||||||||||||{4}|{5}|{6}||||||||||||||{7}||||{8}|||||||||", h.H1_05, h.H1_08, h.H1_11, h.H1_14, h.H1_30, h.H1_31, h.H1_32, h.H1_46, h.H1_50);
         string H2 = string.Format("[H2]|{0}|{1}||{2}|{3}||{4}|{5}||{6}|{7}|{8}|{9}||||||||||||", h.H2_02, h.H2_03, h.H2_05, h.H2_06, h.H2_08, h.H2_09, h.H2_11, h.H2_12, h.H2_13, h.H2_14);
         string H3 = "[H3]|||||||||||||||||||||||||";
+
         //string H4 = string.Format("[H4]|{0}|{1}||||||||||{2}|||||||||||||", h.H4_02, h.H4_03, h.H4_13);
         string H4 = string.Format("[H4]|{0}|{1}|||||||||||||||||||||||", h.H4_02, h.H4_03);
         string H5 = "[H5]|||||||||||||||||||||||||";
-        string D = string.Format("[D]|||{0}||{1}|{2}||{3}||||||||||||||||{4}||||||||||||{5}|{6}||||{7}||||||||||||||||||||||||||||||||", h.D_04, h.D_06, h.D_07, h.D_09, h.D_25, h.D_37, h.D_38, h.D_42);
+
+        //string D = string.Format("[D]|||{0}||{1}|{2}||{3}||||||||||||||||{4}||||||||||||{5}|{6}||||{7}||||||||||||||||||||||||||||||||", h.D_04, h.D_06, h.D_07, h.D_09, h.D_25, h.D_37, h.D_38, h.D_42);
+        string D = string.Format("[D]|||{0}||{1}|{2}||{3}||||||||||||||||{4}||||||||||||{5}|{6}||||{7}||||||||||||||||||||||||||||||||", h.D_04, Decimal.ToInt32(Decimal.Parse(h.D_06)).ToString(), h.D_07, h.D_09, h.D_25, h.D_37, h.D_38, h.D_42);
+
         //string S = string.Format("[S]|||||||||{3}||||||{0}|||||||||||||||||||||{1}|{2}|||", h.S_16, h.S_36, h.S_37, h.S_10);
         string S = string.Format("[S]|||||||||{2}|||||||||||||||||||||||||||{0}|{1}|||", h.S_36, h.S_37, h.S_10);
 
@@ -723,7 +733,7 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.FechaPago + "|");
         sb.Append(n.FechaInicialPago + "|");
         sb.Append(n.FechaFinalPago + "|");
-        sb.Append(n.NumDiasPagados + "|");
+        sb.Append(Decimal.ToInt32(n.NumDiasPagados.Value) + "|");
         sb.Append(n.TotalPercepciones + "|");
         sb.Append(n.TotalDeducciones + "|");
         sb.Append(n.TotalOtrosPagos);
@@ -744,7 +754,7 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.Receptor_CURP + "|");
         sb.Append(n.Receptor_NumSeguridadSocial + "|");
         sb.Append(n.Receptor_FechaInicioRelLaboral + "|");
-        sb.Append(n.Receptor_Antiguedad + "|");
+        sb.Append("P" + n.Receptor_Antiguedad + "W|");
         sb.Append(n.c_TipoContrato.Value + "|");
         sb.Append(n.Receptor_Sindicalizado + "|");
         try
@@ -792,26 +802,50 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.Percepciones_TotalExento);
         sb.Append(Environment.NewLine);
 
-        var ps = (from per in db.TE_Percepcion where per.nominaId == n.nominaId select per).DefaultIfEmpty();
+        var ps = (from per in db.TE_Percepcion where per.nominaId == n.nominaId && per.c_TipoPercepcion != 19 select per).DefaultIfEmpty();
         foreach (TE_Percepcion p in ps)
         {
-          sb.Append("[Percepcion]" + "|");
-          try
+          string tipoPercep = string.Empty;
+          try { tipoPercep = p.c_TipoPercepcion1.Value; }
+          catch { tipoPercep = string.Empty; }
+
+          if (tipoPercep.Trim() != "19")   // En el siguiente nodo incluiremos Horas Extra, lo excluimos de éste para evitar duplicidad
           {
-            sb.Append(p.c_TipoPercepcion1.Value + "|");
+            sb.Append("[Percepcion]" + "|");
+
+            sb.Append(tipoPercep + "|");
+
+            sb.Append(p.Clave + "|");
+            sb.Append(p.Concepto + "|");
+            sb.Append(p.ImporteGravado + "|");
+            sb.Append(p.ImporteExcento);
+            sb.Append(Environment.NewLine);
           }
-          catch
-          {
-            sb.Append("|");
-          }
-          sb.Append(p.Clave + "|");
-          sb.Append(p.Concepto + "|");
-          sb.Append(p.ImporteGravado + "|");
-          sb.Append(p.ImporteExcento);
-          sb.Append(Environment.NewLine);
+        }
+        //[AccionesOTitulos] contained in TE_Percepcion, not implemented by now
+
+        //--- HORAS EXTRA
+        //------- Nodo Percepciones
+        var psHorasExtra = (from per in db.TE_Percepcion where per.nominaId == n.nominaId && per.c_TipoPercepcion == 19 select per).DefaultIfEmpty();
+        decimal heGravado = 0;
+        decimal heExcento = 0;
+        foreach (TE_Percepcion phe in psHorasExtra)
+        {
+          heGravado += phe.ImporteGravado.Value;
+          heExcento += phe.ImporteExcento.Value;
         }
 
-        //[AccionesOTitulos] contained in TE_Percepcion, not implemented by now
+        sb.Append("[Percepcion]" + "|");
+
+        sb.Append("19|");
+
+        sb.Append("1020|");
+        sb.Append("Horas Extra|");
+        sb.Append(heGravado + "|");
+        sb.Append(heExcento);
+        sb.Append(Environment.NewLine);
+
+
 
         IQueryable<TE_Percepcion_HorasExtra> hes = (from horexts in db.TE_Percepcion_HorasExtra where horexts.TE_Percepcion.nominaId == n.nominaId select horexts).DefaultIfEmpty();
         if (!(hes.Count() == 1 && hes.First() == null))
@@ -820,7 +854,7 @@ namespace AvantCraftXML2TXTLib
           {
             sb.Append("[HorasExtra]" + "|");
             sb.Append(he.Dias + "|");
-            sb.Append(he.c_TipoHoras1.c_TipoHoras1 + "|");
+            sb.Append("0" + he.c_TipoHoras1.c_TipoHoras1 + "|");  // FIXED 1st "0"
             sb.Append(he.HorasExtra + "|");
             sb.Append(he.ImportePagado);
             sb.Append(Environment.NewLine);
