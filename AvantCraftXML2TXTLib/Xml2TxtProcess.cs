@@ -1,12 +1,9 @@
 ﻿using dataaccessXML2TXT;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Data.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace AvantCraftXML2TXTLib
@@ -267,6 +264,10 @@ namespace AvantCraftXML2TXTLib
         dbNO.FechaInicialPago = NO_07;
         string NO_08 = complemento_nomina.Attribute("FechaFinalPago").Value;
         dbNO.FechaFinalPago = NO_08;
+
+
+
+
         //string NO_09 = d2s(s2d(complemento_nomina.Attribute("NumDiasPagados").Value));
         dbNO.NumDiasPagados = s2d(complemento_nomina.Attribute("NumDiasPagados").Value);
         string NO_10 = "";
@@ -282,6 +283,9 @@ namespace AvantCraftXML2TXTLib
         string NO_18 = complemento_nomina.Attribute("PeriodicidadPago").Value;
         dbNO.Receptor_PeriodicidadPago = NO_18;
         dbNO.Receptor_c_PeriodicidadPago = getClavePeriodidicadPago(NO_18);
+
+        setPeriodo(NO_08, NO_18);  // NO_08 = FechaFinalPago    NO_18 = quincenal/Semanal
+        
 
         //string NO_19 = (complemento_nomina.Attribute("SalarioBaseCotApor") != null) ? d2s(s2d(complemento_nomina.Attribute("SalarioBaseCotApor").Value)) : "0.00"; //3
         dbNO.Receptor_SalarioBaseCotApor = (complemento_nomina.Attribute("SalarioBaseCotApor") != null) ? s2d(complemento_nomina.Attribute("SalarioBaseCotApor").Value) : s2d("0.00"); //3
@@ -339,6 +343,11 @@ namespace AvantCraftXML2TXTLib
             //p = percepcion.Element(nomina + "Percepcion");
             PE_1 = percepcion.Attribute("TipoPercepcion").Value;
 
+            //find c_TipoPercepcion ID
+            c_TipoPercepcion ctp = (from p in db.c_TipoPercepcion where p.Value == PE_1 select p).FirstOrDefault();
+            if (ctp != null) dbPE.c_TipoPercepcion = ctp.c_TipoPercepcion1;
+            else dbPE.c_TipoPercepcion = 1;
+
             dbPE.TipoPercepcion = PE_1;
             PE_2 = percepcion.Attribute("Clave").Value;
             dbPE.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
@@ -392,6 +401,12 @@ namespace AvantCraftXML2TXTLib
 
             //p = deduccion.Element(nomina + "Deduccion");
             DE_1 = deduccion.Attribute("TipoDeduccion").Value;
+
+            //find c_TipoDeduccion ID
+            c_TipoDeduccion ctd = (from p in db.c_TipoDeduccion where p.Value == DE_1 select p).FirstOrDefault();
+            if (ctd != null) dbDE.c_TipoDeduccion = ctd.c_TipoDeduccion1;
+            else dbDE.c_TipoDeduccion = 1;
+
             dbDE.TipoDeduccion = DE_1;
             DE_2 = deduccion.Attribute("Clave").Value;
             dbDE.Clave = DE_2;
@@ -443,6 +458,7 @@ namespace AvantCraftXML2TXTLib
             dbIN.DiasIncapacidad = Decimal.ToInt32(s2d(incapacidad.Attribute("DiasIncapacidad").Value));//Int32.Parse(d2s(s2d(incapacidad.Attribute("DiasIncapacidad").Value)));
             IN_2 = incapacidad.Attribute("TipoIncapacidad").Value;
             dbIN.TipoIncapacidad = IN_2;
+            dbIN.c_TipoIncapacidad = double.Parse(IN_2);
             IN_3 = d2s(s2d(incapacidad.Attribute("Descuento").Value));
             dbIN.ImporteMonetario = s2d(incapacidad.Attribute("Descuento").Value);
 
@@ -494,7 +510,23 @@ namespace AvantCraftXML2TXTLib
 
             //dbPEHE.Dias = Int32.Parse(HE_1);
             dbPEHE.Dias = 1;                           //FIXED
+
             dbPEHE.TipoHoras = HE_2;
+            switch (HE_2)
+            {
+              case "Dobles":
+                dbPEHE.c_TipoHoras = 1;
+                break;
+              case "Triples":
+                dbPEHE.c_TipoHoras = 2;
+                break;
+              case "Simples":
+                dbPEHE.c_TipoHoras = 3;
+                break;
+              default:
+                dbPEHE.c_TipoHoras = 1;
+                break;
+            }
             dbPEHE.HorasExtra = Int32.Parse(HE_3);
             dbPEHE.ImportePagado = s2d(he.Attribute("ImportePagado").Value);
 
@@ -552,7 +584,7 @@ namespace AvantCraftXML2TXTLib
             db.SaveChanges();
           }
         }
-        //--c_TipoHoras
+        //-- c_TipoHoras
         IQueryable<TE_Percepcion_HorasExtra> hexs = (from hexss in db.TE_Percepcion_HorasExtra where hexss.TE_Percepcion.nominaId == dbNO.nominaId select hexss).DefaultIfEmpty();
         if (!(hexs.Count() == 1 && hexs.First() == null))
         {
@@ -574,7 +606,7 @@ namespace AvantCraftXML2TXTLib
           }
         }
 
-        //--c_TipoDeduccion
+        //-- c_TipoDeduccion
         IQueryable<TE_Deduccion> dexs = (from d in db.TE_Deduccion where d.nominaId == dbNO.nominaId select d).DefaultIfEmpty();
         if (!(dexs.Count() == 1 && dexs.First() == null))
         {
@@ -596,7 +628,7 @@ namespace AvantCraftXML2TXTLib
           }
         }
 
-        //--c_TipoIncapacidad
+        //-- c_TipoIncapacidad
         IQueryable<TE_Incapacidad> incs = (from d in db.TE_Incapacidad where d.nominaId == dbNO.nominaId select d).DefaultIfEmpty();
         if (!(incs.Count() == 1 && incs.First() == null))
         {
@@ -618,6 +650,24 @@ namespace AvantCraftXML2TXTLib
           }
         }
       } // end if found
+    }
+
+    private static void setPeriodo(string FechaFinalPago, string periodicidad)  // NO_08 = yyyy-MM-dd    periodicidad = quincenal/Semanal
+    {
+      string returnPeriodo = "NOTFOUND";
+      
+      switch (FechaFinalPago)
+      {
+        case "2017-01-08":
+          if(periodicidad == "Semanal") returnPeriodo = "S012017";
+          break;
+        case "2017-01-15":
+          if (periodicidad == "Semanal") returnPeriodo = "S022017";
+          else returnPeriodo = "Q012017";
+          break;
+        default:
+          break;
+      }
     }
 
     //---------------------------------------------------------------------------+
@@ -692,9 +742,9 @@ namespace AvantCraftXML2TXTLib
     }
 
     //----------------------------------------------------------------------
-    public void GetComplementaryDataFromExcel(bool chkCargaSubcontratacion, bool chkFijos)
+    public void GetComplementaryDataFromExcel(bool chkCargaSubcontratacion, bool chkFijos, string aPeriodo)
     {
-      GetComplementaryData.Load(chkCargaSubcontratacion, chkFijos);
+      GetComplementaryData.Load(chkCargaSubcontratacion, chkFijos, aPeriodo);
     }
 
     //----------------------------------------------------------------------
@@ -754,7 +804,22 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.Receptor_CURP + "|");
         sb.Append(n.Receptor_NumSeguridadSocial + "|");
         sb.Append(n.Receptor_FechaInicioRelLaboral + "|");
-        sb.Append("P" + n.Receptor_Antiguedad + "W|");
+
+        //------------------------------
+        //sb.Append("P" + n.Receptor_Antiguedad + "W|");    // calculate ANTIGUEDAD    --------------------
+
+        DateTime fechFin = DateTime.MinValue;
+        DateTime.TryParseExact(n.FechaFinalPago, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out fechFin);
+
+        DateTime FechIni = DateTime.MinValue;
+        DateTime.TryParseExact(n.Receptor_FechaInicioRelLaboral, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out FechIni);
+
+
+        double weeksDbl = Math.Floor((FechIni - fechFin).TotalDays / 7);
+        sb.Append("P" + Convert.ToInt32(weeksDbl) + "W|");
+
+        //---------------------------------
+
         sb.Append(n.c_TipoContrato.Value + "|");
         sb.Append(n.Receptor_Sindicalizado + "|");
         try
@@ -771,7 +836,8 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.Receptor_Puesto + "|");
         try
         {
-          sb.Append(n.c_RiesgoPuesto.c_RiesgoPuesto1 + "|");
+          //sb.Append(n.c_RiesgoPuesto.c_RiesgoPuesto1 + "|");
+          sb.Append((n.Emisor_RfcPatronOrigen == "SAI091203MU3") ?"3":"1");   // condicionado al pagador  SAI = 3, TSP = 1
         }
         catch
         {
@@ -809,7 +875,7 @@ namespace AvantCraftXML2TXTLib
           try { tipoPercep = p.c_TipoPercepcion1.Value; }
           catch { tipoPercep = string.Empty; }
 
-          if (tipoPercep.Trim() != "19")   // En el siguiente nodo incluiremos Horas Extra, lo excluimos de éste para evitar duplicidad
+          if (tipoPercep.Trim() != "019")   // En el siguiente nodo incluiremos Horas Extra, lo excluimos de éste para evitar duplicidad
           {
             sb.Append("[Percepcion]" + "|");
 
@@ -826,41 +892,43 @@ namespace AvantCraftXML2TXTLib
 
         //--- HORAS EXTRA
         //------- Nodo Percepciones
-        var psHorasExtra = (from per in db.TE_Percepcion where per.nominaId == n.nominaId && per.c_TipoPercepcion == 19 select per).DefaultIfEmpty();
-        decimal heGravado = 0;
-        decimal heExcento = 0;
-        foreach (TE_Percepcion phe in psHorasExtra)
+        IQueryable<TE_Percepcion> psHorasExtra = (from perHEX in db.TE_Percepcion where perHEX.nominaId == n.nominaId && perHEX.c_TipoPercepcion == 19 && perHEX.Clave != "REMPLAZO" select perHEX).DefaultIfEmpty();
+        if (!(psHorasExtra.Count() == 1 && psHorasExtra.First() == null))
         {
-          heGravado += phe.ImporteGravado.Value;
-          heExcento += phe.ImporteExcento.Value;
-        }
-
-        sb.Append("[Percepcion]" + "|");
-
-        sb.Append("19|");
-
-        sb.Append("1020|");
-        sb.Append("Horas Extra|");
-        sb.Append(heGravado + "|");
-        sb.Append(heExcento);
-        sb.Append(Environment.NewLine);
-
-
-
-        IQueryable<TE_Percepcion_HorasExtra> hes = (from horexts in db.TE_Percepcion_HorasExtra where horexts.TE_Percepcion.nominaId == n.nominaId select horexts).DefaultIfEmpty();
-        if (!(hes.Count() == 1 && hes.First() == null))
-        {
-          foreach (TE_Percepcion_HorasExtra he in hes)
+          decimal heGravado = 0;
+          decimal heExcento = 0;
+          foreach (TE_Percepcion phe in psHorasExtra)
           {
-            sb.Append("[HorasExtra]" + "|");
-            sb.Append(he.Dias + "|");
-            sb.Append("0" + he.c_TipoHoras1.c_TipoHoras1 + "|");  // FIXED 1st "0"
-            sb.Append(he.HorasExtra + "|");
-            sb.Append(he.ImportePagado);
-            sb.Append(Environment.NewLine);
+            heGravado += phe.ImporteGravado.Value;
+            heExcento += phe.ImporteExcento.Value;
+          }
+
+          sb.Append("[Percepcion]" + "|");
+
+          sb.Append("019|");
+
+          sb.Append("1020|");
+          sb.Append("Horas Extra|");
+          sb.Append(heGravado + "|");
+          sb.Append(heExcento);
+          sb.Append(Environment.NewLine);
+
+
+
+          IQueryable<TE_Percepcion_HorasExtra> hes = (from horexts in db.TE_Percepcion_HorasExtra where horexts.TE_Percepcion.nominaId == n.nominaId select horexts).DefaultIfEmpty();
+          if (!(hes.Count() == 1 && hes.First() == null))
+          {
+            foreach (TE_Percepcion_HorasExtra he in hes)
+            {
+              sb.Append("[HorasExtra]" + "|");
+              sb.Append(he.Dias + "|");
+              sb.Append("0" + he.c_TipoHoras1.c_TipoHoras1 + "|");  // FIXED 1st "0"
+              sb.Append(he.HorasExtra + "|");
+              sb.Append(he.ImportePagado);
+              sb.Append(Environment.NewLine);
+            }
           }
         }
-
         //[JubilacionPensionRetiro]  To implement
         //[SeparacionIndemnizacion]  To implement
 
@@ -917,7 +985,7 @@ namespace AvantCraftXML2TXTLib
           {
             sb.Append("[Incapacidad]" + "|");
             sb.Append(i.DiasIncapacidad + "|");
-            sb.Append(i.c_TipoIncapacidad1.c_TipoIncapacidad1 + "|");
+            sb.Append("0" + i.c_TipoIncapacidad1.c_TipoIncapacidad1 + "|");
             sb.Append(i.ImporteMonetario);
             sb.Append(Environment.NewLine);
           }

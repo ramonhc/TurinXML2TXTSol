@@ -53,12 +53,14 @@
       // 
       // button1
       // 
+      this.button1.BackColor = System.Drawing.Color.Black;
+      this.button1.ForeColor = System.Drawing.Color.Yellow;
       this.button1.Location = new System.Drawing.Point(9, 221);
       this.button1.Name = "button1";
       this.button1.Size = new System.Drawing.Size(293, 23);
       this.button1.TabIndex = 0;
       this.button1.Text = "Load Payroll from XML";
-      this.button1.UseVisualStyleBackColor = true;
+      this.button1.UseVisualStyleBackColor = false;
       this.button1.Click += new System.EventHandler(this.button1_Click);
       // 
       // label1
@@ -87,7 +89,7 @@
       // 
       this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
       this.pictureBox1.Location = new System.Drawing.Point(18, 9);
-      this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
       this.pictureBox1.Name = "pictureBox1";
       this.pictureBox1.Size = new System.Drawing.Size(273, 184);
       this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -97,7 +99,7 @@
       // button3
       // 
       this.button3.Location = new System.Drawing.Point(9, 297);
-      this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.button3.Margin = new System.Windows.Forms.Padding(2);
       this.button3.Name = "button3";
       this.button3.Size = new System.Drawing.Size(292, 25);
       this.button3.TabIndex = 4;
@@ -110,9 +112,9 @@
       this.groupBox1.BackColor = System.Drawing.SystemColors.HotTrack;
       this.groupBox1.Controls.Add(this.label1);
       this.groupBox1.Location = new System.Drawing.Point(10, 382);
-      this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
       this.groupBox1.Size = new System.Drawing.Size(510, 50);
       this.groupBox1.TabIndex = 5;
       this.groupBox1.TabStop = false;
@@ -121,13 +123,15 @@
       // 
       // button4
       // 
+      this.button4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+      this.button4.ForeColor = System.Drawing.SystemColors.Control;
       this.button4.Location = new System.Drawing.Point(9, 258);
-      this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.button4.Margin = new System.Windows.Forms.Padding(2);
       this.button4.Name = "button4";
       this.button4.Size = new System.Drawing.Size(292, 25);
       this.button4.TabIndex = 6;
       this.button4.Text = "Load Complementary Data";
-      this.button4.UseVisualStyleBackColor = true;
+      this.button4.UseVisualStyleBackColor = false;
       this.button4.Click += new System.EventHandler(this.button4_Click);
       // 
       // boxSeleccion
@@ -135,9 +139,9 @@
       this.boxSeleccion.Controls.Add(this.chkFijos);
       this.boxSeleccion.Controls.Add(this.chkCargaSubcontratacion);
       this.boxSeleccion.Location = new System.Drawing.Point(320, 22);
-      this.boxSeleccion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.boxSeleccion.Margin = new System.Windows.Forms.Padding(2);
       this.boxSeleccion.Name = "boxSeleccion";
-      this.boxSeleccion.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.boxSeleccion.Padding = new System.Windows.Forms.Padding(2);
       this.boxSeleccion.Size = new System.Drawing.Size(200, 88);
       this.boxSeleccion.TabIndex = 7;
       this.boxSeleccion.TabStop = false;
@@ -149,7 +153,7 @@
       this.chkFijos.Checked = true;
       this.chkFijos.CheckState = System.Windows.Forms.CheckState.Checked;
       this.chkFijos.Location = new System.Drawing.Point(12, 50);
-      this.chkFijos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.chkFijos.Margin = new System.Windows.Forms.Padding(2);
       this.chkFijos.Name = "chkFijos";
       this.chkFijos.Size = new System.Drawing.Size(78, 17);
       this.chkFijos.TabIndex = 1;
@@ -162,7 +166,7 @@
       this.chkCargaSubcontratacion.Checked = true;
       this.chkCargaSubcontratacion.CheckState = System.Windows.Forms.CheckState.Checked;
       this.chkCargaSubcontratacion.Location = new System.Drawing.Point(12, 28);
-      this.chkCargaSubcontratacion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.chkCargaSubcontratacion.Margin = new System.Windows.Forms.Padding(2);
       this.chkCargaSubcontratacion.Name = "chkCargaSubcontratacion";
       this.chkCargaSubcontratacion.Size = new System.Drawing.Size(105, 17);
       this.chkCargaSubcontratacion.TabIndex = 0;
@@ -186,9 +190,9 @@
       this.groupBox2.Controls.Add(this.label2);
       this.groupBox2.Controls.Add(this.txtPeriodo);
       this.groupBox2.Location = new System.Drawing.Point(320, 148);
-      this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
       this.groupBox2.Size = new System.Drawing.Size(199, 72);
       this.groupBox2.TabIndex = 9;
       this.groupBox2.TabStop = false;
@@ -207,7 +211,7 @@
       // txtPeriodo
       // 
       this.txtPeriodo.Location = new System.Drawing.Point(14, 30);
-      this.txtPeriodo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.txtPeriodo.Margin = new System.Windows.Forms.Padding(2);
       this.txtPeriodo.Name = "txtPeriodo";
       this.txtPeriodo.Size = new System.Drawing.Size(100, 20);
       this.txtPeriodo.TabIndex = 0;

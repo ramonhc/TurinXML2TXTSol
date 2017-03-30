@@ -13,13 +13,13 @@ namespace AvantCraftXML2TXTLib
 {
   public class GetComplementaryData
   {
-    public static void Load(bool chkCargaSubcontratacion, bool chkFijos)
+    public static void Load(bool chkCargaSubcontratacion, bool chkFijos, string aPeriodo)
     {
       string LayOutsFolder = ConfigurationManager.AppSettings["LayOutsFolder"].ToString();
       bool exists = System.IO.Directory.Exists(LayOutsFolder);
       if (!exists) System.IO.Directory.CreateDirectory(LayOutsFolder);
 
-      FileStream stream = File.Open(LayOutsFolder + "LayOutComplementariosS012017.xlsx", FileMode.Open, FileAccess.Read);
+      FileStream stream = File.Open(LayOutsFolder + "LayOutComplementarios" + aPeriodo + ".xlsx", FileMode.Open, FileAccess.Read);
       IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
       excelReader.IsFirstRowAsColumnNames = true;
       DataSet result = excelReader.AsDataSet();
@@ -65,7 +65,7 @@ namespace AvantCraftXML2TXTLib
           //ADD NEW
           TC_DatosFijosPorEmpleado s = new TC_DatosFijosPorEmpleado();
           s.rfcEmpleado = rfcEmpleado;
-          s.Sindicalizado = r["Sindicalizado"].ToString();
+          s.Sindicalizado = r["Sindicalizado(SI/NO)"].ToString();
           s.c_TipoJornada = r["c_TipoJornada"].ToString();
           s.Departamento = r["Departamento"].ToString();
           s.c_RiesgoPuesto = r["c_RiesgoPuesto"].ToString();
@@ -78,28 +78,34 @@ namespace AvantCraftXML2TXTLib
         }
       }
 
+
       //--->>>
+      /*
       foreach (DataRow r in result.Tables["camposNuevos"].Rows)
       {
         //Get Record and validate
-        string periodo = r["periodo"].ToString();
-        string Num_Emp = r["Num_Emp"].ToString();
+        string periodo = r["nominaId"].ToString();  // Periodo ej: S012017
+        string Num_Emp = r["Num Emp."].ToString();
         TE_Nomina n = (from a in db.TE_Nomina where a.periodo == periodo && a.Receptor_NumEmpleado == Num_Emp select a).FirstOrDefault();
         if (n != null)
         {
-          n.c_TipoNomina = r["c_TipoNomina"].ToString();
+          n.c_TipoNomina = r["c_TipoNomina"].ToString();                                                           // IN AppConfig: <add key = "c_TipoNomina" value="O" />
           n.TotalPercepciones = Utils.s2d(r["TotalPercepciones"].ToString());
           n.TotalDeducciones = Utils.s2d(r["TotalDeducciones"].ToString());
           n.TotalOtrosPagos = Utils.s2d(r["TotalOtrosPagos"].ToString());
-          n.Emisor_EntidadSNCF_c_OrigenRecurso = r["c_OrigenRecurso"].ToString();
+          n.Emisor_EntidadSNCF_c_OrigenRecurso = r["c_OrigenRecurso"].ToString();                                  // IN AppConfig: <add key = "c_OrigenRecurso" value="IP" />
           n.Emisor_EntidadSNCF_MontoRecursoPropio = Utils.s2d(r["MontoRecursoPropio"].ToString());
-          n.Receptor_Antiguedad = r["Antiguedad"].ToString();
-          n.Receptor_c_TipoContrato = double.Parse(r["c_TipoContrato"].ToString());
+          n.Receptor_Antiguedad = r["Antigüedad"].ToString();                                                      // Calculated in code
+          n.Receptor_c_TipoContrato = double.Parse(r["c_TipoContrato"].ToString());                                // IN AppConfig: <add key = "c_TipoContrato" value="1" />
           n.Percepciones_TotalSueldos = Utils.s2d(r["TotalSueldos"].ToString());
           n.Percepciones_TotalSeparacionIndemnizacion = Utils.s2d(r["TotalSeparacionIndemnizacion"].ToString());
           n.Percepciones_TotalJubilacionPensionRetiro = Utils.s2d(r["TotalJubilacionPensionRetiro"].ToString());
         }
-      }
+      }  
+      */
     }
   }
 }
+    
+    
+    

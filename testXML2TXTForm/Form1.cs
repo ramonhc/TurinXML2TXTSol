@@ -59,7 +59,14 @@ namespace testXML2TXTForm
     {
       Xml2TxtProcess obj = new Xml2TxtProcess();
       label1.Text = "Getting Complementary Data...!";
-      obj.GetComplementaryDataFromExcel(chkCargaSubcontratacion.Checked, chkFijos.Checked);
+
+      if (txtPeriodo.Text.Trim() == string.Empty)
+      {
+        label1.Text = "FALTA EL PERIODO!!!!!";
+        return;
+      }
+
+      obj.GetComplementaryDataFromExcel(chkCargaSubcontratacion.Checked, chkFijos.Checked, txtPeriodo.Text);
       label1.Text = "Done!";
     }
 
