@@ -36,18 +36,20 @@ namespace AvantCraftXML2TXTLib
         if (chkCargaSubcontratacion)
         {
           //VALIDATE (if exists then remove)
-          TC_Subcontratacion isthere = (from a in db.TC_Subcontratacion where a.RfcEmpleado == rfcEmpleado && a.RfcLabora == RfcLabora select a).FirstOrDefault();
+          TC_Subcontratacion isthere = (from a in db.TC_Subcontratacion where a.RfcEmpleado == rfcEmpleado && a.RfcLabora == RfcLabora && a.txtPeriodo == aPeriodo select a).FirstOrDefault();
           if (isthere != null)
           {
             db.TC_Subcontratacion.Remove(isthere);
+            db.SaveChanges();
           }
 
           //ADD NEW
           TC_Subcontratacion s = new TC_Subcontratacion();
           s.RfcEmpleado = rfcEmpleado;
           s.RfcLabora = RfcLabora;
+          s.txtPeriodo = aPeriodo;
           s.PorcentajeTiempo = decimal.Parse(r["PorcentajeTiempo"].ToString());
-
+          s.txtPeriodo = aPeriodo;
           db.TC_Subcontratacion.Add(s);
           db.SaveChanges();
         }
@@ -56,10 +58,11 @@ namespace AvantCraftXML2TXTLib
         if (chkFijos)
         {
           //VALIDATE (if exists then remove)
-          TC_DatosFijosPorEmpleado isthere = (from a in db.TC_DatosFijosPorEmpleado where a.rfcEmpleado == rfcEmpleado select a).FirstOrDefault();
+          TC_DatosFijosPorEmpleado isthere = (from a in db.TC_DatosFijosPorEmpleado where a.rfcEmpleado == rfcEmpleado && a.txtPeriodo == aPeriodo select a).FirstOrDefault();
           if (isthere != null)
           {
             db.TC_DatosFijosPorEmpleado.Remove(isthere);
+            db.SaveChanges();
           }
 
           //ADD NEW
@@ -72,7 +75,7 @@ namespace AvantCraftXML2TXTLib
           s.c_Banco = r["c_Banco"].ToString();
           s.CuentaBancaria = r["CuentaBancaria"].ToString();
           s.c_Estado = r["c_Estado"].ToString();
-
+          s.txtPeriodo = aPeriodo;
           db.TC_DatosFijosPorEmpleado.Add(s);
           db.SaveChanges();
         }

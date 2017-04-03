@@ -143,6 +143,7 @@
           <Property Name="c_Banco" Type="nvarchar" MaxLength="50" />
           <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="50" />
           <Property Name="c_Estado" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtPeriodo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TC_Subcontratacion">
           <Key>
@@ -152,6 +153,7 @@
           <Property Name="RfcEmpleado" Type="nvarchar" MaxLength="50" />
           <Property Name="RfcLabora" Type="nvarchar" MaxLength="50" />
           <Property Name="PorcentajeTiempo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="txtPeriodo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TE_Deduccion">
           <Key>
@@ -1508,6 +1510,7 @@
           <Property Name="RfcEmpleado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RfcLabora" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PorcentajeTiempo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TC_DatosFijosPorEmpleado">
           <Key>
@@ -1522,6 +1525,7 @@
           <Property Name="c_Banco" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CuentaBancaria" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="c_Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1871,6 +1875,7 @@
           <EntitySetMapping Name="TC_Subcontratacion">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_Subcontratacion">
               <MappingFragment StoreEntitySet="TC_Subcontratacion">
+                <ScalarProperty Name="txtPeriodo" ColumnName="txtPeriodo" />
                 <ScalarProperty Name="PorcentajeTiempo" ColumnName="PorcentajeTiempo" />
                 <ScalarProperty Name="RfcLabora" ColumnName="RfcLabora" />
                 <ScalarProperty Name="RfcEmpleado" ColumnName="RfcEmpleado" />
@@ -1881,6 +1886,7 @@
           <EntitySetMapping Name="TC_DatosFijosPorEmpleado">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_DatosFijosPorEmpleado">
               <MappingFragment StoreEntitySet="TC_DatosFijosPorEmpleado">
+                <ScalarProperty Name="txtPeriodo" ColumnName="txtPeriodo" />
                 <ScalarProperty Name="c_Estado" ColumnName="c_Estado" />
                 <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
                 <ScalarProperty Name="c_Banco" ColumnName="c_Banco" />

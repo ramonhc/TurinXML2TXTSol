@@ -23,5 +23,6 @@ namespace dataaccessXML2TXT
         public string c_Banco { get; set; }
         public string CuentaBancaria { get; set; }
         public string c_Estado { get; set; }
+        public string txtPeriodo { get; set; }
     }
 }

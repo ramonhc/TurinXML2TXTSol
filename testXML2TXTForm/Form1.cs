@@ -23,7 +23,14 @@ namespace testXML2TXTForm
     {
       Xml2TxtProcess obj = new Xml2TxtProcess();
       label1.Text = "Loading Payrol from XML...!";
-      obj.Processfiles();
+
+      if (txtPeriodo.Text.Trim() == string.Empty)
+      {
+        label1.Text = "FALTA EL PERIODO!!!!!";
+        return;
+      }
+
+      obj.Processfiles(txtPeriodo.Text);
       label1.Text = "Done!";
     }
 

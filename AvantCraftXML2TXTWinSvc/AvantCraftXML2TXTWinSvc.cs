@@ -50,7 +50,7 @@ namespace AvantCraftXML2TXTWinSvc
       try
       {
         Xml2TxtProcess obj = new Xml2TxtProcess();
-        obj.Processfiles();
+//        obj.Processfiles();                              //---------------- REVIEW!!!!!!!!!!!!!!!!!!!
       }
       catch (Exception ex)
       {

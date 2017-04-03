@@ -16,28 +16,28 @@ namespace AvantCraftXML2TXTLib
 
 
     //----------------------------------------------------------------------------------------------------
-    public void Processfiles()
+    public void Processfiles(string txtPeriodo)
     {
-      DirectoryInfo dir = new DirectoryInfo(GetConfigurationValues("dirXML"));
+      DirectoryInfo dir = new DirectoryInfo(GetConfigurationValues("dirXML") + txtPeriodo + "\\");
       FileInfo[] files;
 
       files = dir.GetFiles("*.xml");
 
       foreach (FileInfo file in files)
       {
-        string bkpDtmFolder = GetConfigurationValues("BackupFolder") + DateTime.Now.ToString("yyyyMMdd") + "\\";
-        bool exists3 = System.IO.Directory.Exists(bkpDtmFolder);
-        if (!exists3) System.IO.Directory.CreateDirectory(bkpDtmFolder);
+        string bkpDtmFolder = GetConfigurationValues("BackupFolder") + txtPeriodo + "\\" + DateTime.Now.ToString("yyyyMMdd") + "\\";
+        bool exists3 = System.IO.Directory.Exists(bkpDtmFolder + txtPeriodo + "\\");
+        if (!exists3) System.IO.Directory.CreateDirectory(bkpDtmFolder + txtPeriodo + "\\");
 
         file.CopyTo(bkpDtmFolder + file.Name, true);
-        ParseXml(file);
+        ParseXml(file, txtPeriodo);
         file.Delete();
       }
     }
 
     //----------------------------------------------------------------------------------------------------
 
-    private static void ParseXml(FileInfo file)
+    private static void ParseXml(FileInfo file, string txtPeriodo)
     {
       AvantCraft_nomina2017Entities db = new AvantCraft_nomina2017Entities();
       //----------------------------------------------------------------------------------------------------
@@ -284,8 +284,9 @@ namespace AvantCraftXML2TXTLib
         dbNO.Receptor_PeriodicidadPago = NO_18;
         dbNO.Receptor_c_PeriodicidadPago = getClavePeriodidicadPago(NO_18);
 
-        setPeriodo(NO_08, NO_18);  // NO_08 = FechaFinalPago    NO_18 = quincenal/Semanal
-        
+        //dbNO.periodo = setPeriodo(NO_08, NO_18);  // NO_08 = FechaFinalPago    NO_18 = quincenal/Semanal
+        dbNO.periodo = txtPeriodo;
+
 
         //string NO_19 = (complemento_nomina.Attribute("SalarioBaseCotApor") != null) ? d2s(s2d(complemento_nomina.Attribute("SalarioBaseCotApor").Value)) : "0.00"; //3
         dbNO.Receptor_SalarioBaseCotApor = (complemento_nomina.Attribute("SalarioBaseCotApor") != null) ? s2d(complemento_nomina.Attribute("SalarioBaseCotApor").Value) : s2d("0.00"); //3
@@ -337,28 +338,41 @@ namespace AvantCraftXML2TXTLib
 
           foreach (var percepcion in complemento_nomina_percepciones_coll)
           {
-            TE_Percepcion dbPE = new TE_Percepcion();
-            dbPE.nominaId = dbNO.nominaId;
-
-            //p = percepcion.Element(nomina + "Percepcion");
             PE_1 = percepcion.Attribute("TipoPercepcion").Value;
-
-            //find c_TipoPercepcion ID
-            c_TipoPercepcion ctp = (from p in db.c_TipoPercepcion where p.Value == PE_1 select p).FirstOrDefault();
-            if (ctp != null) dbPE.c_TipoPercepcion = ctp.c_TipoPercepcion1;
-            else dbPE.c_TipoPercepcion = 1;
-
-            dbPE.TipoPercepcion = PE_1;
             PE_2 = percepcion.Attribute("Clave").Value;
-            dbPE.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
             PE_3 = percepcion.Attribute("Concepto").Value;
-            dbPE.Concepto = PE_3;
             PE_4 = d2s(s2d(percepcion.Attribute("ImporteGravado").Value));
-            dbPE.ImporteGravado = s2d(percepcion.Attribute("ImporteGravado").Value);
             PE_5 = d2s(s2d(percepcion.Attribute("ImporteExento").Value));
-            dbPE.ImporteExcento = s2d(percepcion.Attribute("ImporteExento").Value);
 
-            db.TE_Percepcion.Add(dbPE);
+            if (PE_1 != "017")   // en caso de ser = 17, es un Subsidio, debe considerarse en: TE_OtroPago
+            {
+              TE_Percepcion dbPE = new TE_Percepcion();
+              dbPE.nominaId = dbNO.nominaId;
+
+              //p = percepcion.Element(nomina + "Percepcion");
+              //find c_TipoPercepcion ID
+              c_TipoPercepcion ctp = (from p in db.c_TipoPercepcion where p.Value == PE_1 select p).FirstOrDefault();
+              if (ctp != null) dbPE.c_TipoPercepcion = ctp.c_TipoPercepcion1;
+              else dbPE.c_TipoPercepcion = 1;
+
+              dbPE.TipoPercepcion = PE_1;
+              dbPE.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
+              dbPE.Concepto = PE_3;
+              dbPE.ImporteGravado = s2d(percepcion.Attribute("ImporteGravado").Value);
+              dbPE.ImporteExcento = s2d(percepcion.Attribute("ImporteExento").Value);
+
+              db.TE_Percepcion.Add(dbPE);
+            }else
+            {
+              TE_OtroPago dbOP = new TE_OtroPago();
+              dbOP.nominaId = dbNO.nominaId;
+              dbOP.c_TipoOtroPago = 2;  //subsidio, debe ser 002
+              dbOP.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
+              dbOP.Concepto = PE_3;
+              dbOP.Importe = s2d(percepcion.Attribute("ImporteExento").Value);
+              db.TE_OtroPago.Add(dbOP);
+            }
+
             db.SaveChanges();
           }
 
@@ -403,7 +417,7 @@ namespace AvantCraftXML2TXTLib
             DE_1 = deduccion.Attribute("TipoDeduccion").Value;
 
             //find c_TipoDeduccion ID
-            c_TipoDeduccion ctd = (from p in db.c_TipoDeduccion where p.Value == DE_1 select p).FirstOrDefault();
+            c_TipoDeduccion ctd = (from p2 in db.c_TipoDeduccion where p2.Value == DE_1 select p2).FirstOrDefault();
             if (ctd != null) dbDE.c_TipoDeduccion = ctd.c_TipoDeduccion1;
             else dbDE.c_TipoDeduccion = 1;
 
@@ -535,14 +549,14 @@ namespace AvantCraftXML2TXTLib
           }
         }
 
-        //DATOS FIJOS
-        TC_DatosFijosPorEmpleado dfxe = (from c in db.TC_DatosFijosPorEmpleado where c.rfcEmpleado == dbHead.H4_03 select c).FirstOrDefault();
+        //----------- DATOS FIJOS  ------------- 
+        TC_DatosFijosPorEmpleado dfxe = (from c in db.TC_DatosFijosPorEmpleado where c.rfcEmpleado == dbHead.H4_03 && c.txtPeriodo == txtPeriodo select c).FirstOrDefault();
         dbNO.Receptor_c_Banco = double.Parse(dfxe.c_Banco);
         dbNO.Receptor_CuentaBancaria = dfxe.CuentaBancaria;
         dbNO.Receptor_c_ClaveEntFed = dfxe.c_Estado;
         db.SaveChanges();
         //SUBCONTRATACION
-        IQueryable<TC_Subcontratacion> sc = (from s in db.TC_Subcontratacion where s.RfcEmpleado == dbHead.H4_03 select s).DefaultIfEmpty();
+        IQueryable<TC_Subcontratacion> sc = (from s in db.TC_Subcontratacion where s.RfcEmpleado == dbHead.H4_03 && s.txtPeriodo == txtPeriodo select s).DefaultIfEmpty();
         if (!(sc.Count() == 1 && sc.First() == null))
         {
           foreach (TC_Subcontratacion s in sc)
@@ -581,8 +595,9 @@ namespace AvantCraftXML2TXTLib
                   break;
               }
             }
-            db.SaveChanges();
+
           }
+          db.SaveChanges();
         }
         //-- c_TipoHoras
         IQueryable<TE_Percepcion_HorasExtra> hexs = (from hexss in db.TE_Percepcion_HorasExtra where hexss.TE_Percepcion.nominaId == dbNO.nominaId select hexss).DefaultIfEmpty();
@@ -602,8 +617,9 @@ namespace AvantCraftXML2TXTLib
                 p.c_TipoHoras = 3;
                 break;
             }
-            db.SaveChanges();
+
           }
+          db.SaveChanges();
         }
 
         //-- c_TipoDeduccion
@@ -624,8 +640,9 @@ namespace AvantCraftXML2TXTLib
             {
               p.c_TipoDeduccion = 4;
             }
-            db.SaveChanges();
+
           }
+          db.SaveChanges();
         }
 
         //-- c_TipoIncapacidad
@@ -646,29 +663,32 @@ namespace AvantCraftXML2TXTLib
             {
               p.c_TipoIncapacidad = 2;
             }
-            db.SaveChanges();
+
           }
+          db.SaveChanges();
         }
       } // end if found
     }
 
-    private static void setPeriodo(string FechaFinalPago, string periodicidad)  // NO_08 = yyyy-MM-dd    periodicidad = quincenal/Semanal
-    {
-      string returnPeriodo = "NOTFOUND";
-      
-      switch (FechaFinalPago)
-      {
-        case "2017-01-08":
-          if(periodicidad == "Semanal") returnPeriodo = "S012017";
-          break;
-        case "2017-01-15":
-          if (periodicidad == "Semanal") returnPeriodo = "S022017";
-          else returnPeriodo = "Q012017";
-          break;
-        default:
-          break;
-      }
-    }
+    //private static string setPeriodo(string FechaFinalPago, string periodicidad)  // NO_08 = yyyy-MM-dd    periodicidad = quincenal/Semanal
+    //{
+    //  string returnPeriodo = "NOTFOUND";
+
+    //  switch (FechaFinalPago)
+    //  {
+    //    case "2017-01-08":
+    //      if (periodicidad == "Semanal") returnPeriodo = "S012017";
+    //      break;
+    //    case "2017-01-15":
+    //      if (periodicidad == "Semanal") returnPeriodo = "S022017";
+    //      else returnPeriodo = "Q012017";
+    //      break;
+    //    default:
+    //      break;
+    //  }
+
+    //  return returnPeriodo;
+    //}
 
     //---------------------------------------------------------------------------+
     private static decimal getRealDescuento(XElement root)
@@ -837,7 +857,7 @@ namespace AvantCraftXML2TXTLib
         try
         {
           //sb.Append(n.c_RiesgoPuesto.c_RiesgoPuesto1 + "|");
-          sb.Append((n.Emisor_RfcPatronOrigen == "SAI091203MU3") ?"3":"1");   // condicionado al pagador  SAI = 3, TSP = 1
+          sb.Append((n.Emisor_RfcPatronOrigen == "SAI091203MU3") ? "3" : "1");   // condicionado al pagador  SAI = 3, TSP = 1
         }
         catch
         {
@@ -962,7 +982,7 @@ namespace AvantCraftXML2TXTLib
           foreach (TE_OtroPago o in os)
           {
             sb.Append("[OtroPago]" + "|");
-            sb.Append(o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
+            sb.Append("00" + o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
             sb.Append(o.Clave + "|");
             sb.Append(o.Concepto + "|");
             sb.Append(o.Importe);
@@ -970,7 +990,25 @@ namespace AvantCraftXML2TXTLib
           }
         }
 
-        //[SubsidioAlEmpleo]  To implement
+        //[SubsidioAlEmpleo]  
+        var op = (from ops in db.TE_OtroPago where ops.nominaId == n.nominaId && ops.c_TipoOtroPago == 2 select ops).DefaultIfEmpty();
+        if (!(op.Count() == 1 && op.First() == null))
+        {
+          sb.Append("[SubsidioAlEmpleo]");
+          sb.Append(Environment.NewLine);
+
+          foreach (TE_OtroPago o in op)
+          {
+            sb.Append("[SubsidioCausado]" + "|");
+            sb.Append("00" + o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
+            sb.Append(o.Clave + "|");
+            sb.Append(o.Concepto + "|");
+            sb.Append(o.Importe);
+            sb.Append(Environment.NewLine);
+          }
+        }
+
+
         //[CompensacionSaldosAFavor]  To implement
 
 

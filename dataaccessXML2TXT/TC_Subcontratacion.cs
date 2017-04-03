@@ -18,5 +18,6 @@ namespace dataaccessXML2TXT
         public string RfcEmpleado { get; set; }
         public string RfcLabora { get; set; }
         public Nullable<decimal> PorcentajeTiempo { get; set; }
+        public string txtPeriodo { get; set; }
     }
 }
