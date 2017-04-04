@@ -145,6 +145,14 @@
           <Property Name="c_Estado" Type="nvarchar" MaxLength="50" />
           <Property Name="txtPeriodo" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="TC_RFC">
+          <Key>
+            <PropertyRef Name="rfcKey" />
+          </Key>
+          <Property Name="rfcKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="txyRfc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="bitValido" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="TC_Subcontratacion">
           <Key>
             <PropertyRef Name="subcontratacionId" />
@@ -637,6 +645,7 @@
           <EntitySet Name="c_TipoRegimen" EntityType="Self.c_TipoRegimen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TC_DatosFijosPorEmpleado" EntityType="Self.TC_DatosFijosPorEmpleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TC_RFC" EntityType="Self.TC_RFC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TC_Subcontratacion" EntityType="Self.TC_Subcontratacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_Deduccion" EntityType="Self.TE_Deduccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_Incapacidad" EntityType="Self.TE_Incapacidad" Schema="dbo" store:Type="Tables" />
@@ -1121,6 +1130,7 @@
           </AssociationSet>
           <EntitySet Name="TC_Subcontratacion" EntityType="AvantCraft_nomina2017Model.TC_Subcontratacion" />
           <EntitySet Name="TC_DatosFijosPorEmpleado" EntityType="AvantCraft_nomina2017Model.TC_DatosFijosPorEmpleado" />
+          <EntitySet Name="TC_RFC" EntityType="AvantCraft_nomina2017Model.TC_RFC" />
           </EntityContainer>
         <EntityType Name="TE_Percepcion">
           <Key>
@@ -1527,6 +1537,14 @@
           <Property Name="c_Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="TC_RFC">
+          <Key>
+            <PropertyRef Name="rfcKey" />
+          </Key>
+          <Property Name="rfcKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="txyRfc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="bitValido" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1896,6 +1914,15 @@
                 <ScalarProperty Name="Sindicalizado" ColumnName="Sindicalizado" />
                 <ScalarProperty Name="rfcEmpleado" ColumnName="rfcEmpleado" />
                 <ScalarProperty Name="fijoPorEmpId" ColumnName="fijoPorEmpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TC_RFC">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_RFC">
+              <MappingFragment StoreEntitySet="TC_RFC">
+                <ScalarProperty Name="bitValido" ColumnName="bitValido" />
+                <ScalarProperty Name="txyRfc" ColumnName="txyRfc" />
+                <ScalarProperty Name="rfcKey" ColumnName="rfcKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

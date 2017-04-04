@@ -1,5 +1,6 @@
 ﻿using dataaccessXML2TXT;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -362,7 +363,8 @@ namespace AvantCraftXML2TXTLib
               dbPE.ImporteExcento = s2d(percepcion.Attribute("ImporteExento").Value);
 
               db.TE_Percepcion.Add(dbPE);
-            }else
+            }
+            else
             {
               TE_OtroPago dbOP = new TE_OtroPago();
               dbOP.nominaId = dbNO.nominaId;
@@ -567,7 +569,7 @@ namespace AvantCraftXML2TXTLib
             rsc.RfcLabora = s.RfcLabora;
             rsc.PorcentajeTiempo = s.PorcentajeTiempo;
             db.TE_Receptor_Subcontratacion.Add(rsc);
-            
+
           }
           db.SaveChanges();
         }
@@ -821,11 +823,30 @@ namespace AvantCraftXML2TXTLib
     public void PayRoll2TXT(string txt_Periodo)
     {
       AvantCraft_nomina2017Entities db = new AvantCraft_nomina2017Entities();
+
+      //----- get a list of valid RFCs
+      List<string> validRFCs = (from a in db.TC_RFC where a.bitValido == true select a.txyRfc).ToList();
+
+
+
       //---------------------- H1
       IQueryable<TE_Nomina> nominas = (from a in db.TE_Nomina where a.periodo == txt_Periodo select a).DefaultIfEmpty();
-
       foreach (TE_Nomina n in nominas)
       {
+        //------- if is a valid RFC go on, else "continue" with next value
+        TE_TXT_HEADER testNotValidRFC = (from a in db.TE_TXT_HEADER where validRFCs.Contains(a.H4_03) && a.nominaId == n.nominaId select a).FirstOrDefault();
+        if (testNotValidRFC == null) continue;
+
+        //------- validate no negative perceciones
+        IQueryable<TE_Percepcion> negPer = (from a in db.TE_Percepcion where (a.ImporteExcento < 0 || a.ImporteGravado < 0) && a.nominaId == n.nominaId select a).DefaultIfEmpty();
+        if (!(negPer.Count() == 1 && negPer.First() == null)) continue;
+
+        //------- validate no negative deducciones
+        IQueryable<TE_Deduccion> negDed = (from a in db.TE_Deduccion where a.Importe < 0 && a.nominaId == n.nominaId select a).DefaultIfEmpty();
+        if (!(negDed.Count() == 1 && negDed.First() == null)) continue;
+
+
+
         TE_TXT_HEADER h = (from b in db.TE_TXT_HEADER where b.nominaId == n.nominaId select b).FirstOrDefault();
         string H1 = string.Format("[H1]||||{0}|||{1}|||{2}|||{3}||||||||||||||||{4}|{5}|{6}||||||||||||||{7}||||{8}|||||||||", h.H1_05, h.H1_08, h.H1_11, h.H1_14, h.H1_30, h.H1_31, h.H1_32, h.H1_46, h.H1_50);
         string H2 = string.Format("[H2]|{0}|{1}||{2}|{3}||{4}|{5}||{6}|{7}|{8}|{9}||||||||||||", h.H2_02, h.H2_03, h.H2_05, h.H2_06, h.H2_08, h.H2_09, h.H2_11, h.H2_12, h.H2_13, h.H2_14);
