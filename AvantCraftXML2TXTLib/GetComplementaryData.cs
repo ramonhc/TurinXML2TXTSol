@@ -48,7 +48,11 @@ namespace AvantCraftXML2TXTLib
           s.RfcEmpleado = rfcEmpleado;
           s.RfcLabora = RfcLabora;
           s.txtPeriodo = aPeriodo;
-          s.PorcentajeTiempo = decimal.Parse(r["PorcentajeTiempo"].ToString());
+
+          decimal porcentajeTiempo = decimal.Parse(r["PorcentajeTiempo"].ToString());
+          if (porcentajeTiempo < 1) porcentajeTiempo = porcentajeTiempo * 100;
+          s.PorcentajeTiempo = porcentajeTiempo;
+
           s.txtPeriodo = aPeriodo;
           db.TC_Subcontratacion.Add(s);
           db.SaveChanges();

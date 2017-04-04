@@ -437,11 +437,11 @@ namespace AvantCraftXML2TXTLib
 
             if (DE_1.Trim() == "002")
             {
-              Deducciones_TotalImpuestosRetenidos = +importe;
+              Deducciones_TotalImpuestosRetenidos += importe;
             }
             else
             {
-              Deducciones_TotalOtrasDeducciones = +importe;
+              Deducciones_TotalOtrasDeducciones += importe;
             }
           }
 
@@ -505,6 +505,7 @@ namespace AvantCraftXML2TXTLib
 
 
             //* ***** SE USARA EN EL TXT FINAL EN LUGAR DEL RESTO DE LAS CLAVES 19 PORQUE SE DUPLICA CON NODOS PERCEPCION:TIEMPO EXTRA DOBLE, ETC.
+            //--- no debe incluirse en la lista de percepciones **** se usa solo para ligar el detalle con los headers
             //p = percepcion.Element(nomina + "Percepcion");
             TE_Percepcion dbPE = new TE_Percepcion();
             dbPE.nominaId = dbNO.nominaId;
@@ -565,12 +566,14 @@ namespace AvantCraftXML2TXTLib
             rsc.nominaId = dbNO.nominaId;
             rsc.RfcLabora = s.RfcLabora;
             rsc.PorcentajeTiempo = s.PorcentajeTiempo;
-            db.SaveChanges();
+            db.TE_Receptor_Subcontratacion.Add(rsc);
+            
           }
+          db.SaveChanges();
         }
         //FIX CATALOG REFERENCES
         //-- c_TipoPercepcion
-        IQueryable<TE_Percepcion> fixPer = (from per in db.TE_Percepcion where per.nominaId == dbNO.nominaId select per).DefaultIfEmpty();
+        IQueryable<TE_Percepcion> fixPer = (from per in db.TE_Percepcion where per.nominaId == dbNO.nominaId && per.Clave != "REMPLAZO" select per).DefaultIfEmpty();
         if (!(fixPer.Count() == 1 && fixPer.First() == null))
         {
           foreach (TE_Percepcion p in fixPer)
@@ -667,7 +670,54 @@ namespace AvantCraftXML2TXTLib
           }
           db.SaveChanges();
         }
-      } // end if found
+
+        //------------- FIX TotalSueldos, TotalGravado, TotalExcento, TotalDeducciones, TotalOtrosPagos
+
+        //----- FIX TotalGravado
+        decimal fixTotalGravado = (from a in db.TE_Percepcion where a.nominaId == dbNO.nominaId && a.Clave != "REMPLAZO" select a.ImporteGravado).Sum().Value;
+        dbNO.Percepciones_TotalGravado = fixTotalGravado;
+
+        //----- FIX TotalExcento
+        decimal fixTotalExcento = (from a in db.TE_Percepcion where a.nominaId == dbNO.nominaId && a.Clave != "REMPLAZO" select a.ImporteExcento).Sum().Value;
+        dbNO.Percepciones_TotalExento = fixTotalExcento;
+
+        //----- FIX TotalDeducciones
+        //El valor de [Nomina/TotalDeducciones] debe ser igual a la suma de valores de los atributos [Deducciones/(TotalOtrasDeducciones+TotalImpuestosRetenidos)]
+        decimal fixTotalDeducciones = dbNO.Deducciones_TotalOtrasDeducciones.Value + dbNO.Deducciones_TotalImpuestosRetenidos.Value; // (from a in dbNO where a.nominaId == dbNO.nominaId && a.Clave != "REMPLAZO" select a.ImporteExcento).Sum().Value;
+        dbNO.TotalDeducciones = fixTotalDeducciones;
+
+        //----- FIX TotalOtrosPagos
+        decimal fixTotalOtrosPagos = 0;
+        var checkTotalOtrosPagos = (from a in db.TE_OtroPago where a.nominaId == dbNO.nominaId select a).DefaultIfEmpty();
+        if (!(checkTotalOtrosPagos.Count() == 1 && checkTotalOtrosPagos.First() == null))
+        {
+          fixTotalOtrosPagos = (from a in db.TE_OtroPago where a.nominaId == dbNO.nominaId select a.Importe).Sum().Value;
+          dbNO.TotalOtrosPagos = fixTotalOtrosPagos;
+        }
+
+        //----- FIX TotalSueldos
+        decimal fixTotalSueldos = fixTotalGravado + fixTotalExcento;
+        dbNO.Percepciones_TotalSueldos = fixTotalSueldos;
+
+        //----- FIX TotalPercepciones
+        // El valor de [Nomina/TotalPercepciones] debe ser igual a la suma de valores de los atributos [Percepciones/(TotalSueldos+TotalJubilacionPensionRetiro+TotalSeparacionIndemnizacion)]
+        decimal fixTotalPercepciones = fixTotalSueldos;
+        dbNO.TotalPercepciones = fixTotalPercepciones;
+
+        //----- FIX HEAD
+        dbHead.D_09 = fixTotalPercepciones.ToString();
+        dbHead.D_25 = fixTotalPercepciones.ToString();
+        dbHead.D_37 = fixTotalPercepciones.ToString();
+        dbHead.S_36 = fixTotalPercepciones.ToString();
+
+        //----- FIX HEAD total
+        //NOM109: El valor del atributo total :: suma Nomina12:TotalPercepciones más Nomina12:TotalOtrosPagos menos Nomina12:TotalDeducciones
+        dbHead.S_10 = (fixTotalPercepciones + fixTotalOtrosPagos - fixTotalDeducciones).ToString();
+
+        db.SaveChanges();
+
+
+      } // end if found .. line 66
     }
 
     //private static string setPeriodo(string FechaFinalPago, string periodicidad)  // NO_08 = yyyy-MM-dd    periodicidad = quincenal/Semanal
@@ -835,7 +885,7 @@ namespace AvantCraftXML2TXTLib
         DateTime.TryParseExact(n.Receptor_FechaInicioRelLaboral, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out FechIni);
 
 
-        double weeksDbl = Math.Floor((FechIni - fechFin).TotalDays / 7);
+        double weeksDbl = Math.Floor((fechFin - FechIni).TotalDays / 7);
         sb.Append("P" + Convert.ToInt32(weeksDbl) + "W|");
 
         //---------------------------------
@@ -857,7 +907,7 @@ namespace AvantCraftXML2TXTLib
         try
         {
           //sb.Append(n.c_RiesgoPuesto.c_RiesgoPuesto1 + "|");
-          sb.Append((n.Emisor_RfcPatronOrigen == "SAI091203MU3") ? "3" : "1");   // condicionado al pagador  SAI = 3, TSP = 1
+          sb.Append(((n.Emisor_RfcPatronOrigen == "SAI091203MU3") ? "3" : "1") + "|");   // condicionado al pagador  SAI = 3, TSP = 1
         }
         catch
         {
@@ -888,7 +938,7 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.Percepciones_TotalExento);
         sb.Append(Environment.NewLine);
 
-        var ps = (from per in db.TE_Percepcion where per.nominaId == n.nominaId && per.c_TipoPercepcion != 19 select per).DefaultIfEmpty();
+        var ps = (from per in db.TE_Percepcion where per.nominaId == n.nominaId && per.c_TipoPercepcion != 19 && per.Clave != "REMPLAZO" select per).DefaultIfEmpty();
         foreach (TE_Percepcion p in ps)
         {
           string tipoPercep = string.Empty;
