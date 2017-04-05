@@ -108,6 +108,12 @@
     <Compile Include="TC_RFC.cs">
       <DependentUpon>XML2TXTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TC_RfcExclusionList.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TC_RfcIncludeList.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TC_Subcontratacion.cs">
       <DependentUpon>XML2TXTModel.tt</DependentUpon>
     </Compile>

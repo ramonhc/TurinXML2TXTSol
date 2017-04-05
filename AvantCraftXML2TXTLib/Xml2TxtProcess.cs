@@ -710,7 +710,10 @@ namespace AvantCraftXML2TXTLib
         dbHead.D_09 = fixTotalPercepciones.ToString();
         dbHead.D_25 = fixTotalPercepciones.ToString();
         dbHead.D_37 = fixTotalPercepciones.ToString();
-        dbHead.S_36 = fixTotalPercepciones.ToString();
+
+        //----- FIX HEAD SUBtotal
+        //NOM109: El valor del atributo total :: suma Nomina12:TotalPercepciones más Nomina12:TotalOtrosPagos menos Nomina12:TotalDeducciones
+        dbHead.S_36 = (fixTotalPercepciones + fixTotalOtrosPagos).ToString();
 
         //----- FIX HEAD total
         //NOM109: El valor del atributo total :: suma Nomina12:TotalPercepciones más Nomina12:TotalOtrosPagos menos Nomina12:TotalDeducciones
@@ -820,19 +823,34 @@ namespace AvantCraftXML2TXTLib
     }
 
     //----------------------------------------------------------------------
-    public void PayRoll2TXT(string txt_Periodo)
+    public void PayRoll2TXT(string txt_Periodo, bool useRfcExclusionList, bool useRfcIncludeList)
     {
       AvantCraft_nomina2017Entities db = new AvantCraft_nomina2017Entities();
 
       //----- get a list of valid RFCs
       List<string> validRFCs = (from a in db.TC_RFC where a.bitValido == true select a.txyRfc).ToList();
+      
 
-
-
-      //---------------------- H1
       IQueryable<TE_Nomina> nominas = (from a in db.TE_Nomina where a.periodo == txt_Periodo select a).DefaultIfEmpty();
       foreach (TE_Nomina n in nominas)
       {
+        //------- just get theRFC
+        string theRFC = (from a in db.TE_TXT_HEADER where a.nominaId == n.nominaId select a.H4_03).FirstOrDefault();
+
+        //------- check if should use tbl TC_RfcExclusionList :: if so, then check to exclude
+        if (useRfcExclusionList)
+        {
+          string excludeRFC = (from a in db.TC_RfcExclusionList where a.txtRfc == theRFC select a.txtRfc).FirstOrDefault();
+          if (excludeRFC != null) continue;
+        }
+
+        //------- check if should use tbl TC_RfcIncludeList :: if so, then check to include
+        if (useRfcIncludeList)
+        {
+          string includeRFC = (from a in db.TC_RfcIncludeList where a.txtRfc == theRFC select a.txtRfc).FirstOrDefault();
+          if (includeRFC == null) continue;
+        }
+
         //------- if is a valid RFC go on, else "continue" with next value
         TE_TXT_HEADER testNotValidRFC = (from a in db.TE_TXT_HEADER where validRFCs.Contains(a.H4_03) && a.nominaId == n.nominaId select a).FirstOrDefault();
         if (testNotValidRFC == null) continue;
@@ -1065,15 +1083,22 @@ namespace AvantCraftXML2TXTLib
         var op = (from ops in db.TE_OtroPago where ops.nominaId == n.nominaId && ops.c_TipoOtroPago == 2 select ops).DefaultIfEmpty();
         if (!(op.Count() == 1 && op.First() == null))
         {
-          sb.Append("[SubsidioAlEmpleo]");
-          sb.Append(Environment.NewLine);
+          //sb.Append("[SubsidioAlEmpleo]");
+          //sb.Append(Environment.NewLine);
+
+          //foreach (TE_OtroPago o in op)
+          //{
+          //  sb.Append("[SubsidioCausado]" + "|");
+          //  sb.Append("00" + o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
+          //  sb.Append(o.Clave + "|");
+          //  sb.Append(o.Concepto + "|");
+          //  sb.Append(o.Importe);
+          //  sb.Append(Environment.NewLine);
+          //}
 
           foreach (TE_OtroPago o in op)
           {
-            sb.Append("[SubsidioCausado]" + "|");
-            sb.Append("00" + o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
-            sb.Append(o.Clave + "|");
-            sb.Append(o.Concepto + "|");
+            sb.Append("[SubsidioAlEmpleo]" + "|");
             sb.Append(o.Importe);
             sb.Append(Environment.NewLine);
           }

@@ -45,6 +45,8 @@
       this.txtPeriodo = new System.Windows.Forms.TextBox();
       this.txtFolderUUID = new System.Windows.Forms.TextBox();
       this.label3 = new System.Windows.Forms.Label();
+      this.chbUseRfcExclusionList = new System.Windows.Forms.CheckBox();
+      this.chbUseRfcIncludeList = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.groupBox1.SuspendLayout();
       this.boxSeleccion.SuspendLayout();
@@ -111,7 +113,7 @@
       // 
       this.groupBox1.BackColor = System.Drawing.SystemColors.HotTrack;
       this.groupBox1.Controls.Add(this.label1);
-      this.groupBox1.Location = new System.Drawing.Point(10, 382);
+      this.groupBox1.Location = new System.Drawing.Point(10, 409);
       this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
       this.groupBox1.Name = "groupBox1";
       this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -218,7 +220,7 @@
       // 
       // txtFolderUUID
       // 
-      this.txtFolderUUID.Location = new System.Drawing.Point(321, 341);
+      this.txtFolderUUID.Location = new System.Drawing.Point(321, 372);
       this.txtFolderUUID.Name = "txtFolderUUID";
       this.txtFolderUUID.Size = new System.Drawing.Size(197, 20);
       this.txtFolderUUID.TabIndex = 10;
@@ -226,17 +228,41 @@
       // label3
       // 
       this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(323, 320);
+      this.label3.Location = new System.Drawing.Point(323, 351);
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(138, 13);
       this.label3.TabIndex = 11;
       this.label3.Text = "Ruta Archivos XML 4 UUID";
       // 
+      // chbUseRfcExclusionList
+      // 
+      this.chbUseRfcExclusionList.AutoSize = true;
+      this.chbUseRfcExclusionList.Location = new System.Drawing.Point(372, 288);
+      this.chbUseRfcExclusionList.Margin = new System.Windows.Forms.Padding(2);
+      this.chbUseRfcExclusionList.Name = "chbUseRfcExclusionList";
+      this.chbUseRfcExclusionList.Size = new System.Drawing.Size(146, 17);
+      this.chbUseRfcExclusionList.TabIndex = 12;
+      this.chbUseRfcExclusionList.Text = "Usar Exclusiones de RFC";
+      this.chbUseRfcExclusionList.UseVisualStyleBackColor = true;
+      // 
+      // chbUseRfcIncludeList
+      // 
+      this.chbUseRfcIncludeList.AutoSize = true;
+      this.chbUseRfcIncludeList.Location = new System.Drawing.Point(372, 309);
+      this.chbUseRfcIncludeList.Margin = new System.Windows.Forms.Padding(2);
+      this.chbUseRfcIncludeList.Name = "chbUseRfcIncludeList";
+      this.chbUseRfcIncludeList.Size = new System.Drawing.Size(143, 17);
+      this.chbUseRfcIncludeList.TabIndex = 13;
+      this.chbUseRfcIncludeList.Text = "Usar Inclusiones de RFC";
+      this.chbUseRfcIncludeList.UseVisualStyleBackColor = true;
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(531, 442);
+      this.ClientSize = new System.Drawing.Size(531, 475);
+      this.Controls.Add(this.chbUseRfcIncludeList);
+      this.Controls.Add(this.chbUseRfcExclusionList);
       this.Controls.Add(this.label3);
       this.Controls.Add(this.txtFolderUUID);
       this.Controls.Add(this.groupBox2);
@@ -280,6 +306,8 @@
     private System.Windows.Forms.TextBox txtPeriodo;
     private System.Windows.Forms.TextBox txtFolderUUID;
     private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.CheckBox chbUseRfcExclusionList;
+    private System.Windows.Forms.CheckBox chbUseRfcIncludeList;
   }
 }
 

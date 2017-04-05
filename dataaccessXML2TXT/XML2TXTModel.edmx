@@ -153,6 +153,20 @@
           <Property Name="txyRfc" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="bitValido" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="TC_RfcExclusionList">
+          <Key>
+            <PropertyRef Name="excludeKey" />
+          </Key>
+          <Property Name="excludeKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="txtRfc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TC_RfcIncludeList">
+          <Key>
+            <PropertyRef Name="includeKey" />
+          </Key>
+          <Property Name="includeKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="txtRfc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="TC_Subcontratacion">
           <Key>
             <PropertyRef Name="subcontratacionId" />
@@ -646,6 +660,8 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TC_DatosFijosPorEmpleado" EntityType="Self.TC_DatosFijosPorEmpleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TC_RFC" EntityType="Self.TC_RFC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TC_RfcExclusionList" EntityType="Self.TC_RfcExclusionList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TC_RfcIncludeList" EntityType="Self.TC_RfcIncludeList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TC_Subcontratacion" EntityType="Self.TC_Subcontratacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_Deduccion" EntityType="Self.TE_Deduccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_Incapacidad" EntityType="Self.TE_Incapacidad" Schema="dbo" store:Type="Tables" />
@@ -1131,6 +1147,8 @@
           <EntitySet Name="TC_Subcontratacion" EntityType="AvantCraft_nomina2017Model.TC_Subcontratacion" />
           <EntitySet Name="TC_DatosFijosPorEmpleado" EntityType="AvantCraft_nomina2017Model.TC_DatosFijosPorEmpleado" />
           <EntitySet Name="TC_RFC" EntityType="AvantCraft_nomina2017Model.TC_RFC" />
+          <EntitySet Name="TC_RfcExclusionList" EntityType="AvantCraft_nomina2017Model.TC_RfcExclusionList" />
+          <EntitySet Name="TC_RfcIncludeList" EntityType="AvantCraft_nomina2017Model.TC_RfcIncludeList" />
           </EntityContainer>
         <EntityType Name="TE_Percepcion">
           <Key>
@@ -1545,6 +1563,20 @@
           <Property Name="txyRfc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="bitValido" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="TC_RfcExclusionList">
+          <Key>
+            <PropertyRef Name="excludeKey" />
+          </Key>
+          <Property Name="excludeKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="txtRfc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TC_RfcIncludeList">
+          <Key>
+            <PropertyRef Name="includeKey" />
+          </Key>
+          <Property Name="includeKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="txtRfc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1923,6 +1955,22 @@
                 <ScalarProperty Name="bitValido" ColumnName="bitValido" />
                 <ScalarProperty Name="txyRfc" ColumnName="txyRfc" />
                 <ScalarProperty Name="rfcKey" ColumnName="rfcKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TC_RfcExclusionList">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_RfcExclusionList">
+              <MappingFragment StoreEntitySet="TC_RfcExclusionList">
+                <ScalarProperty Name="txtRfc" ColumnName="txtRfc" />
+                <ScalarProperty Name="excludeKey" ColumnName="excludeKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TC_RfcIncludeList">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_RfcIncludeList">
+              <MappingFragment StoreEntitySet="TC_RfcIncludeList">
+                <ScalarProperty Name="txtRfc" ColumnName="txtRfc" />
+                <ScalarProperty Name="includeKey" ColumnName="includeKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

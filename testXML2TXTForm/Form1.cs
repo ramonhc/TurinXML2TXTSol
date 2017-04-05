@@ -81,7 +81,7 @@ namespace testXML2TXTForm
     {
       Xml2TxtProcess obj = new Xml2TxtProcess();
       label1.Text = "Procesing Payrol 2 TXT...!";
-      obj.PayRoll2TXT(txtPeriodo.Text);
+      obj.PayRoll2TXT(txtPeriodo.Text, chbUseRfcExclusionList.Checked, chbUseRfcIncludeList.Checked);
       label1.Text = "Done!";
     }
   }

@@ -57,6 +57,8 @@
         <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TC_Subcontratacion" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TC_DatosFijosPorEmpleado" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TC_RFC" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TC_RfcExclusionList" Width="1.5" PointX="11.5" PointY="1.25" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TC_RfcIncludeList" Width="1.5" PointX="10" PointY="3.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
