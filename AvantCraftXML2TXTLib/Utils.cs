@@ -21,19 +21,19 @@ namespace AvantCraftXML2TXTLib
           confValue = outFolder;
           break;
         case "GTU870812BQ6": //GRUPO TURIN S.A. DE C.V.
-          confValue = outFolder + @"GrupoTurin\IN\";
+          confValue = outFolder + @"GrupoTurin\";
           break;
         case "SAI091203MU3": //SERVICIOS ADMINISTRATIVOS PARA LA INDUSTRIA DEL CHOCOLATE S DE RL DE CV
-          confValue = outFolder + @"SAIC\IN\";
+          confValue = outFolder + @"SAIC\";
           break;
         case "TAR080214S12": //TAR
-          confValue = outFolder + @"TAR\IN\";
+          confValue = outFolder + @"TAR\";
           break;
         case "TSP1008164C9": //TURIN SERVICIOS PROFESIONALES S DE RL DE CV
-          confValue = outFolder + @"TSP\IN\";
+          confValue = outFolder + @"TSP\";
           break;
         case "CTU830715D15": //CHOCOLATES TURIN S.A. DE C.V.
-          confValue = outFolder + @"Turin\IN\";
+          confValue = outFolder + @"Turin\";
           break;
         default:
           confValue = outFolder;

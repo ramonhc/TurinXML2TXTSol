@@ -707,12 +707,14 @@ namespace AvantCraftXML2TXTLib
         dbNO.TotalPercepciones = fixTotalPercepciones;
 
         //----- FIX HEAD
-        dbHead.D_09 = fixTotalPercepciones.ToString();
-        dbHead.D_25 = fixTotalPercepciones.ToString();
-        dbHead.D_37 = fixTotalPercepciones.ToString();
+
+
 
         //----- FIX HEAD SUBtotal
+        dbHead.D_09 = (fixTotalPercepciones + fixTotalOtrosPagos).ToString();
         //NOM109: El valor del atributo total :: suma Nomina12:TotalPercepciones más Nomina12:TotalOtrosPagos menos Nomina12:TotalDeducciones
+        dbHead.D_25 = (fixTotalPercepciones + fixTotalOtrosPagos).ToString();
+        dbHead.D_37 = (fixTotalPercepciones + fixTotalOtrosPagos).ToString();
         dbHead.S_36 = (fixTotalPercepciones + fixTotalOtrosPagos).ToString();
 
         //----- FIX HEAD total
@@ -829,7 +831,7 @@ namespace AvantCraftXML2TXTLib
 
       //----- get a list of valid RFCs
       List<string> validRFCs = (from a in db.TC_RFC where a.bitValido == true select a.txyRfc).ToList();
-      
+
 
       IQueryable<TE_Nomina> nominas = (from a in db.TE_Nomina where a.periodo == txt_Periodo select a).DefaultIfEmpty();
       foreach (TE_Nomina n in nominas)
@@ -862,7 +864,6 @@ namespace AvantCraftXML2TXTLib
         //------- validate no negative deducciones
         IQueryable<TE_Deduccion> negDed = (from a in db.TE_Deduccion where a.Importe < 0 && a.nominaId == n.nominaId select a).DefaultIfEmpty();
         if (!(negDed.Count() == 1 && negDed.First() == null)) continue;
-
 
 
         TE_TXT_HEADER h = (from b in db.TE_TXT_HEADER where b.nominaId == n.nominaId select b).FirstOrDefault();
@@ -953,8 +954,12 @@ namespace AvantCraftXML2TXTLib
           sb.Append("|");
         }
         sb.Append(n.c_PeriodicidadPago.Value + "|");
-        sb.Append(n.c_Banco.Value + "|");
+
+        //sb.Append(n.c_Banco.Value + "|");
+        //condicional la clave bancaria a la longitud de la CuentaBancaria, en caso de ser 18 dígitos (CLABE) no debe colocarse la clave de banco:
+        sb.Append(((n.Receptor_CuentaBancaria.Length == 18) ? "" : n.c_Banco.Value) + "|");
         sb.Append(n.Receptor_CuentaBancaria + "|");
+
         sb.Append(n.Receptor_SalarioBaseCotApor + "|");
         sb.Append(n.Receptor_SalarioDiarioIntegrado + "|");
         sb.Append(n.Receptor_c_ClaveEntFed);
@@ -1043,7 +1048,9 @@ namespace AvantCraftXML2TXTLib
 
         sb.Append("[Deducciones]" + "|");
         sb.Append(n.Deducciones_TotalOtrasDeducciones + "|");
-        sb.Append(n.Deducciones_TotalImpuestosRetenidos);
+
+        if (n.Deducciones_TotalImpuestosRetenidos != 0) sb.Append(n.Deducciones_TotalImpuestosRetenidos); //validate is not 0.00, either case should be empty
+
         sb.Append(Environment.NewLine);
 
         var ds = (from ded in db.TE_Deduccion where ded.nominaId == n.nominaId select ded).DefaultIfEmpty();
@@ -1128,8 +1135,11 @@ namespace AvantCraftXML2TXTLib
         // MAKE FILE ----
         try
         {
+          bool exists4 = System.IO.Directory.Exists(GetFinalDestination(h.H2_03) + txt_Periodo + "\\");
+          if (!exists4) System.IO.Directory.CreateDirectory(GetFinalDestination(h.H2_03) + txt_Periodo + "\\");
+
           string textToPrintHead = H1 + Environment.NewLine + H2 + Environment.NewLine + H3 + Environment.NewLine + H4 + Environment.NewLine + H5 + Environment.NewLine + D + Environment.NewLine + S + Environment.NewLine;
-          TextWriter sw = new StreamWriter(GetFinalDestination(h.H2_03) + h.H4_03 + "_" + h.H1_05 + ".txt", false, Encoding.GetEncoding(1252), 512);
+          TextWriter sw = new StreamWriter(GetFinalDestination(h.H2_03) + txt_Periodo + "\\" + h.H4_03 + "_" + h.H1_05 + ".txt", false, Encoding.GetEncoding(1252), 512);
           sw.Write(textToPrintHead + sb.ToString());
           sw.Close();
         }
