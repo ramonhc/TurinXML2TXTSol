@@ -38,7 +38,14 @@ namespace testXML2TXTForm
     {
       GetUUIDFromXML obj = new GetUUIDFromXML();
       label1.Text = "Getting UUIDs...!";
-      obj.GetUUID(txtFolderUUID.Text);
+
+      if (txtPeriodo.Text.Trim() == string.Empty)
+      {
+        label1.Text = "FALTA EL PERIODO!!!!!";
+        return;
+      }
+
+      obj.GetUUID(txtFolderUUID.Text, txtPeriodo.Text);
       label1.Text = "Done!";
     }
 

@@ -311,6 +311,16 @@
           <Property Name="RfcLabora" Type="nvarchar" MaxLength="50" />
           <Property Name="PorcentajeTiempo" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
+        <EntityType Name="TE_RfcTimbrado">
+          <Key>
+            <PropertyRef Name="timbradoKey" />
+          </Key>
+          <Property Name="timbradoKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="txtRFC" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtPeriodo" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtUUID" Type="nvarchar(max)" />
+          <Property Name="txtFileName" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="TE_SeparacionIndemnizacion">
           <Key>
             <PropertyRef Name="SeparacionIndemnizacionId" />
@@ -671,6 +681,7 @@
           <EntitySet Name="TE_Percepcion" EntityType="Self.TE_Percepcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_Percepcion_HorasExtra" EntityType="Self.TE_Percepcion_HorasExtra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_Receptor_Subcontratacion" EntityType="Self.TE_Receptor_Subcontratacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_RfcTimbrado" EntityType="Self.TE_RfcTimbrado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_SeparacionIndemnizacion" EntityType="Self.TE_SeparacionIndemnizacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_TXT_HEADER" EntityType="Self.TE_TXT_HEADER" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_TE_Deduccion_c_TipoDeduccion" Association="Self.FK_TE_Deduccion_c_TipoDeduccion">
@@ -1149,6 +1160,7 @@
           <EntitySet Name="TC_RFC" EntityType="AvantCraft_nomina2017Model.TC_RFC" />
           <EntitySet Name="TC_RfcExclusionList" EntityType="AvantCraft_nomina2017Model.TC_RfcExclusionList" />
           <EntitySet Name="TC_RfcIncludeList" EntityType="AvantCraft_nomina2017Model.TC_RfcIncludeList" />
+          <EntitySet Name="TE_RfcTimbrado" EntityType="AvantCraft_nomina2017Model.TE_RfcTimbrado" />
           </EntityContainer>
         <EntityType Name="TE_Percepcion">
           <Key>
@@ -1577,6 +1589,16 @@
           <Property Name="includeKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="txtRfc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="TE_RfcTimbrado">
+          <Key>
+            <PropertyRef Name="timbradoKey" />
+          </Key>
+          <Property Name="timbradoKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="txtRFC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtUUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1971,6 +1993,17 @@
               <MappingFragment StoreEntitySet="TC_RfcIncludeList">
                 <ScalarProperty Name="txtRfc" ColumnName="txtRfc" />
                 <ScalarProperty Name="includeKey" ColumnName="includeKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_RfcTimbrado">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_RfcTimbrado">
+              <MappingFragment StoreEntitySet="TE_RfcTimbrado">
+                <ScalarProperty Name="txtFileName" ColumnName="txtFileName" />
+                <ScalarProperty Name="txtUUID" ColumnName="txtUUID" />
+                <ScalarProperty Name="txtPeriodo" ColumnName="txtPeriodo" />
+                <ScalarProperty Name="txtRFC" ColumnName="txtRFC" />
+                <ScalarProperty Name="timbradoKey" ColumnName="timbradoKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
