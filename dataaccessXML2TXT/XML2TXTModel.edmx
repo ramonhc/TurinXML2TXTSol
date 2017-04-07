@@ -152,6 +152,7 @@
           <Property Name="rfcKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="txyRfc" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="bitValido" Type="bit" Nullable="false" />
+          <Property Name="txtPeriodo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TC_RfcExclusionList">
           <Key>
@@ -1574,6 +1575,7 @@
           <Property Name="rfcKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="txyRfc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="bitValido" Type="Boolean" Nullable="false" />
+          <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TC_RfcExclusionList">
           <Key>
@@ -1974,6 +1976,7 @@
           <EntitySetMapping Name="TC_RFC">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_RFC">
               <MappingFragment StoreEntitySet="TC_RFC">
+                <ScalarProperty Name="txtPeriodo" ColumnName="txtPeriodo" />
                 <ScalarProperty Name="bitValido" ColumnName="bitValido" />
                 <ScalarProperty Name="txyRfc" ColumnName="txyRfc" />
                 <ScalarProperty Name="rfcKey" ColumnName="rfcKey" />

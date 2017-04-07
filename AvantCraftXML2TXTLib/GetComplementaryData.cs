@@ -32,59 +32,61 @@ namespace AvantCraftXML2TXTLib
       {
         string rfcEmpleado = r["rfcEmpleado"].ToString();
         string RfcLabora = r["RfcLabora"].ToString();
-        //---------->>>>>>>>>>>>>> Subcontratacion
-        if (chkCargaSubcontratacion)
+        if (rfcEmpleado != null && rfcEmpleado.Trim() != string.Empty)
         {
-          //VALIDATE (if exists then remove)
-          TC_Subcontratacion isthere = (from a in db.TC_Subcontratacion where a.RfcEmpleado == rfcEmpleado && a.RfcLabora == RfcLabora && a.txtPeriodo == aPeriodo select a).FirstOrDefault();
-          if (isthere != null)
+          //---------->>>>>>>>>>>>>> Subcontratacion
+          if (chkCargaSubcontratacion)
           {
-            db.TC_Subcontratacion.Remove(isthere);
+            //VALIDATE (if exists then remove)
+            TC_Subcontratacion isthere = (from a in db.TC_Subcontratacion where a.RfcEmpleado == rfcEmpleado && a.RfcLabora == RfcLabora && a.txtPeriodo == aPeriodo select a).FirstOrDefault();
+            if (isthere != null)
+            {
+              db.TC_Subcontratacion.Remove(isthere);
+              db.SaveChanges();
+            }
+
+            //ADD NEW
+            TC_Subcontratacion s = new TC_Subcontratacion();
+            s.RfcEmpleado = rfcEmpleado;
+            s.RfcLabora = RfcLabora;
+            s.txtPeriodo = aPeriodo;
+
+            decimal porcentajeTiempo = decimal.Parse(r["PorcentajeTiempo"].ToString());
+            if (porcentajeTiempo < 1) porcentajeTiempo = porcentajeTiempo * 100;
+            s.PorcentajeTiempo = porcentajeTiempo;
+
+            s.txtPeriodo = aPeriodo;
+            db.TC_Subcontratacion.Add(s);
             db.SaveChanges();
           }
 
-          //ADD NEW
-          TC_Subcontratacion s = new TC_Subcontratacion();
-          s.RfcEmpleado = rfcEmpleado;
-          s.RfcLabora = RfcLabora;
-          s.txtPeriodo = aPeriodo;
-
-          decimal porcentajeTiempo = decimal.Parse(r["PorcentajeTiempo"].ToString());
-          if (porcentajeTiempo < 1) porcentajeTiempo = porcentajeTiempo * 100;
-          s.PorcentajeTiempo = porcentajeTiempo;
-
-          s.txtPeriodo = aPeriodo;
-          db.TC_Subcontratacion.Add(s);
-          db.SaveChanges();
-        }
-
-        //---------->>>>>>>>>>>>>> fijosXempleado
-        if (chkFijos)
-        {
-          //VALIDATE (if exists then remove)
-          TC_DatosFijosPorEmpleado isthere = (from a in db.TC_DatosFijosPorEmpleado where a.rfcEmpleado == rfcEmpleado && a.txtPeriodo == aPeriodo select a).FirstOrDefault();
-          if (isthere != null)
+          //---------->>>>>>>>>>>>>> fijosXempleado
+          if (chkFijos)
           {
-            db.TC_DatosFijosPorEmpleado.Remove(isthere);
+            //VALIDATE (if exists then remove)
+            TC_DatosFijosPorEmpleado isthere = (from a in db.TC_DatosFijosPorEmpleado where a.rfcEmpleado == rfcEmpleado && a.txtPeriodo == aPeriodo select a).FirstOrDefault();
+            if (isthere != null)
+            {
+              db.TC_DatosFijosPorEmpleado.Remove(isthere);
+              db.SaveChanges();
+            }
+
+            //ADD NEW
+            TC_DatosFijosPorEmpleado s = new TC_DatosFijosPorEmpleado();
+            s.rfcEmpleado = rfcEmpleado;
+            s.Sindicalizado = r["Sindicalizado(SI/NO)"].ToString();
+            s.c_TipoJornada = r["c_TipoJornada"].ToString();
+            s.Departamento = r["Departamento"].ToString();
+            s.c_RiesgoPuesto = r["c_RiesgoPuesto"].ToString();
+            s.c_Banco = r["c_Banco"].ToString();
+            s.CuentaBancaria = r["CuentaBancaria"].ToString();
+            s.c_Estado = r["c_Estado"].ToString();
+            s.txtPeriodo = aPeriodo;
+            db.TC_DatosFijosPorEmpleado.Add(s);
             db.SaveChanges();
           }
-
-          //ADD NEW
-          TC_DatosFijosPorEmpleado s = new TC_DatosFijosPorEmpleado();
-          s.rfcEmpleado = rfcEmpleado;
-          s.Sindicalizado = r["Sindicalizado(SI/NO)"].ToString();
-          s.c_TipoJornada = r["c_TipoJornada"].ToString();
-          s.Departamento = r["Departamento"].ToString();
-          s.c_RiesgoPuesto = r["c_RiesgoPuesto"].ToString();
-          s.c_Banco = r["c_Banco"].ToString();
-          s.CuentaBancaria = r["CuentaBancaria"].ToString();
-          s.c_Estado = r["c_Estado"].ToString();
-          s.txtPeriodo = aPeriodo;
-          db.TC_DatosFijosPorEmpleado.Add(s);
-          db.SaveChanges();
         }
       }
-
 
       //--->>>
       /*
@@ -113,6 +115,5 @@ namespace AvantCraftXML2TXTLib
     }
   }
 }
-    
-    
-    
+
+

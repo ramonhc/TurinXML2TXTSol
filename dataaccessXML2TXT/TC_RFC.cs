@@ -17,5 +17,6 @@ namespace dataaccessXML2TXT
         public int rfcKey { get; set; }
         public string txyRfc { get; set; }
         public bool bitValido { get; set; }
+        public string txtPeriodo { get; set; }
     }
 }

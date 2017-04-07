@@ -830,7 +830,7 @@ namespace AvantCraftXML2TXTLib
       AvantCraft_nomina2017Entities db = new AvantCraft_nomina2017Entities();
 
       //----- get a list of valid RFCs
-      List<string> validRFCs = (from a in db.TC_RFC where a.bitValido == true select a.txyRfc).ToList();
+      List<string> validRFCs = (from a in db.TC_RFC where a.bitValido == true && a.txtPeriodo == txt_Periodo select a.txyRfc).ToList();
 
 
       IQueryable<TE_Nomina> nominas = (from a in db.TE_Nomina where a.periodo == txt_Periodo select a).DefaultIfEmpty();
@@ -838,6 +838,10 @@ namespace AvantCraftXML2TXTLib
       {
         //------- just get theRFC
         string theRFC = (from a in db.TE_TXT_HEADER where a.nominaId == n.nominaId select a.H4_03).FirstOrDefault();
+
+        //------- check if not already publiched with UUID :: if so, then ignore and continue to next record
+        string alreadyProcessed = (from a in db.TE_RfcTimbrado where a.txtRFC == theRFC && a.txtPeriodo == txt_Periodo select a.txtRFC).FirstOrDefault();
+        if (alreadyProcessed != null) continue;
 
         //------- check if should use tbl TC_RfcExclusionList :: if so, then check to exclude
         if (useRfcExclusionList)
@@ -1139,14 +1143,14 @@ namespace AvantCraftXML2TXTLib
           if (!exists4) System.IO.Directory.CreateDirectory(GetFinalDestination(h.H2_03) + txt_Periodo + "\\");
 
           string textToPrintHead = H1 + Environment.NewLine + H2 + Environment.NewLine + H3 + Environment.NewLine + H4 + Environment.NewLine + H5 + Environment.NewLine + D + Environment.NewLine + S + Environment.NewLine;
-          TextWriter sw = new StreamWriter(GetFinalDestination(h.H2_03) + txt_Periodo + "\\" + h.H4_03 + "_" + h.H1_05 + ".txt", false, Encoding.GetEncoding(1252), 512);
+          TextWriter sw = new StreamWriter(GetFinalDestination(h.H2_03) + txt_Periodo + "\\" + h.H4_03 + "_" + n.periodo + ".txt", false, Encoding.GetEncoding(1252), 512);
           sw.Write(textToPrintHead + sb.ToString());
           sw.Close();
         }
         catch (Exception e)
         {
           StreamWriter sw = new StreamWriter(GetConfigurationValues("ErrorFolder") + "LogDeErrores.txt", true, Encoding.GetEncoding(1252), 512);
-          sw.Write(h.H4_03 + "_" + h.H1_05 + " :: " + e.Message + " (" + e.InnerException + ")" + Environment.NewLine + Environment.NewLine);
+          sw.Write(h.H4_03 + "_" + n.periodo + " :: " + e.Message + " (" + e.InnerException + ")" + Environment.NewLine + Environment.NewLine);
           sw.Close();
         }
       } // for each nomina
