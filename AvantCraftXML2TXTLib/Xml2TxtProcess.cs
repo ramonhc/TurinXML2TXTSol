@@ -830,7 +830,7 @@ namespace AvantCraftXML2TXTLib
       AvantCraft_nomina2017Entities db = new AvantCraft_nomina2017Entities();
 
       //----- get a list of valid RFCs
-      List<string> validRFCs = (from a in db.TC_RFC where a.bitValido == true && a.txtPeriodo == txt_Periodo select a.txyRfc).ToList();
+      List<string> validRFCs = (from a in db.TC_RFC where a.bitValido == true select a.txyRfc).ToList();
 
 
       IQueryable<TE_Nomina> nominas = (from a in db.TE_Nomina where a.periodo == txt_Periodo select a).DefaultIfEmpty();

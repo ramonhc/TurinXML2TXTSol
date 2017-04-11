@@ -15,8 +15,10 @@ namespace dataaccessXML2TXT
     public partial class TC_RFC
     {
         public int rfcKey { get; set; }
+        public string txtNumEmp { get; set; }
+        public string txtNombre { get; set; }
+        public string txtCURP { get; set; }
         public string txyRfc { get; set; }
-        public bool bitValido { get; set; }
-        public string txtPeriodo { get; set; }
+        public Nullable<bool> bitValido { get; set; }
     }
 }

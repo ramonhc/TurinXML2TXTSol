@@ -53,9 +53,9 @@ namespace dataaccessXML2TXT
         public virtual DbSet<TE_TXT_HEADER> TE_TXT_HEADER { get; set; }
         public virtual DbSet<TC_Subcontratacion> TC_Subcontratacion { get; set; }
         public virtual DbSet<TC_DatosFijosPorEmpleado> TC_DatosFijosPorEmpleado { get; set; }
-        public virtual DbSet<TC_RFC> TC_RFC { get; set; }
         public virtual DbSet<TC_RfcExclusionList> TC_RfcExclusionList { get; set; }
         public virtual DbSet<TC_RfcIncludeList> TC_RfcIncludeList { get; set; }
         public virtual DbSet<TE_RfcTimbrado> TE_RfcTimbrado { get; set; }
+        public virtual DbSet<TC_RFC> TC_RFC { get; set; }
     }
 }

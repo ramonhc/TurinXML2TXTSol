@@ -150,9 +150,11 @@
             <PropertyRef Name="rfcKey" />
           </Key>
           <Property Name="rfcKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="txyRfc" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="bitValido" Type="bit" Nullable="false" />
-          <Property Name="txtPeriodo" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtNumEmp" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtNombre" Type="nvarchar(max)" />
+          <Property Name="txtCURP" Type="nvarchar" MaxLength="50" />
+          <Property Name="txyRfc" Type="nvarchar" MaxLength="50" />
+          <Property Name="bitValido" Type="bit" />
         </EntityType>
         <EntityType Name="TC_RfcExclusionList">
           <Key>
@@ -318,6 +320,7 @@
           </Key>
           <Property Name="timbradoKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="txtRFC" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtFecha" Type="nvarchar" MaxLength="50" />
           <Property Name="txtPeriodo" Type="nvarchar" MaxLength="50" />
           <Property Name="txtUUID" Type="nvarchar(max)" />
           <Property Name="txtFileName" Type="nvarchar(max)" />
@@ -1158,10 +1161,10 @@
           </AssociationSet>
           <EntitySet Name="TC_Subcontratacion" EntityType="AvantCraft_nomina2017Model.TC_Subcontratacion" />
           <EntitySet Name="TC_DatosFijosPorEmpleado" EntityType="AvantCraft_nomina2017Model.TC_DatosFijosPorEmpleado" />
-          <EntitySet Name="TC_RFC" EntityType="AvantCraft_nomina2017Model.TC_RFC" />
           <EntitySet Name="TC_RfcExclusionList" EntityType="AvantCraft_nomina2017Model.TC_RfcExclusionList" />
           <EntitySet Name="TC_RfcIncludeList" EntityType="AvantCraft_nomina2017Model.TC_RfcIncludeList" />
           <EntitySet Name="TE_RfcTimbrado" EntityType="AvantCraft_nomina2017Model.TE_RfcTimbrado" />
+          <EntitySet Name="TC_RFC" EntityType="AvantCraft_nomina2017Model.TC_RFC" />
           </EntityContainer>
         <EntityType Name="TE_Percepcion">
           <Key>
@@ -1568,15 +1571,6 @@
           <Property Name="c_Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="TC_RFC">
-          <Key>
-            <PropertyRef Name="rfcKey" />
-          </Key>
-          <Property Name="rfcKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="txyRfc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="bitValido" Type="Boolean" Nullable="false" />
-          <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="TC_RfcExclusionList">
           <Key>
             <PropertyRef Name="excludeKey" />
@@ -1600,6 +1594,18 @@
           <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="txtUUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="txtFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtFecha" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TC_RFC">
+          <Key>
+            <PropertyRef Name="rfcKey" />
+          </Key>
+          <Property Name="rfcKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="txtNumEmp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtNombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtCURP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txyRfc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="bitValido" Type="Boolean" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1973,16 +1979,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TC_RFC">
-            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_RFC">
-              <MappingFragment StoreEntitySet="TC_RFC">
-                <ScalarProperty Name="txtPeriodo" ColumnName="txtPeriodo" />
-                <ScalarProperty Name="bitValido" ColumnName="bitValido" />
-                <ScalarProperty Name="txyRfc" ColumnName="txyRfc" />
-                <ScalarProperty Name="rfcKey" ColumnName="rfcKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TC_RfcExclusionList">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_RfcExclusionList">
               <MappingFragment StoreEntitySet="TC_RfcExclusionList">
@@ -2002,11 +1998,24 @@
           <EntitySetMapping Name="TE_RfcTimbrado">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_RfcTimbrado">
               <MappingFragment StoreEntitySet="TE_RfcTimbrado">
+                <ScalarProperty Name="txtFecha" ColumnName="txtFecha" />
                 <ScalarProperty Name="txtFileName" ColumnName="txtFileName" />
                 <ScalarProperty Name="txtUUID" ColumnName="txtUUID" />
                 <ScalarProperty Name="txtPeriodo" ColumnName="txtPeriodo" />
                 <ScalarProperty Name="txtRFC" ColumnName="txtRFC" />
                 <ScalarProperty Name="timbradoKey" ColumnName="timbradoKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TC_RFC">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_RFC">
+              <MappingFragment StoreEntitySet="TC_RFC">
+                <ScalarProperty Name="bitValido" ColumnName="bitValido" />
+                <ScalarProperty Name="txyRfc" ColumnName="txyRfc" />
+                <ScalarProperty Name="txtCURP" ColumnName="txtCURP" />
+                <ScalarProperty Name="txtNombre" ColumnName="txtNombre" />
+                <ScalarProperty Name="txtNumEmp" ColumnName="txtNumEmp" />
+                <ScalarProperty Name="rfcKey" ColumnName="rfcKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

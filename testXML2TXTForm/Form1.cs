@@ -23,6 +23,7 @@ namespace testXML2TXTForm
     {
       Xml2TxtProcess obj = new Xml2TxtProcess();
       label1.Text = "Loading Payrol from XML...!";
+      label1.Refresh();
 
       if (txtPeriodo.Text.Trim() == string.Empty)
       {
@@ -38,14 +39,9 @@ namespace testXML2TXTForm
     {
       GetUUIDFromXML obj = new GetUUIDFromXML();
       label1.Text = "Getting UUIDs...!";
+      label1.Refresh();
 
-      if (txtPeriodo.Text.Trim() == string.Empty)
-      {
-        label1.Text = "FALTA EL PERIODO!!!!!";
-        return;
-      }
-
-      obj.GetUUID(txtFolderUUID.Text, txtPeriodo.Text);
+      obj.GetUUID(txtFolderUUID.Text);
       label1.Text = "Done!";
     }
 
@@ -53,6 +49,8 @@ namespace testXML2TXTForm
     {
       Xml2TxtProcess obj = new Xml2TxtProcess();
       label1.Text = "Getting Layouts...!";
+      label1.Refresh();
+
       obj.GetLAyoutsInExcel();
       label1.Text = "Done!";
     }
@@ -73,6 +71,7 @@ namespace testXML2TXTForm
     {
       Xml2TxtProcess obj = new Xml2TxtProcess();
       label1.Text = "Getting Complementary Data...!";
+      label1.Refresh();
 
       if (txtPeriodo.Text.Trim() == string.Empty)
       {
@@ -88,6 +87,8 @@ namespace testXML2TXTForm
     {
       Xml2TxtProcess obj = new Xml2TxtProcess();
       label1.Text = "Procesing Payrol 2 TXT...!";
+      label1.Refresh();
+
       obj.PayRoll2TXT(txtPeriodo.Text, chbUseRfcExclusionList.Checked, chbUseRfcIncludeList.Checked);
       label1.Text = "Done!";
     }

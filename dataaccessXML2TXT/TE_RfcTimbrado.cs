@@ -19,5 +19,6 @@ namespace dataaccessXML2TXT
         public string txtPeriodo { get; set; }
         public string txtUUID { get; set; }
         public string txtFileName { get; set; }
+        public string txtFecha { get; set; }
     }
 }
