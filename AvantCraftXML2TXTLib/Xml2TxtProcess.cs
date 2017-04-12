@@ -51,6 +51,11 @@ namespace AvantCraftXML2TXTLib
       var val_complemento_nomina = (from c in root.Elements(cfdi + "Complemento").Elements(nomina + "Nomina") select c).FirstOrDefault();
 
       string val_NumEmpleado = val_complemento_nomina.Attribute("NumEmpleado").Value;
+
+      // take real RFC y CURP 
+
+
+
       string val_CURP = val_complemento_nomina.Attribute("CURP").Value;
       string val_FechaPago = val_complemento_nomina.Attribute("FechaPago").Value;
       string val_FechaInicialPago = val_complemento_nomina.Attribute("FechaInicialPago").Value;
