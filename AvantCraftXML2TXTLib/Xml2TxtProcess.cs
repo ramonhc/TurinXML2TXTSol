@@ -51,12 +51,19 @@ namespace AvantCraftXML2TXTLib
       var val_complemento_nomina = (from c in root.Elements(cfdi + "Complemento").Elements(nomina + "Nomina") select c).FirstOrDefault();
 
       string val_NumEmpleado = val_complemento_nomina.Attribute("NumEmpleado").Value;
-
-      // take real RFC y CURP 
-
-
-
       string val_CURP = val_complemento_nomina.Attribute("CURP").Value;
+
+      // get real CURP n RFC 
+      TC_RFC realRfcNCurp = (from a in db.TC_RFC where a.txtNumEmp == val_NumEmpleado select a).FirstOrDefault();
+
+      // use real curp
+      if (realRfcNCurp != null)
+      {
+        val_CURP = realRfcNCurp.txtCURP;
+      }
+      //----
+
+
       string val_FechaPago = val_complemento_nomina.Attribute("FechaPago").Value;
       string val_FechaInicialPago = val_complemento_nomina.Attribute("FechaInicialPago").Value;
       string val_FechaFinalPago = val_complemento_nomina.Attribute("FechaFinalPago").Value;
@@ -163,6 +170,14 @@ namespace AvantCraftXML2TXTLib
         string H4_2 = receptor.Attribute("nombre").Value; //0
         dbHead.H4_02 = H4_2;
         string H4_3 = receptor.Attribute("rfc").Value; //1
+
+        // use real RFC
+        if (realRfcNCurp != null)
+        {
+          H4_3 = realRfcNCurp.txyRfc;
+        }
+        //----
+
         dbHead.H4_03 = H4_3;
 
         var receptorDomicilio = (from c in root.Elements(cfdi + "Receptor").Elements(cfdi + "Domicilio") select c).FirstOrDefault();
@@ -350,7 +365,7 @@ namespace AvantCraftXML2TXTLib
             PE_4 = d2s(s2d(percepcion.Attribute("ImporteGravado").Value));
             PE_5 = d2s(s2d(percepcion.Attribute("ImporteExento").Value));
 
-            if (PE_1 != "017")   // en caso de ser = 17, es un Subsidio, debe considerarse en: TE_OtroPago
+            if (PE_1 != "017" && PE_1 != "016")   // en caso de ser = 17, es un Subsidio,  016 = otro .. debe considerarse en: TE_OtroPago
             {
               TE_Percepcion dbPE = new TE_Percepcion();
               dbPE.nominaId = dbNO.nominaId;
@@ -373,7 +388,7 @@ namespace AvantCraftXML2TXTLib
             {
               TE_OtroPago dbOP = new TE_OtroPago();
               dbOP.nominaId = dbNO.nominaId;
-              dbOP.c_TipoOtroPago = 2;  //subsidio, debe ser 002
+              dbOP.c_TipoOtroPago = (PE_1 == "017") ? 2 : 999;  //subsidio, debe ser 002
               dbOP.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
               dbOP.Concepto = PE_3;
               dbOP.Importe = s2d(percepcion.Attribute("ImporteExento").Value);
@@ -569,12 +584,14 @@ namespace AvantCraftXML2TXTLib
         {
           foreach (TC_Subcontratacion s in sc)
           {
-            TE_Receptor_Subcontratacion rsc = new TE_Receptor_Subcontratacion();
-            rsc.nominaId = dbNO.nominaId;
-            rsc.RfcLabora = s.RfcLabora;
-            rsc.PorcentajeTiempo = s.PorcentajeTiempo;
-            db.TE_Receptor_Subcontratacion.Add(rsc);
-
+            if (s.PorcentajeTiempo > 0)
+            {
+              TE_Receptor_Subcontratacion rsc = new TE_Receptor_Subcontratacion();
+              rsc.nominaId = dbNO.nominaId;
+              rsc.RfcLabora = s.RfcLabora;
+              rsc.PorcentajeTiempo = s.PorcentajeTiempo;
+              db.TE_Receptor_Subcontratacion.Add(rsc);
+            }
           }
           db.SaveChanges();
         }

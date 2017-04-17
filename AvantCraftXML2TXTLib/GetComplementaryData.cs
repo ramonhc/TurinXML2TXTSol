@@ -45,19 +45,22 @@ namespace AvantCraftXML2TXTLib
               db.SaveChanges();
             }
 
-            //ADD NEW
-            TC_Subcontratacion s = new TC_Subcontratacion();
-            s.RfcEmpleado = rfcEmpleado;
-            s.RfcLabora = RfcLabora;
-            s.txtPeriodo = aPeriodo;
-
             decimal porcentajeTiempo = decimal.Parse(r["PorcentajeTiempo"].ToString());
-            if (porcentajeTiempo < 1) porcentajeTiempo = porcentajeTiempo * 100;
-            s.PorcentajeTiempo = porcentajeTiempo;
+            if (porcentajeTiempo > 0)
+            {
+              //ADD NEW
+              TC_Subcontratacion s = new TC_Subcontratacion();
+              s.RfcEmpleado = rfcEmpleado;
+              s.RfcLabora = RfcLabora;
+              s.txtPeriodo = aPeriodo;
 
-            s.txtPeriodo = aPeriodo;
-            db.TC_Subcontratacion.Add(s);
-            db.SaveChanges();
+              if (porcentajeTiempo < 1) porcentajeTiempo = porcentajeTiempo * 100;
+              s.PorcentajeTiempo = porcentajeTiempo;
+
+              s.txtPeriodo = aPeriodo;
+              db.TC_Subcontratacion.Add(s);
+              db.SaveChanges();
+            }
           }
 
           //---------->>>>>>>>>>>>>> fijosXempleado

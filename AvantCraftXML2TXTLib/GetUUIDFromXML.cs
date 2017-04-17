@@ -75,25 +75,16 @@ namespace AvantCraftXML2TXTLib
       var Receptor = (from c in root.Elements(cfdi + "Receptor") select c).FirstOrDefault();
       string rfc = Receptor.Attribute("rfc").Value;
       string nombre = Receptor.Attribute("nombre").Value;
+
+      string curp = "";
       string frecuencia = "";
 
-      var complemento_nomina_percepciones_coll = (from c in root.Elements(cfdi + "Complemento").Elements(nomina12 + "Nomina").Elements(nomina12 + "Percepciones").Elements(nomina12 + "Percepcion") select c).DefaultIfEmpty();
-      if (!(complemento_nomina_percepciones_coll.Count() == 1 && complemento_nomina_percepciones_coll.First() == null))
-      {
-        foreach (var percepcion in complemento_nomina_percepciones_coll)
-        {
-          if (percepcion.Attribute("Concepto").Value.Contains("SEMANAL"))
-          {
-            frecuencia = "SEMANAL";
-            break;
-          }
-          else if (percepcion.Attribute("Concepto").Value.Contains("QUINCENAL"))
-          {
-            frecuencia = "QUINCENAL";
-            break;
-          }
-        }
-      }
+      //var complemento_nomina_percepciones_coll = (from c in root.Elements(cfdi + "Complemento").Elements(nomina12 + "Nomina").Elements(nomina12 + "Receptor") select c).FirstOrDefault();
+      //if (complemento_nomina_percepciones_coll != null)
+      //{
+      //  double dFrecuencia = Utils.s2double(complemento_nomina_percepciones_coll.Attribute("PeriodicidadPago").Value);
+      //  frecuencia = (from t in db.c_PeriodicidadPago where t.c_PeriodicidadPago1 == dFrecuencia select t.Descripcion).FirstOrDefault();
+      //}
 
       var Nomina = (from c in root.Elements(cfdi + "Complemento").Elements(nomina12 + "Nomina") select c).FirstOrDefault();
       string fechaFinalPago = Nomina.Attribute("FechaFinalPago").Value;
@@ -102,54 +93,65 @@ namespace AvantCraftXML2TXTLib
       var TimbreFiscalDigital = (from c in root.Elements(cfdi + "Complemento").Elements(tfd + "TimbreFiscalDigital") select c).FirstOrDefault();
       string UUID = TimbreFiscalDigital.Attribute("UUID").Value; //0
 
-      if (frecuencia == "SEMANAL")
+      //if (frecuencia == "Semanal")
+      //{
+      //  switch (fechaFinalPago)
+      //  {
+      //    case "2017-01-08":
+      //      aPeriodo = "S012017";
+      //      break;
+      //    case "2017-01-06":
+      //      aPeriodo = "S012017";
+      //      break;
+      //    case "2017-01-15":
+      //      aPeriodo = "S022017";
+      //      break;
+      //    case "2017-01-22":
+      //      aPeriodo = "S032017";
+      //      break;
+      //    case "2017-01-29":
+      //      aPeriodo = "S042017";
+      //      break;
+      //    case "2017-01-27":
+      //      aPeriodo = "S042017";
+      //      break;
+      //    default:
+      //      aPeriodo = string.Empty;
+      //      break;
+      //  }
+      //}
+      //else if (frecuencia == "Quincenal")
+      //{
+      //  switch (fechaFinalPago)
+      //  {
+      //    case "2017-01-08":
+      //      aPeriodo = "Q";
+      //      break;
+      //    case "2017-01-15":
+      //      aPeriodo = "Q";
+      //      break;
+      //    case "2017-01-22":
+      //      aPeriodo = "Q";
+      //      break;
+      //    case "2017-01-29":
+      //      aPeriodo = "Q";
+      //      break;
+      //    default:
+      //      aPeriodo = string.Empty;
+      //      break;
+      //  }
+      //}
+
+
+      var complemento_nomina_percepciones_coll = (from c in root.Elements(cfdi + "Complemento").Elements(nomina12 + "Nomina").Elements(nomina12 + "Receptor") select c).FirstOrDefault();
+      if (complemento_nomina_percepciones_coll != null)
       {
-        switch (fechaFinalPago)
-        {
-          case "2017-01-08":
-            aPeriodo = "S012017";
-            break;
-          case "2017-01-06":
-            aPeriodo = "S012017";
-            break;
-          case "2017-01-15":
-            aPeriodo = "S022017";
-            break;
-          case "2017-01-22":
-            aPeriodo = "S032017";
-            break;
-          case "2017-01-29":
-            aPeriodo = "S042017";
-            break;
-          case "2017-01-27":
-            aPeriodo = "S042017";
-            break;
-          default:
-            aPeriodo = string.Empty;
-            break;
-        }
+        curp = complemento_nomina_percepciones_coll.Attribute("Curp").Value;
       }
-      else if (frecuencia == "QUINCENAL")
-      {
-        switch (fechaFinalPago)
-        {
-          case "2017-01-08":
-            aPeriodo = "Q";
-            break;
-          case "2017-01-15":
-            aPeriodo = "Q";
-            break;
-          case "2017-01-22":
-            aPeriodo = "Q";
-            break;
-          case "2017-01-29":
-            aPeriodo = "Q";
-            break;
-          default:
-            aPeriodo = string.Empty;
-            break;
-        }
-      }
+
+      aPeriodo = (from r in db.TE_Nomina where r.Receptor_CURP == curp && r.FechaFinalPago == fechaFinalPago select r.periodo).FirstOrDefault();
+      //frecuencia = (from r in db.TE_Nomina where r.Receptor_CURP == curp select r.c_PeriodicidadPago.Descripcion).FirstOrDefault();
+
 
       var found = (from a in db.TE_RfcTimbrado
                    where a.txtRFC == rfc

@@ -78,6 +78,18 @@ namespace AvantCraftXML2TXTLib
         return 0.0M;
     }
 
+    //----------------------------------------------------------------------
+
+    public static double s2double(string value) //GetStringAsDecimal
+    {
+      double theResult;
+
+      if (double.TryParse(value, out theResult))
+        return theResult;
+      else
+        return 0.0D;
+    }
+
     //-----------------------------------------------------------------------
     public static string d2s(decimal value) //GetDecimalAsStringWith4Decimals
     {
