@@ -47,6 +47,7 @@
       this.label3 = new System.Windows.Forms.Label();
       this.chbUseRfcExclusionList = new System.Windows.Forms.CheckBox();
       this.chbUseRfcIncludeList = new System.Windows.Forms.CheckBox();
+      this.button6 = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.groupBox1.SuspendLayout();
       this.boxSeleccion.SuspendLayout();
@@ -256,11 +257,22 @@
       this.chbUseRfcIncludeList.Text = "Usar Inclusiones de RFC";
       this.chbUseRfcIncludeList.UseVisualStyleBackColor = true;
       // 
+      // button6
+      // 
+      this.button6.Location = new System.Drawing.Point(9, 372);
+      this.button6.Name = "button6";
+      this.button6.Size = new System.Drawing.Size(293, 23);
+      this.button6.TabIndex = 14;
+      this.button6.Text = "2 CANCEL: Get UUID List";
+      this.button6.UseVisualStyleBackColor = true;
+      this.button6.Click += new System.EventHandler(this.button6_Click);
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(531, 475);
+      this.Controls.Add(this.button6);
       this.Controls.Add(this.chbUseRfcIncludeList);
       this.Controls.Add(this.chbUseRfcExclusionList);
       this.Controls.Add(this.label3);
@@ -308,6 +320,7 @@
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.CheckBox chbUseRfcExclusionList;
     private System.Windows.Forms.CheckBox chbUseRfcIncludeList;
+    private System.Windows.Forms.Button button6;
   }
 }
 

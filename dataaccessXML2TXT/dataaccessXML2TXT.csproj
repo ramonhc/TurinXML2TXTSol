@@ -150,6 +150,9 @@
     <Compile Include="TE_TXT_HEADER.cs">
       <DependentUpon>XML2TXTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TE_UUID2CANCEL.cs">
+      <DependentUpon>XML2TXTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="XML2TXTModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

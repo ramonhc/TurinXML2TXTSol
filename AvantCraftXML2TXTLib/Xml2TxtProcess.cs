@@ -1104,7 +1104,8 @@ namespace AvantCraftXML2TXTLib
           foreach (TE_OtroPago o in os)
           {
             sb.Append("[OtroPago]" + "|");
-            sb.Append("00" + o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
+            //sb.Append("00" + o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
+            sb.Append(Utils.FillWithCerosToTheLeft(o.c_TipoOtroPago1.c_TipoOtroPago1, 3) + "|");
             sb.Append(o.Clave + "|");
             sb.Append(o.Concepto + "|");
             sb.Append(o.Importe);

@@ -127,6 +127,25 @@ namespace AvantCraftXML2TXTLib
       }
       return -1;
     }
+
+    internal static string FillWithCerosToTheLeft(double theNumber, int totalLenghtOfString)
+    {
+      string txtNumber = theNumber.ToString();
+      switch (txtNumber.Length)
+      {
+        case 3:
+          break;
+        case 2:
+          txtNumber = "0" + txtNumber;
+          break;
+        case 1:
+          txtNumber = "00" + txtNumber;
+          break;
+        default:
+          break;
+      }
+      return txtNumber;
+    }
     //---------------------------------------------------------------------------+
 
   }

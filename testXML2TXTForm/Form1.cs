@@ -92,5 +92,15 @@ namespace testXML2TXTForm
       obj.PayRoll2TXT(txtPeriodo.Text, chbUseRfcExclusionList.Checked, chbUseRfcIncludeList.Checked);
       label1.Text = "Done!";
     }
+
+    private void button6_Click(object sender, EventArgs e)
+    {
+      GetUUIDFromXML obj = new GetUUIDFromXML();
+      label1.Text = "2 CANCEL: Getting UUIDs...!";
+      label1.Refresh();
+
+      obj.GetUUID2CANCEL(txtFolderUUID.Text);
+      label1.Text = "Done!";
+    }
   }
 }

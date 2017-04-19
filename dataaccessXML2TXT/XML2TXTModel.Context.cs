@@ -57,5 +57,6 @@ namespace dataaccessXML2TXT
         public virtual DbSet<TC_RfcIncludeList> TC_RfcIncludeList { get; set; }
         public virtual DbSet<TE_RfcTimbrado> TE_RfcTimbrado { get; set; }
         public virtual DbSet<TC_RFC> TC_RFC { get; set; }
+        public virtual DbSet<TE_UUID2CANCEL> TE_UUID2CANCEL { get; set; }
     }
 }

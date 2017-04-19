@@ -379,6 +379,18 @@
           <Property Name="S_37" Type="nvarchar" MaxLength="250" />
           <Property Name="filename" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="TE_UUID2CANCEL">
+          <Key>
+            <PropertyRef Name="cancelKey" />
+          </Key>
+          <Property Name="cancelKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emisor_RFC" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Receptor_rfc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Receptor_nombre" Type="nvarchar(max)" />
+          <Property Name="PeriodicidadPago" Type="nvarchar" MaxLength="50" />
+          <Property Name="FechaFinalPago" Type="nvarchar" MaxLength="50" />
+          <Property Name="UUID" Type="nvarchar(max)" />
+        </EntityType>
         <Association Name="FK_TE_Deduccion_c_TipoDeduccion">
           <End Role="c_TipoDeduccion" Type="Self.c_TipoDeduccion" Multiplicity="0..1" />
           <End Role="TE_Deduccion" Type="Self.TE_Deduccion" Multiplicity="*" />
@@ -688,6 +700,7 @@
           <EntitySet Name="TE_RfcTimbrado" EntityType="Self.TE_RfcTimbrado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_SeparacionIndemnizacion" EntityType="Self.TE_SeparacionIndemnizacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TE_TXT_HEADER" EntityType="Self.TE_TXT_HEADER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TE_UUID2CANCEL" EntityType="Self.TE_UUID2CANCEL" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_TE_Deduccion_c_TipoDeduccion" Association="Self.FK_TE_Deduccion_c_TipoDeduccion">
             <End Role="c_TipoDeduccion" EntitySet="c_TipoDeduccion" />
             <End Role="TE_Deduccion" EntitySet="TE_Deduccion" />
@@ -1165,6 +1178,7 @@
           <EntitySet Name="TC_RfcIncludeList" EntityType="AvantCraft_nomina2017Model.TC_RfcIncludeList" />
           <EntitySet Name="TE_RfcTimbrado" EntityType="AvantCraft_nomina2017Model.TE_RfcTimbrado" />
           <EntitySet Name="TC_RFC" EntityType="AvantCraft_nomina2017Model.TC_RFC" />
+          <EntitySet Name="TE_UUID2CANCEL" EntityType="AvantCraft_nomina2017Model.TE_UUID2CANCEL" />
           </EntityContainer>
         <EntityType Name="TE_Percepcion">
           <Key>
@@ -1607,6 +1621,18 @@
           <Property Name="txyRfc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="bitValido" Type="Boolean" />
         </EntityType>
+        <EntityType Name="TE_UUID2CANCEL">
+          <Key>
+            <PropertyRef Name="cancelKey" />
+          </Key>
+          <Property Name="cancelKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emisor_RFC" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_rfc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receptor_nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PeriodicidadPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FechaFinalPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2016,6 +2042,19 @@
                 <ScalarProperty Name="txtNombre" ColumnName="txtNombre" />
                 <ScalarProperty Name="txtNumEmp" ColumnName="txtNumEmp" />
                 <ScalarProperty Name="rfcKey" ColumnName="rfcKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_UUID2CANCEL">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_UUID2CANCEL">
+              <MappingFragment StoreEntitySet="TE_UUID2CANCEL">
+                <ScalarProperty Name="UUID" ColumnName="UUID" />
+                <ScalarProperty Name="FechaFinalPago" ColumnName="FechaFinalPago" />
+                <ScalarProperty Name="PeriodicidadPago" ColumnName="PeriodicidadPago" />
+                <ScalarProperty Name="Receptor_nombre" ColumnName="Receptor_nombre" />
+                <ScalarProperty Name="Receptor_rfc" ColumnName="Receptor_rfc" />
+                <ScalarProperty Name="Emisor_RFC" ColumnName="Emisor_RFC" />
+                <ScalarProperty Name="cancelKey" ColumnName="cancelKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
