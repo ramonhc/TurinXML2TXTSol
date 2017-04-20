@@ -365,37 +365,56 @@ namespace AvantCraftXML2TXTLib
             PE_4 = d2s(s2d(percepcion.Attribute("ImporteGravado").Value));
             PE_5 = d2s(s2d(percepcion.Attribute("ImporteExento").Value));
 
-            if (PE_1 != "017" && PE_1 != "016")   // en caso de ser = 17, es un Subsidio,  016 = otro .. debe considerarse en: TE_OtroPago
+            //--- find negatives
+            decimal PerImpG = s2d(percepcion.Attribute("ImporteGravado").Value);
+            decimal PerImpX = s2d(percepcion.Attribute("ImporteExento").Value);
+
+            if (PerImpG < 0 || PerImpX < 0)  //--- en caso de percepcion negativa se registra en Deducción 'Otros'
             {
-              TE_Percepcion dbPE = new TE_Percepcion();
-              dbPE.nominaId = dbNO.nominaId;
-
-              //p = percepcion.Element(nomina + "Percepcion");
-              //find c_TipoPercepcion ID
-              c_TipoPercepcion ctp = (from p in db.c_TipoPercepcion where p.Value == PE_1 select p).FirstOrDefault();
-              if (ctp != null) dbPE.c_TipoPercepcion = ctp.c_TipoPercepcion1;
-              else dbPE.c_TipoPercepcion = 1;
-
-              dbPE.TipoPercepcion = PE_1;
-              dbPE.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
-              dbPE.Concepto = PE_3;
-              dbPE.ImporteGravado = s2d(percepcion.Attribute("ImporteGravado").Value);
-              dbPE.ImporteExcento = s2d(percepcion.Attribute("ImporteExento").Value);
-
-              db.TE_Percepcion.Add(dbPE);
+              TE_Deduccion dbDE = new TE_Deduccion();
+              dbDE.nominaId = dbNO.nominaId;
+              dbDE.TipoDeduccion = "004";
+              dbDE.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
+              dbDE.c_TipoDeduccion = 4;
+              dbDE.Concepto = PE_3.Replace(".", string.Empty);
+              dbDE.Importe = Math.Abs(PerImpG + PerImpX);
+              db.TE_Deduccion.Add(dbDE);
+              db.SaveChanges();
             }
             else
             {
-              TE_OtroPago dbOP = new TE_OtroPago();
-              dbOP.nominaId = dbNO.nominaId;
-              dbOP.c_TipoOtroPago = (PE_1 == "017") ? 2 : 999;  //subsidio, debe ser 002
-              dbOP.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
-              dbOP.Concepto = PE_3;
-              dbOP.Importe = s2d(percepcion.Attribute("ImporteExento").Value);
-              db.TE_OtroPago.Add(dbOP);
-            }
+              if (PE_1 != "017" && PE_1 != "016")   // en caso de ser = 17, es un Subsidio,  016 = otro .. debe considerarse en: TE_OtroPago
+              {
+                TE_Percepcion dbPE = new TE_Percepcion();
+                dbPE.nominaId = dbNO.nominaId;
 
-            db.SaveChanges();
+                //p = percepcion.Element(nomina + "Percepcion");
+                //find c_TipoPercepcion ID
+                c_TipoPercepcion ctp = (from p in db.c_TipoPercepcion where p.Value == PE_1 select p).FirstOrDefault();
+                if (ctp != null) dbPE.c_TipoPercepcion = ctp.c_TipoPercepcion1;
+                else dbPE.c_TipoPercepcion = 1;
+
+                dbPE.TipoPercepcion = PE_1;
+                dbPE.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
+                dbPE.Concepto = PE_3;
+                dbPE.ImporteGravado = PerImpG;
+                dbPE.ImporteExcento = PerImpX;
+
+                db.TE_Percepcion.Add(dbPE);
+              }
+              else
+              {
+                TE_OtroPago dbOP = new TE_OtroPago();
+                dbOP.nominaId = dbNO.nominaId;
+                dbOP.c_TipoOtroPago = (PE_1 == "017") ? 2 : 999;  //subsidio, debe ser 002
+                dbOP.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
+                dbOP.Concepto = PE_3;
+                dbOP.Importe = s2d(percepcion.Attribute("ImporteExento").Value);
+                db.TE_OtroPago.Add(dbOP);
+              }
+
+              db.SaveChanges();
+            }
           }
 
         }
@@ -432,44 +451,55 @@ namespace AvantCraftXML2TXTLib
 
           foreach (var deduccion in complemento_nomina_deducciones_coll)
           {
-            TE_Deduccion dbDE = new TE_Deduccion();
-            dbDE.nominaId = dbNO.nominaId;
-
-            //p = deduccion.Element(nomina + "Deduccion");
             DE_1 = deduccion.Attribute("TipoDeduccion").Value;
-
-            //find c_TipoDeduccion ID
-            c_TipoDeduccion ctd = (from p2 in db.c_TipoDeduccion where p2.Value == DE_1 select p2).FirstOrDefault();
-            if (ctd != null) dbDE.c_TipoDeduccion = ctd.c_TipoDeduccion1;
-            else dbDE.c_TipoDeduccion = 1;
-
-            dbDE.TipoDeduccion = DE_1;
             DE_2 = deduccion.Attribute("Clave").Value;
-            dbDE.Clave = DE_2;
             DE_3 = deduccion.Attribute("Concepto").Value;
-            dbDE.Concepto = DE_3.Replace(".", string.Empty);
             DE_4 = d2s(s2d(deduccion.Attribute("ImporteGravado").Value));
             DE_5 = d2s(s2d(deduccion.Attribute("ImporteExento").Value));
 
-            //++++
-            decimal importe = s2d(deduccion.Attribute("ImporteGravado").Value) + s2d(deduccion.Attribute("ImporteExento").Value);
-            dbDE.Importe = importe;
-            db.TE_Deduccion.Add(dbDE);
-            db.SaveChanges();
+            //--- find negatives
+            decimal DedImpG = s2d(deduccion.Attribute("ImporteGravado").Value);
+            decimal DedImpX = s2d(deduccion.Attribute("ImporteExento").Value);
 
-            if (DE_1.Trim() == "002")
+            if (DedImpG < 0 || DedImpX < 0)  //--- en caso de deducción negativa se registra en OtroPago 
             {
-              Deducciones_TotalImpuestosRetenidos += importe;
+              TE_OtroPago dbOPd = new TE_OtroPago();
+              dbOPd.nominaId = dbNO.nominaId;
+              dbOPd.c_TipoOtroPago = 999;
+              dbOPd.Clave = DE_2.Replace("/", "");                                 //Remove dashes ("/")
+              dbOPd.Concepto = DE_3;
+              dbOPd.Importe = Math.Abs(DedImpG + DedImpX);
+              db.TE_OtroPago.Add(dbOPd);
             }
             else
             {
-              Deducciones_TotalOtrasDeducciones += importe;
+              TE_Deduccion dbDE = new TE_Deduccion();
+              dbDE.nominaId = dbNO.nominaId;
+              c_TipoDeduccion ctd = (from p2 in db.c_TipoDeduccion where p2.Value == DE_1 select p2).FirstOrDefault();
+              if (ctd != null) dbDE.c_TipoDeduccion = ctd.c_TipoDeduccion1;
+              else dbDE.c_TipoDeduccion = 1;
+              dbDE.TipoDeduccion = DE_1;
+              dbDE.Clave = DE_2;
+              dbDE.Concepto = DE_3.Replace(".", string.Empty);
+              //++++
+              decimal importe = s2d(deduccion.Attribute("ImporteGravado").Value) + s2d(deduccion.Attribute("ImporteExento").Value);
+              dbDE.Importe = importe;
+              db.TE_Deduccion.Add(dbDE);
+              db.SaveChanges();
+
+              if (DE_1.Trim() == "002")
+              {
+                Deducciones_TotalImpuestosRetenidos += importe;
+              }
+              else
+              {
+                Deducciones_TotalOtrasDeducciones += importe;
+              }
             }
+
+            dbNO.Deducciones_TotalOtrasDeducciones = Deducciones_TotalOtrasDeducciones;
+            dbNO.Deducciones_TotalImpuestosRetenidos = Deducciones_TotalImpuestosRetenidos;
           }
-
-          dbNO.Deducciones_TotalOtrasDeducciones = Deducciones_TotalOtrasDeducciones;
-          dbNO.Deducciones_TotalImpuestosRetenidos = Deducciones_TotalImpuestosRetenidos;
-
         }
 
         //----------------------------------------------------------------------------------------------------
@@ -596,7 +626,7 @@ namespace AvantCraftXML2TXTLib
           db.SaveChanges();
         }
         //FIX CATALOG REFERENCES
-        //-- c_TipoPercepcion
+        //-- FIX c_TipoPercepcion
         IQueryable<TE_Percepcion> fixPer = (from per in db.TE_Percepcion where per.nominaId == dbNO.nominaId && per.Clave != "REMPLAZO" select per).DefaultIfEmpty();
         if (!(fixPer.Count() == 1 && fixPer.First() == null))
         {
@@ -626,7 +656,7 @@ namespace AvantCraftXML2TXTLib
           }
           db.SaveChanges();
         }
-        //-- c_TipoHoras
+        //-- FIX c_TipoHoras
         IQueryable<TE_Percepcion_HorasExtra> hexs = (from hexss in db.TE_Percepcion_HorasExtra where hexss.TE_Percepcion.nominaId == dbNO.nominaId select hexss).DefaultIfEmpty();
         if (!(hexs.Count() == 1 && hexs.First() == null))
         {
@@ -649,7 +679,7 @@ namespace AvantCraftXML2TXTLib
           db.SaveChanges();
         }
 
-        //-- c_TipoDeduccion
+        //-- FIX c_TipoDeduccion
         IQueryable<TE_Deduccion> dexs = (from d in db.TE_Deduccion where d.nominaId == dbNO.nominaId select d).DefaultIfEmpty();
         if (!(dexs.Count() == 1 && dexs.First() == null))
         {
@@ -672,7 +702,7 @@ namespace AvantCraftXML2TXTLib
           db.SaveChanges();
         }
 
-        //-- c_TipoIncapacidad
+        //-- FIC c_TipoIncapacidad
         IQueryable<TE_Incapacidad> incs = (from d in db.TE_Incapacidad where d.nominaId == dbNO.nominaId select d).DefaultIfEmpty();
         if (!(incs.Count() == 1 && incs.First() == null))
         {
@@ -731,7 +761,6 @@ namespace AvantCraftXML2TXTLib
         //----- FIX HEAD
 
 
-
         //----- FIX HEAD SUBtotal
         dbHead.D_09 = (fixTotalPercepciones + fixTotalOtrosPagos).ToString();
         //NOM109: El valor del atributo total :: suma Nomina12:TotalPercepciones más Nomina12:TotalOtrosPagos menos Nomina12:TotalDeducciones
@@ -749,25 +778,6 @@ namespace AvantCraftXML2TXTLib
       } // end if found .. line 66
     }
 
-    //private static string setPeriodo(string FechaFinalPago, string periodicidad)  // NO_08 = yyyy-MM-dd    periodicidad = quincenal/Semanal
-    //{
-    //  string returnPeriodo = "NOTFOUND";
-
-    //  switch (FechaFinalPago)
-    //  {
-    //    case "2017-01-08":
-    //      if (periodicidad == "Semanal") returnPeriodo = "S012017";
-    //      break;
-    //    case "2017-01-15":
-    //      if (periodicidad == "Semanal") returnPeriodo = "S022017";
-    //      else returnPeriodo = "Q012017";
-    //      break;
-    //    default:
-    //      break;
-    //  }
-
-    //  return returnPeriodo;
-    //}
 
     //---------------------------------------------------------------------------+
     private static decimal getRealDescuento(XElement root)
@@ -1092,8 +1102,6 @@ namespace AvantCraftXML2TXTLib
             sb.Append(Environment.NewLine);
           }
         }
-
-
 
         var os = (from ops in db.TE_OtroPago where ops.nominaId == n.nominaId select ops).DefaultIfEmpty();
         if (!(os.Count() == 1 && os.First() == null))

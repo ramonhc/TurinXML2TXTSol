@@ -144,6 +144,7 @@
           <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="50" />
           <Property Name="c_Estado" Type="nvarchar" MaxLength="50" />
           <Property Name="txtPeriodo" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtNumEmpleado" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TC_RFC">
           <Key>
@@ -179,6 +180,7 @@
           <Property Name="RfcLabora" Type="nvarchar" MaxLength="50" />
           <Property Name="PorcentajeTiempo" Type="decimal" Precision="18" Scale="2" />
           <Property Name="txtPeriodo" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtNumEmpleado" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TE_Deduccion">
           <Key>
@@ -384,7 +386,7 @@
             <PropertyRef Name="cancelKey" />
           </Key>
           <Property Name="cancelKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Emisor_RFC" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Emisor_RFC" Type="nvarchar" MaxLength="50" />
           <Property Name="Receptor_rfc" Type="nvarchar" MaxLength="50" />
           <Property Name="Receptor_nombre" Type="nvarchar(max)" />
           <Property Name="PeriodicidadPago" Type="nvarchar" MaxLength="50" />
@@ -1569,6 +1571,7 @@
           <Property Name="RfcLabora" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PorcentajeTiempo" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtNumEmpleado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TC_DatosFijosPorEmpleado">
           <Key>
@@ -1584,6 +1587,7 @@
           <Property Name="CuentaBancaria" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="c_Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtNumEmpleado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TC_RfcExclusionList">
           <Key>
@@ -1626,7 +1630,7 @@
             <PropertyRef Name="cancelKey" />
           </Key>
           <Property Name="cancelKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Emisor_RFC" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Emisor_RFC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Receptor_rfc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Receptor_nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PeriodicidadPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1981,6 +1985,7 @@
           <EntitySetMapping Name="TC_Subcontratacion">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_Subcontratacion">
               <MappingFragment StoreEntitySet="TC_Subcontratacion">
+                <ScalarProperty Name="txtNumEmpleado" ColumnName="txtNumEmpleado" />
                 <ScalarProperty Name="txtPeriodo" ColumnName="txtPeriodo" />
                 <ScalarProperty Name="PorcentajeTiempo" ColumnName="PorcentajeTiempo" />
                 <ScalarProperty Name="RfcLabora" ColumnName="RfcLabora" />
@@ -1992,6 +1997,7 @@
           <EntitySetMapping Name="TC_DatosFijosPorEmpleado">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_DatosFijosPorEmpleado">
               <MappingFragment StoreEntitySet="TC_DatosFijosPorEmpleado">
+                <ScalarProperty Name="txtNumEmpleado" ColumnName="txtNumEmpleado" />
                 <ScalarProperty Name="txtPeriodo" ColumnName="txtPeriodo" />
                 <ScalarProperty Name="c_Estado" ColumnName="c_Estado" />
                 <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
