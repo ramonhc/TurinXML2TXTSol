@@ -603,13 +603,13 @@ namespace AvantCraftXML2TXTLib
         }
 
         //----------- DATOS FIJOS  ------------- 
-        TC_DatosFijosPorEmpleado dfxe = (from c in db.TC_DatosFijosPorEmpleado where c.rfcEmpleado == dbHead.H4_03 && c.txtPeriodo == txtPeriodo select c).FirstOrDefault();
+        TC_DatosFijosPorEmpleado dfxe = (from c in db.TC_DatosFijosPorEmpleado where c.txtNumEmpleado == dbNO.Receptor_NumEmpleado && c.txtPeriodo == txtPeriodo select c).FirstOrDefault();
         dbNO.Receptor_c_Banco = double.Parse(dfxe.c_Banco);
         dbNO.Receptor_CuentaBancaria = dfxe.CuentaBancaria;
         dbNO.Receptor_c_ClaveEntFed = dfxe.c_Estado;
         db.SaveChanges();
         //SUBCONTRATACION
-        IQueryable<TC_Subcontratacion> sc = (from s in db.TC_Subcontratacion where s.RfcEmpleado == dbHead.H4_03 && s.txtPeriodo == txtPeriodo select s).DefaultIfEmpty();
+        IQueryable<TC_Subcontratacion> sc = (from s in db.TC_Subcontratacion where s.txtNumEmpleado == dbNO.Receptor_NumEmpleado && s.txtPeriodo == txtPeriodo select s).DefaultIfEmpty();
         if (!(sc.Count() == 1 && sc.First() == null))
         {
           foreach (TC_Subcontratacion s in sc)
