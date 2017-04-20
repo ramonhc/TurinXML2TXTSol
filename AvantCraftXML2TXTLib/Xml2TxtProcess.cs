@@ -26,14 +26,15 @@ namespace AvantCraftXML2TXTLib
 
       foreach (FileInfo file in files)
       {
-        string bkpDtmFolder = GetConfigurationValues("BackupFolder") + txtPeriodo + "\\" + DateTime.Now.ToString("yyyyMMdd") + "\\";
-        bool exists3 = System.IO.Directory.Exists(bkpDtmFolder + txtPeriodo + "\\");
-        if (!exists3) System.IO.Directory.CreateDirectory(bkpDtmFolder + txtPeriodo + "\\");
+        string bkpDtmFolder = GetConfigurationValues("BackupFolder") + txtPeriodo + "\\";
+        bool exists3 = System.IO.Directory.Exists(bkpDtmFolder);
+        if (!exists3) System.IO.Directory.CreateDirectory(bkpDtmFolder);
 
         file.CopyTo(bkpDtmFolder + file.Name, true);
         ParseXml(file, txtPeriodo);
         file.Delete();
       }
+      dir.Delete();
     }
 
     //----------------------------------------------------------------------------------------------------
@@ -1170,11 +1171,11 @@ namespace AvantCraftXML2TXTLib
         // MAKE FILE ----
         try
         {
-          bool exists4 = System.IO.Directory.Exists(GetFinalDestination(h.H2_03) + txt_Periodo + "\\");
-          if (!exists4) System.IO.Directory.CreateDirectory(GetFinalDestination(h.H2_03) + txt_Periodo + "\\");
+          bool exists4 = System.IO.Directory.Exists(GetFinalDestination(h.H2_03) + "\\");
+          if (!exists4) System.IO.Directory.CreateDirectory(GetFinalDestination(h.H2_03) + "\\");
 
           string textToPrintHead = H1 + Environment.NewLine + H2 + Environment.NewLine + H3 + Environment.NewLine + H4 + Environment.NewLine + H5 + Environment.NewLine + D + Environment.NewLine + S + Environment.NewLine;
-          TextWriter sw = new StreamWriter(GetFinalDestination(h.H2_03) + txt_Periodo + "\\" + h.H4_03 + "_" + n.periodo + ".txt", false, Encoding.GetEncoding(1252), 512);
+          TextWriter sw = new StreamWriter(GetFinalDestination(h.H2_03) + "\\" + h.H4_03 + "_" + n.periodo + ".txt", false, Encoding.GetEncoding(1252), 512);
           sw.Write(textToPrintHead + sb.ToString());
           sw.Close();
         }

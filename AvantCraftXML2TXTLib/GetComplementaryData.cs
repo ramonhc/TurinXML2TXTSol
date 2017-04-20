@@ -34,6 +34,10 @@ namespace AvantCraftXML2TXTLib
         string RfcLabora = r["RfcLabora"].ToString();
         if (rfcEmpleado != null && rfcEmpleado.Trim() != string.Empty)
         {
+
+          //-- get numEmpleado
+          string numempleado = (from a in db.TC_RFC where a.txyRfc == rfcEmpleado select a.txtNumEmp).FirstOrDefault();
+
           //---------->>>>>>>>>>>>>> Subcontratacion
           if (chkCargaSubcontratacion)
           {
@@ -53,6 +57,7 @@ namespace AvantCraftXML2TXTLib
               s.RfcEmpleado = rfcEmpleado;
               s.RfcLabora = RfcLabora;
               s.txtPeriodo = aPeriodo;
+              s.txtNumEmpleado = numempleado;
 
               if (porcentajeTiempo < 1) porcentajeTiempo = porcentajeTiempo * 100;
               s.PorcentajeTiempo = porcentajeTiempo;
@@ -85,6 +90,7 @@ namespace AvantCraftXML2TXTLib
             s.CuentaBancaria = r["CuentaBancaria"].ToString();
             s.c_Estado = r["c_Estado"].ToString();
             s.txtPeriodo = aPeriodo;
+            s.txtNumEmpleado = numempleado;
             db.TC_DatosFijosPorEmpleado.Add(s);
             db.SaveChanges();
           }
