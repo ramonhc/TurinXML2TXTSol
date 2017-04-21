@@ -287,9 +287,6 @@ namespace AvantCraftXML2TXTLib
         string NO_08 = complemento_nomina.Attribute("FechaFinalPago").Value;
         dbNO.FechaFinalPago = NO_08;
 
-
-
-
         //string NO_09 = d2s(s2d(complemento_nomina.Attribute("NumDiasPagados").Value));
         dbNO.NumDiasPagados = s2d(complemento_nomina.Attribute("NumDiasPagados").Value);
         string NO_10 = "";
@@ -362,7 +359,7 @@ namespace AvantCraftXML2TXTLib
           {
             PE_1 = percepcion.Attribute("TipoPercepcion").Value;
             PE_2 = percepcion.Attribute("Clave").Value;
-            PE_3 = percepcion.Attribute("Concepto").Value;
+            PE_3 = percepcion.Attribute("Concepto").Value.Replace(".", string.Empty);
             PE_4 = d2s(s2d(percepcion.Attribute("ImporteGravado").Value));
             PE_5 = d2s(s2d(percepcion.Attribute("ImporteExento").Value));
 
@@ -397,7 +394,7 @@ namespace AvantCraftXML2TXTLib
 
                 dbPE.TipoPercepcion = PE_1;
                 dbPE.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
-                dbPE.Concepto = PE_3;
+                dbPE.Concepto = PE_3.Replace(".", string.Empty);
                 dbPE.ImporteGravado = PerImpG;
                 dbPE.ImporteExcento = PerImpX;
 
@@ -409,7 +406,7 @@ namespace AvantCraftXML2TXTLib
                 dbOP.nominaId = dbNO.nominaId;
                 dbOP.c_TipoOtroPago = (PE_1 == "017") ? 2 : 999;  //subsidio, debe ser 002
                 dbOP.Clave = PE_2.Replace("/", "");                                 //Remove dashes ("/")
-                dbOP.Concepto = PE_3;
+                dbOP.Concepto = PE_3.Replace(".", string.Empty);
                 dbOP.Importe = s2d(percepcion.Attribute("ImporteExento").Value);
                 db.TE_OtroPago.Add(dbOP);
               }
@@ -454,7 +451,7 @@ namespace AvantCraftXML2TXTLib
           {
             DE_1 = deduccion.Attribute("TipoDeduccion").Value;
             DE_2 = deduccion.Attribute("Clave").Value;
-            DE_3 = deduccion.Attribute("Concepto").Value;
+            DE_3 = deduccion.Attribute("Concepto").Value.Replace(".", string.Empty);
             DE_4 = d2s(s2d(deduccion.Attribute("ImporteGravado").Value));
             DE_5 = d2s(s2d(deduccion.Attribute("ImporteExento").Value));
 
@@ -468,7 +465,7 @@ namespace AvantCraftXML2TXTLib
               dbOPd.nominaId = dbNO.nominaId;
               dbOPd.c_TipoOtroPago = 999;
               dbOPd.Clave = DE_2.Replace("/", "");                                 //Remove dashes ("/")
-              dbOPd.Concepto = DE_3;
+              dbOPd.Concepto = DE_3.Replace(".", string.Empty);
               dbOPd.Importe = Math.Abs(DedImpG + DedImpX);
               db.TE_OtroPago.Add(dbOPd);
             }
@@ -740,6 +737,7 @@ namespace AvantCraftXML2TXTLib
         //El valor de [Nomina/TotalDeducciones] debe ser igual a la suma de valores de los atributos [Deducciones/(TotalOtrasDeducciones+TotalImpuestosRetenidos)]
         decimal fixTotalDeducciones = dbNO.Deducciones_TotalOtrasDeducciones.Value + dbNO.Deducciones_TotalImpuestosRetenidos.Value; // (from a in dbNO where a.nominaId == dbNO.nominaId && a.Clave != "REMPLAZO" select a.ImporteExcento).Sum().Value;
         dbNO.TotalDeducciones = fixTotalDeducciones;
+        dbHead.H1_14 = fixTotalDeducciones.ToString(); //-- also for "NOM107: El valor de descuento no es igual a Nomina12:TotalDeducciones."
 
         //----- FIX TotalOtrosPagos
         decimal fixTotalOtrosPagos = 0;
@@ -758,6 +756,12 @@ namespace AvantCraftXML2TXTLib
         // El valor de [Nomina/TotalPercepciones] debe ser igual a la suma de valores de los atributos [Percepciones/(TotalSueldos+TotalJubilacionPensionRetiro+TotalSeparacionIndemnizacion)]
         decimal fixTotalPercepciones = fixTotalSueldos;
         dbNO.TotalPercepciones = fixTotalPercepciones;
+
+        //----- Segmento: [Nomina], Campo: [NumDiasPagados], Valor: [0]. Error: Es menor al límite del mínimo incluyente [0.001].
+        if (dbNO.NumDiasPagados == 0) dbNO.NumDiasPagados = 0.001m;
+
+        //--- Error: NOM215: El atributo Deduccion:Importe no es igual a la suma de los nodos Incapacidad:ImporteMonetario. Ya que la clave expresada en Nomina.Deducciones.Deduccion.TipoDeduccion es 006
+
 
         //----- FIX HEAD
 
@@ -1033,7 +1037,7 @@ namespace AvantCraftXML2TXTLib
             sb.Append(tipoPercep + "|");
 
             sb.Append(p.Clave + "|");
-            sb.Append(p.Concepto + "|");
+            sb.Append(p.Concepto.Replace(".", string.Empty) + "|");
             sb.Append(p.ImporteGravado + "|");
             sb.Append(p.ImporteExcento);
             sb.Append(Environment.NewLine);
@@ -1098,7 +1102,7 @@ namespace AvantCraftXML2TXTLib
             sb.Append("[Deduccion]" + "|");
             sb.Append(d.c_TipoDeduccion1.Value + "|");
             sb.Append(d.Clave.Replace("/", string.Empty) + "|");
-            sb.Append(d.Concepto + "|");
+            sb.Append(d.Concepto.Replace(".", string.Empty) + "|");
             sb.Append(d.Importe);
             sb.Append(Environment.NewLine);
           }
@@ -1116,36 +1120,30 @@ namespace AvantCraftXML2TXTLib
             //sb.Append("00" + o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
             sb.Append(Utils.FillWithCerosToTheLeft(o.c_TipoOtroPago1.c_TipoOtroPago1, 3) + "|");
             sb.Append(o.Clave + "|");
-            sb.Append(o.Concepto + "|");
+            sb.Append(o.Concepto.Replace(".", string.Empty) + "|");
             sb.Append(o.Importe);
             sb.Append(Environment.NewLine);
+
+            if(o.c_TipoOtroPago == 2)
+            {
+              sb.Append("[SubsidioAlEmpleo]" + "|");
+              sb.Append(o.Importe);
+              sb.Append(Environment.NewLine);
+            }
           }
         }
 
-        //[SubsidioAlEmpleo]  
-        var op = (from ops in db.TE_OtroPago where ops.nominaId == n.nominaId && ops.c_TipoOtroPago == 2 select ops).DefaultIfEmpty();
-        if (!(op.Count() == 1 && op.First() == null))
-        {
-          //sb.Append("[SubsidioAlEmpleo]");
-          //sb.Append(Environment.NewLine);
-
-          //foreach (TE_OtroPago o in op)
-          //{
-          //  sb.Append("[SubsidioCausado]" + "|");
-          //  sb.Append("00" + o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
-          //  sb.Append(o.Clave + "|");
-          //  sb.Append(o.Concepto + "|");
-          //  sb.Append(o.Importe);
-          //  sb.Append(Environment.NewLine);
-          //}
-
-          foreach (TE_OtroPago o in op)
-          {
-            sb.Append("[SubsidioAlEmpleo]" + "|");
-            sb.Append(o.Importe);
-            sb.Append(Environment.NewLine);
-          }
-        }
+        ////[SubsidioAlEmpleo]  
+        //var op = (from ops in db.TE_OtroPago where ops.nominaId == n.nominaId && ops.c_TipoOtroPago == 2 select ops).DefaultIfEmpty();
+        //if (!(op.Count() == 1 && op.First() == null))
+        //{
+        //  foreach (TE_OtroPago o in op)
+        //  {
+        //    sb.Append("[SubsidioAlEmpleo]" + "|");
+        //    sb.Append(o.Importe);
+        //    sb.Append(Environment.NewLine);
+        //  }
+        //}
 
 
         //[CompensacionSaldosAFavor]  To implement
