@@ -700,12 +700,15 @@ namespace AvantCraftXML2TXTLib
           db.SaveChanges();
         }
 
-        //-- FIC c_TipoIncapacidad
+        //-- FIX c_TipoIncapacidad
+        //--- Also fix: Error: NOM215: El atributo Deduccion:Importe no es igual a la suma de los nodos Incapacidad:ImporteMonetario. Ya que la clave expresada en Nomina.Deducciones.Deduccion.TipoDeduccion es 006
+
         IQueryable<TE_Incapacidad> incs = (from d in db.TE_Incapacidad where d.nominaId == dbNO.nominaId select d).DefaultIfEmpty();
         if (!(incs.Count() == 1 && incs.First() == null))
         {
           foreach (TE_Incapacidad p in incs)
           {
+            //--- clave
             try
             {
               double parsedRef = 4;
@@ -719,7 +722,17 @@ namespace AvantCraftXML2TXTLib
               p.c_TipoIncapacidad = 2;
             }
 
+            //--- Importe
+            TE_Deduccion dedIncs = (from d in db.TE_Deduccion where d.nominaId == dbNO.nominaId && d.c_TipoDeduccion == 6 select d).FirstOrDefault();
+            if (dedIncs != null)
+            {
+              p.ImporteMonetario = dedIncs.Importe;
+            }
+
+
           }
+
+
           db.SaveChanges();
         }
 
@@ -760,7 +773,6 @@ namespace AvantCraftXML2TXTLib
         //----- Segmento: [Nomina], Campo: [NumDiasPagados], Valor: [0]. Error: Es menor al límite del mínimo incluyente [0.001].
         if (dbNO.NumDiasPagados == 0) dbNO.NumDiasPagados = 0.001m;
 
-        //--- Error: NOM215: El atributo Deduccion:Importe no es igual a la suma de los nodos Incapacidad:ImporteMonetario. Ya que la clave expresada en Nomina.Deducciones.Deduccion.TipoDeduccion es 006
 
 
         //----- FIX HEAD
@@ -1124,7 +1136,7 @@ namespace AvantCraftXML2TXTLib
             sb.Append(o.Importe);
             sb.Append(Environment.NewLine);
 
-            if(o.c_TipoOtroPago == 2)
+            if (o.c_TipoOtroPago == 2)
             {
               sb.Append("[SubsidioAlEmpleo]" + "|");
               sb.Append(o.Importe);
