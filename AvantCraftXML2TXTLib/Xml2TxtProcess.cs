@@ -57,11 +57,27 @@ namespace AvantCraftXML2TXTLib
       // get real CURP n RFC 
       TC_RFC realRfcNCurp = (from a in db.TC_RFC where a.txtNumEmp == val_NumEmpleado select a).FirstOrDefault();
 
-      // use real curp
-      if (realRfcNCurp != null)
+      // --------------------use real curp but if none... then create'em with available info
+      if (realRfcNCurp == null)
       {
-        val_CURP = realRfcNCurp.txtCURP;
+        realRfcNCurp = new TC_RFC();
+        realRfcNCurp.txtCURP = val_CURP;
+        realRfcNCurp.txtNumEmp = val_NumEmpleado;
+
+        var receptor = (from c in root.Elements(cfdi + "Receptor") select c).FirstOrDefault();
+        realRfcNCurp.txtNombre = receptor.Attribute("nombre").Value;
+        realRfcNCurp.txyRfc = receptor.Attribute("rfc").Value;
+        db.TC_RFC.Add(realRfcNCurp);
+        db.SaveChanges();
+
+        TC_DatosFijosPorEmpleado aDfxe = (from a in db.TC_DatosFijosPorEmpleado where a.txtPeriodo == txtPeriodo && a.rfcEmpleado == realRfcNCurp.txyRfc select a).FirstOrDefault();
+        if(aDfxe != null)
+        {
+          aDfxe.txtNumEmpleado = realRfcNCurp.txtNumEmp;
+          db.SaveChanges();
+        }
       }
+      val_CURP = realRfcNCurp.txtCURP;
       //----
 
 
@@ -296,7 +312,7 @@ namespace AvantCraftXML2TXTLib
         dbNO.Receptor_FechaInicioRelLaboral = NO_13;
         string NO_14 = "";
         string NO_15 = (complemento_nomina.Attribute("Puesto") != null) ? complemento_nomina.Attribute("Puesto").Value : "EMPLEADO";
-        dbNO.Receptor_Puesto = NO_15;
+        dbNO.Receptor_Puesto = NO_15.Replace('.', ' ').Replace('(', ' ').Replace(')', ' ').Replace('(', ' ').Replace(')', ' ').Replace('&', 'N');
         string NO_16 = "";
         string NO_17 = "";
         string NO_18 = complemento_nomina.Attribute("PeriodicidadPago").Value;
@@ -946,7 +962,7 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.FechaPago + "|");
         sb.Append(n.FechaInicialPago + "|");
         sb.Append(n.FechaFinalPago + "|");
-        sb.Append(Decimal.ToInt32(n.NumDiasPagados.Value) + "|");
+        sb.Append(n.NumDiasPagados.Value + "|");
         sb.Append(n.TotalPercepciones + "|");
         sb.Append(n.TotalDeducciones + "|");
         sb.Append(n.TotalOtrosPagos);
@@ -996,7 +1012,7 @@ namespace AvantCraftXML2TXTLib
         sb.Append(n.c_TipoRegimen.Value + "|");
         sb.Append(n.Receptor_NumEmpleado + "|");
         sb.Append(n.Receptor_Departamento + "|");
-        sb.Append(n.Receptor_Puesto + "|");
+        sb.Append(n.Receptor_Puesto.Replace('.', ' ').Replace('(', ' ').Replace(')', ' ').Replace('&', 'N') + "|");
         try
         {
           //sb.Append(n.c_RiesgoPuesto.c_RiesgoPuesto1 + "|");
@@ -1049,7 +1065,7 @@ namespace AvantCraftXML2TXTLib
             sb.Append(tipoPercep + "|");
 
             sb.Append(p.Clave + "|");
-            sb.Append(p.Concepto.Replace(".", string.Empty) + "|");
+            sb.Append(p.Concepto.Replace(".", string.Empty).Replace('(', ' ').Replace(')', ' ').Replace('&', 'N') + "|");
             sb.Append(p.ImporteGravado + "|");
             sb.Append(p.ImporteExcento);
             sb.Append(Environment.NewLine);
@@ -1114,7 +1130,7 @@ namespace AvantCraftXML2TXTLib
             sb.Append("[Deduccion]" + "|");
             sb.Append(d.c_TipoDeduccion1.Value + "|");
             sb.Append(d.Clave.Replace("/", string.Empty) + "|");
-            sb.Append(d.Concepto.Replace(".", string.Empty) + "|");
+            sb.Append(d.Concepto.Replace(".", string.Empty).Replace('(', ' ').Replace(')', ' ').Replace('&', 'N') + "|");
             sb.Append(d.Importe);
             sb.Append(Environment.NewLine);
           }
@@ -1132,7 +1148,7 @@ namespace AvantCraftXML2TXTLib
             //sb.Append("00" + o.c_TipoOtroPago1.c_TipoOtroPago1 + "|");
             sb.Append(Utils.FillWithCerosToTheLeft(o.c_TipoOtroPago1.c_TipoOtroPago1, 3) + "|");
             sb.Append(o.Clave + "|");
-            sb.Append(o.Concepto.Replace(".", string.Empty) + "|");
+            sb.Append(o.Concepto.Replace(".", string.Empty).Replace('(', ' ').Replace(')', ' ').Replace('&', 'N') + "|");
             sb.Append(o.Importe);
             sb.Append(Environment.NewLine);
 

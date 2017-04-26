@@ -30,14 +30,21 @@ namespace AvantCraftXML2TXTLib
       //--->>> fijosXempleado -- Subontratación
       foreach (DataRow r in result.Tables["fijosXempleado"].Rows)
       {
-        string rfcEmpleado = r["rfcEmpleado"].ToString();
-        string RfcLabora = r["RfcLabora"].ToString();
+        string rfcEmpleado = r["rfcEmpleado"].ToString().Trim();
+        string RfcLabora = r["RfcLabora"].ToString().Trim();
         if (rfcEmpleado != null && rfcEmpleado.Trim() != string.Empty)
         {
 
           //-- get numEmpleado
           string numempleado = (from a in db.TC_RFC where a.txyRfc == rfcEmpleado select a.txtNumEmp).FirstOrDefault();
-
+          if (numempleado == null)
+          {
+            numempleado = (from a in db.TC_RFC where a.txyRfc.Substring(0, 7) == rfcEmpleado.Substring(0, 7) select a.txtNumEmp).FirstOrDefault();
+            if (numempleado == null)
+            {
+              numempleado = (from a in db.TC_RFC where a.txyRfc.Substring(0, 5) == rfcEmpleado.Substring(0, 5) select a.txtNumEmp).FirstOrDefault();
+            }
+          }
           //---------->>>>>>>>>>>>>> Subcontratacion
           if (chkCargaSubcontratacion)
           {
@@ -54,15 +61,15 @@ namespace AvantCraftXML2TXTLib
             {
               //ADD NEW
               TC_Subcontratacion s = new TC_Subcontratacion();
-              s.RfcEmpleado = rfcEmpleado;
-              s.RfcLabora = RfcLabora;
-              s.txtPeriodo = aPeriodo;
-              s.txtNumEmpleado = numempleado;
+              s.RfcEmpleado = rfcEmpleado.Trim();
+              s.RfcLabora = RfcLabora.Trim();
+              s.txtPeriodo = aPeriodo.Trim();
+              s.txtNumEmpleado = numempleado.Trim();
 
               if (porcentajeTiempo < 1) porcentajeTiempo = porcentajeTiempo * 100;
               s.PorcentajeTiempo = porcentajeTiempo;
 
-              s.txtPeriodo = aPeriodo;
+              s.txtPeriodo = aPeriodo.Trim();
               db.TC_Subcontratacion.Add(s);
               db.SaveChanges();
             }
@@ -81,16 +88,16 @@ namespace AvantCraftXML2TXTLib
 
             //ADD NEW
             TC_DatosFijosPorEmpleado s = new TC_DatosFijosPorEmpleado();
-            s.rfcEmpleado = rfcEmpleado;
-            s.Sindicalizado = r["Sindicalizado(SI/NO)"].ToString();
-            s.c_TipoJornada = r["c_TipoJornada"].ToString();
-            s.Departamento = r["Departamento"].ToString();
-            s.c_RiesgoPuesto = r["c_RiesgoPuesto"].ToString();
-            s.c_Banco = r["c_Banco"].ToString();
-            s.CuentaBancaria = r["CuentaBancaria"].ToString();
-            s.c_Estado = r["c_Estado"].ToString();
-            s.txtPeriodo = aPeriodo;
-            s.txtNumEmpleado = numempleado;
+            s.rfcEmpleado = rfcEmpleado.Trim();
+            s.Sindicalizado = r["Sindicalizado(SI/NO)"].ToString().Trim();
+            s.c_TipoJornada = r["c_TipoJornada"].ToString().Trim();
+            s.Departamento = r["Departamento"].ToString().Trim();
+            s.c_RiesgoPuesto = r["c_RiesgoPuesto"].ToString().Replace('.', ' ').Replace('(', ' ').Replace(')', ' ').Replace('&', 'N').Replace('&', 'N').Trim();
+            s.c_Banco = r["c_Banco"].ToString().Trim();
+            s.CuentaBancaria = r["CuentaBancaria"].ToString().Trim();
+            s.c_Estado = r["c_Estado"].ToString().Trim();
+            s.txtPeriodo = aPeriodo.Trim();
+            s.txtNumEmpleado = numempleado.Trim();
             db.TC_DatosFijosPorEmpleado.Add(s);
             db.SaveChanges();
           }
