@@ -96,6 +96,10 @@
       <Project>{780cc3f5-a2d3-4508-ad02-5d843b14786b}</Project>
       <Name>AvantCraftXML2TXTLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\dataaccessXML2TXT\dataaccessXML2TXT.csproj">
+      <Project>{6CD36DC6-E5F3-4EE3-9AF9-BBC21F8927D8}</Project>
+      <Name>dataaccessXML2TXT</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

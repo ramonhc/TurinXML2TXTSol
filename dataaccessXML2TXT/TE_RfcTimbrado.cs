@@ -16,9 +16,17 @@ namespace dataaccessXML2TXT
     {
         public int timbradoKey { get; set; }
         public string txtRFC { get; set; }
+        public string txtNombre { get; set; }
+        public string txtFechaPago { get; set; }
+        public string txtFechaInicialPago { get; set; }
+        public string txtFechaFinalPago { get; set; }
+        public string fechaTimbrado { get; set; }
+        public string numDiasPagados { get; set; }
+        public string txtTotalPercepciones { get; set; }
+        public string txtTotalDeducciones { get; set; }
+        public string totalOtrosPagos { get; set; }
         public string txtPeriodo { get; set; }
         public string txtUUID { get; set; }
         public string txtFileName { get; set; }
-        public string txtFecha { get; set; }
     }
 }

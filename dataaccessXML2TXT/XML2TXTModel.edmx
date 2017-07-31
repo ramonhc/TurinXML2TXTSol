@@ -228,7 +228,7 @@
           <Property Name="FechaPago" Type="nvarchar" MaxLength="50" />
           <Property Name="FechaInicialPago" Type="nvarchar" MaxLength="50" />
           <Property Name="FechaFinalPago" Type="nvarchar" MaxLength="50" />
-          <Property Name="NumDiasPagados" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NumDiasPagados" Type="decimal" Precision="17" Scale="3" />
           <Property Name="TotalPercepciones" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalDeducciones" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalOtrosPagos" Type="decimal" Precision="18" Scale="2" />
@@ -322,7 +322,15 @@
           </Key>
           <Property Name="timbradoKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="txtRFC" Type="nvarchar" MaxLength="50" />
-          <Property Name="txtFecha" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtNombre" Type="nvarchar(max)" />
+          <Property Name="txtFechaPago" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtFechaInicialPago" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtFechaFinalPago" Type="nvarchar" MaxLength="50" />
+          <Property Name="fechaTimbrado" Type="nvarchar" MaxLength="50" />
+          <Property Name="numDiasPagados" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtTotalPercepciones" Type="nvarchar" MaxLength="50" />
+          <Property Name="txtTotalDeducciones" Type="nvarchar" MaxLength="50" />
+          <Property Name="totalOtrosPagos" Type="nvarchar" MaxLength="50" />
           <Property Name="txtPeriodo" Type="nvarchar" MaxLength="50" />
           <Property Name="txtUUID" Type="nvarchar(max)" />
           <Property Name="txtFileName" Type="nvarchar(max)" />
@@ -1178,9 +1186,9 @@
           <EntitySet Name="TC_DatosFijosPorEmpleado" EntityType="AvantCraft_nomina2017Model.TC_DatosFijosPorEmpleado" />
           <EntitySet Name="TC_RfcExclusionList" EntityType="AvantCraft_nomina2017Model.TC_RfcExclusionList" />
           <EntitySet Name="TC_RfcIncludeList" EntityType="AvantCraft_nomina2017Model.TC_RfcIncludeList" />
-          <EntitySet Name="TE_RfcTimbrado" EntityType="AvantCraft_nomina2017Model.TE_RfcTimbrado" />
           <EntitySet Name="TC_RFC" EntityType="AvantCraft_nomina2017Model.TC_RFC" />
           <EntitySet Name="TE_UUID2CANCEL" EntityType="AvantCraft_nomina2017Model.TE_UUID2CANCEL" />
+          <EntitySet Name="TE_RfcTimbrado" EntityType="AvantCraft_nomina2017Model.TE_RfcTimbrado" />
           </EntityContainer>
         <EntityType Name="TE_Percepcion">
           <Key>
@@ -1261,7 +1269,7 @@
           <Property Name="FechaPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FechaInicialPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FechaFinalPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NumDiasPagados" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NumDiasPagados" Type="Decimal" Precision="17" Scale="3" />
           <Property Name="TotalPercepciones" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalDeducciones" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalOtrosPagos" Type="Decimal" Precision="18" Scale="2" />
@@ -1603,17 +1611,6 @@
           <Property Name="includeKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="txtRfc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="TE_RfcTimbrado">
-          <Key>
-            <PropertyRef Name="timbradoKey" />
-          </Key>
-          <Property Name="timbradoKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="txtRFC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="txtUUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtFecha" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="TC_RFC">
           <Key>
             <PropertyRef Name="rfcKey" />
@@ -1636,6 +1633,25 @@
           <Property Name="PeriodicidadPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FechaFinalPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TE_RfcTimbrado">
+          <Key>
+            <PropertyRef Name="timbradoKey" />
+          </Key>
+          <Property Name="timbradoKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="txtRFC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtNombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtFechaPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtFechaInicialPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtFechaFinalPago" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaTimbrado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="numDiasPagados" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtTotalPercepciones" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtTotalDeducciones" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="totalOtrosPagos" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtPeriodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtUUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2027,18 +2043,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TE_RfcTimbrado">
-            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_RfcTimbrado">
-              <MappingFragment StoreEntitySet="TE_RfcTimbrado">
-                <ScalarProperty Name="txtFecha" ColumnName="txtFecha" />
-                <ScalarProperty Name="txtFileName" ColumnName="txtFileName" />
-                <ScalarProperty Name="txtUUID" ColumnName="txtUUID" />
-                <ScalarProperty Name="txtPeriodo" ColumnName="txtPeriodo" />
-                <ScalarProperty Name="txtRFC" ColumnName="txtRFC" />
-                <ScalarProperty Name="timbradoKey" ColumnName="timbradoKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TC_RFC">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TC_RFC">
               <MappingFragment StoreEntitySet="TC_RFC">
@@ -2061,6 +2065,26 @@
                 <ScalarProperty Name="Receptor_rfc" ColumnName="Receptor_rfc" />
                 <ScalarProperty Name="Emisor_RFC" ColumnName="Emisor_RFC" />
                 <ScalarProperty Name="cancelKey" ColumnName="cancelKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_RfcTimbrado">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_RfcTimbrado">
+              <MappingFragment StoreEntitySet="TE_RfcTimbrado">
+                <ScalarProperty Name="txtFileName" ColumnName="txtFileName" />
+                <ScalarProperty Name="txtUUID" ColumnName="txtUUID" />
+                <ScalarProperty Name="txtPeriodo" ColumnName="txtPeriodo" />
+                <ScalarProperty Name="totalOtrosPagos" ColumnName="totalOtrosPagos" />
+                <ScalarProperty Name="txtTotalDeducciones" ColumnName="txtTotalDeducciones" />
+                <ScalarProperty Name="txtTotalPercepciones" ColumnName="txtTotalPercepciones" />
+                <ScalarProperty Name="numDiasPagados" ColumnName="numDiasPagados" />
+                <ScalarProperty Name="fechaTimbrado" ColumnName="fechaTimbrado" />
+                <ScalarProperty Name="txtFechaFinalPago" ColumnName="txtFechaFinalPago" />
+                <ScalarProperty Name="txtFechaInicialPago" ColumnName="txtFechaInicialPago" />
+                <ScalarProperty Name="txtFechaPago" ColumnName="txtFechaPago" />
+                <ScalarProperty Name="txtNombre" ColumnName="txtNombre" />
+                <ScalarProperty Name="txtRFC" ColumnName="txtRFC" />
+                <ScalarProperty Name="timbradoKey" ColumnName="timbradoKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
