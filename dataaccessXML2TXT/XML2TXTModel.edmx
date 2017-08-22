@@ -193,6 +193,7 @@
           <Property Name="Clave" Type="nvarchar" MaxLength="50" />
           <Property Name="Concepto" Type="nvarchar" MaxLength="250" />
           <Property Name="Importe" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="bolExclude" Type="bit" />
         </EntityType>
         <EntityType Name="TE_Incapacidad">
           <Key>
@@ -294,6 +295,7 @@
           <Property Name="ImporteExcento" Type="decimal" Precision="18" Scale="2" />
           <Property Name="AccionesOTitulos_ValorMercado" Type="decimal" Precision="18" Scale="2" />
           <Property Name="AccionesOTitulos_PrecioAlOtorgarse" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="bolExclude" Type="bit" />
         </EntityType>
         <EntityType Name="TE_Percepcion_HorasExtra">
           <Key>
@@ -876,8 +878,8 @@
           </Key>
           <Property Name="c_TipoDeduccion1" Type="Double" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TE_Deduccion" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion" FromRole="c_TipoDeduccion" ToRole="TE_Deduccion" />
           <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Deduccion" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion" FromRole="c_TipoDeduccion" ToRole="TE_Deduccion" />
         </EntityType>
         <EntityType Name="c_TipoHoras">
           <Key>
@@ -925,8 +927,8 @@
           </Key>
           <Property Name="c_TipoPercepcion1" Type="Double" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TE_Percepcion" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion" FromRole="c_TipoPercepcion" ToRole="TE_Percepcion" />
           <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Percepcion" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion" FromRole="c_TipoPercepcion" ToRole="TE_Percepcion" />
         </EntityType>
         <EntityType Name="c_TipoRegimen">
           <Key>
@@ -1001,8 +1003,8 @@
           <Property Name="HorasExtra" Type="Int32" />
           <Property Name="ImportePagado" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="c_TipoHoras1" Relationship="Self.FK_TE_Percepcion_HorasExtra_c_TipoHoras" FromRole="TE_Percepcion_HorasExtra" ToRole="c_TipoHoras" />
-          <NavigationProperty Name="TE_Percepcion" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion" FromRole="TE_Percepcion_HorasExtra" ToRole="TE_Percepcion" />
           <Property Name="TipoHoras" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TE_Percepcion" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion" FromRole="TE_Percepcion_HorasExtra" ToRole="TE_Percepcion" />
         </EntityType>
         <EntityType Name="TE_Receptor_Subcontratacion">
           <Key>
@@ -1098,20 +1100,6 @@
             <End Role="c_TipoOtroPago" EntitySet="c_TipoOtroPago" />
             <End Role="TE_OtroPago" EntitySet="TE_OtroPago" />
           </AssociationSet>
-          <EntitySet Name="TE_Percepcion" EntityType="AvantCraft_nomina2017Model.TE_Percepcion" />
-          <AssociationSet Name="FK_TE_Percepcion_c_TipoPercepcion" Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion">
-            <End Role="c_TipoPercepcion" EntitySet="c_TipoPercepcion" />
-            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TE_Percepcion_HorasExtra_TE_Percepcion" Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion">
-            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
-            <End Role="TE_Percepcion_HorasExtra" EntitySet="TE_Percepcion_HorasExtra" />
-          </AssociationSet>
-          <EntitySet Name="TE_Deduccion" EntityType="AvantCraft_nomina2017Model.TE_Deduccion" />
-          <AssociationSet Name="FK_TE_Deduccion_c_TipoDeduccion" Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion">
-            <End Role="c_TipoDeduccion" EntitySet="c_TipoDeduccion" />
-            <End Role="TE_Deduccion" EntitySet="TE_Deduccion" />
-          </AssociationSet>
           <EntitySet Name="TE_Nomina" EntityType="AvantCraft_nomina2017Model.TE_Nomina" />
           <EntitySet Name="TE_TXT_HEADER" EntityType="AvantCraft_nomina2017Model.TE_TXT_HEADER" />
           <AssociationSet Name="FK_TE_Nomina_c_Banco" Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_Banco">
@@ -1150,10 +1138,6 @@
             <End Role="c_TipoRegimen" EntitySet="c_TipoRegimen" />
             <End Role="TE_Nomina" EntitySet="TE_Nomina" />
           </AssociationSet>
-          <AssociationSet Name="FK_TE_Deduccion_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina">
-            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
-            <End Role="TE_Deduccion" EntitySet="TE_Deduccion" />
-          </AssociationSet>
           <AssociationSet Name="FK_TE_Incapacidad_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_Incapacidad_TE_Nomina">
             <End Role="TE_Nomina" EntitySet="TE_Nomina" />
             <End Role="TE_Incapacidad" EntitySet="TE_Incapacidad" />
@@ -1165,10 +1149,6 @@
           <AssociationSet Name="FK_TE_OtroPago_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_OtroPago_TE_Nomina">
             <End Role="TE_Nomina" EntitySet="TE_Nomina" />
             <End Role="TE_OtroPago" EntitySet="TE_OtroPago" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TE_Percepcion_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina">
-            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
-            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
           </AssociationSet>
           <AssociationSet Name="FK_TE_Receptor_Subcontratacion_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_Receptor_Subcontratacion_TE_Nomina">
             <End Role="TE_Nomina" EntitySet="TE_Nomina" />
@@ -1189,75 +1169,29 @@
           <EntitySet Name="TC_RFC" EntityType="AvantCraft_nomina2017Model.TC_RFC" />
           <EntitySet Name="TE_UUID2CANCEL" EntityType="AvantCraft_nomina2017Model.TE_UUID2CANCEL" />
           <EntitySet Name="TE_RfcTimbrado" EntityType="AvantCraft_nomina2017Model.TE_RfcTimbrado" />
+          <EntitySet Name="TE_Deduccion" EntityType="AvantCraft_nomina2017Model.TE_Deduccion" />
+          <EntitySet Name="TE_Percepcion" EntityType="AvantCraft_nomina2017Model.TE_Percepcion" />
+          <AssociationSet Name="FK_TE_Deduccion_c_TipoDeduccion" Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion">
+            <End Role="c_TipoDeduccion" EntitySet="c_TipoDeduccion" />
+            <End Role="TE_Deduccion" EntitySet="TE_Deduccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Percepcion_c_TipoPercepcion" Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion">
+            <End Role="c_TipoPercepcion" EntitySet="c_TipoPercepcion" />
+            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Deduccion_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_Deduccion" EntitySet="TE_Deduccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Percepcion_TE_Nomina" Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina">
+            <End Role="TE_Nomina" EntitySet="TE_Nomina" />
+            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TE_Percepcion_HorasExtra_TE_Percepcion" Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion">
+            <End Role="TE_Percepcion" EntitySet="TE_Percepcion" />
+            <End Role="TE_Percepcion_HorasExtra" EntitySet="TE_Percepcion_HorasExtra" />
+          </AssociationSet>
           </EntityContainer>
-        <EntityType Name="TE_Percepcion">
-          <Key>
-            <PropertyRef Name="percepcionId" />
-          </Key>
-          <Property Name="percepcionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nominaId" Type="Int32" />
-          <Property Name="TipoPercepcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="c_TipoPercepcion" Type="Double" />
-          <Property Name="Clave" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Concepto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ImporteGravado" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ImporteExcento" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AccionesOTitulos_ValorMercado" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AccionesOTitulos_PrecioAlOtorgarse" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="c_TipoPercepcion1" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion" FromRole="TE_Percepcion" ToRole="c_TipoPercepcion" />
-          <NavigationProperty Name="TE_Percepcion_HorasExtra" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion" FromRole="TE_Percepcion" ToRole="TE_Percepcion_HorasExtra" />
-          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina" FromRole="TE_Percepcion" ToRole="TE_Nomina" />
-        </EntityType>
-        <Association Name="FK_TE_Percepcion_c_TipoPercepcion">
-          <End Type="AvantCraft_nomina2017Model.c_TipoPercepcion" Role="c_TipoPercepcion" Multiplicity="0..1" />
-          <End Type="AvantCraft_nomina2017Model.TE_Percepcion" Role="TE_Percepcion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="c_TipoPercepcion">
-              <PropertyRef Name="c_TipoPercepcion1" />
-            </Principal>
-            <Dependent Role="TE_Percepcion">
-              <PropertyRef Name="c_TipoPercepcion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TE_Percepcion_HorasExtra_TE_Percepcion">
-          <End Type="AvantCraft_nomina2017Model.TE_Percepcion" Role="TE_Percepcion" Multiplicity="0..1" />
-          <End Type="AvantCraft_nomina2017Model.TE_Percepcion_HorasExtra" Role="TE_Percepcion_HorasExtra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TE_Percepcion">
-              <PropertyRef Name="percepcionId" />
-            </Principal>
-            <Dependent Role="TE_Percepcion_HorasExtra">
-              <PropertyRef Name="percepcionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="TE_Deduccion">
-          <Key>
-            <PropertyRef Name="deduccionId" />
-          </Key>
-          <Property Name="deduccionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nominaId" Type="Int32" />
-          <Property Name="TipoDeduccion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="c_TipoDeduccion" Type="Double" />
-          <Property Name="Clave" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Concepto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Importe" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="c_TipoDeduccion1" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion" FromRole="TE_Deduccion" ToRole="c_TipoDeduccion" />
-          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina" FromRole="TE_Deduccion" ToRole="TE_Nomina" />
-        </EntityType>
-        <Association Name="FK_TE_Deduccion_c_TipoDeduccion">
-          <End Type="AvantCraft_nomina2017Model.c_TipoDeduccion" Role="c_TipoDeduccion" Multiplicity="0..1" />
-          <End Type="AvantCraft_nomina2017Model.TE_Deduccion" Role="TE_Deduccion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="c_TipoDeduccion">
-              <PropertyRef Name="c_TipoDeduccion1" />
-            </Principal>
-            <Dependent Role="TE_Deduccion">
-              <PropertyRef Name="c_TipoDeduccion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="TE_Nomina">
           <Key>
             <PropertyRef Name="nominaId" />
@@ -1314,14 +1248,14 @@
           <NavigationProperty Name="c_TipoJornada" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoJornada" FromRole="TE_Nomina" ToRole="c_TipoJornada" />
           <NavigationProperty Name="c_TipoNomina1" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoNomina" FromRole="TE_Nomina" ToRole="c_TipoNomina" />
           <NavigationProperty Name="c_TipoRegimen" Relationship="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoRegimen" FromRole="TE_Nomina" ToRole="c_TipoRegimen" />
-          <NavigationProperty Name="TE_Deduccion" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Deduccion" />
           <NavigationProperty Name="TE_Incapacidad" Relationship="AvantCraft_nomina2017Model.FK_TE_Incapacidad_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Incapacidad" />
           <NavigationProperty Name="TE_JubilacionPensionRetiro" Relationship="AvantCraft_nomina2017Model.FK_TE_JubilacionPensionRetiro_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_JubilacionPensionRetiro" />
           <NavigationProperty Name="TE_OtroPago" Relationship="AvantCraft_nomina2017Model.FK_TE_OtroPago_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_OtroPago" />
-          <NavigationProperty Name="TE_Percepcion" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Percepcion" />
           <NavigationProperty Name="TE_Receptor_Subcontratacion" Relationship="AvantCraft_nomina2017Model.FK_TE_Receptor_Subcontratacion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Receptor_Subcontratacion" />
           <NavigationProperty Name="TE_SeparacionIndemnizacion" Relationship="AvantCraft_nomina2017Model.FK_TE_SeparacionIndemnizacion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_SeparacionIndemnizacion" />
           <NavigationProperty Name="TE_TXT_HEADER" Relationship="AvantCraft_nomina2017Model.FK_TE_TXT_HEADER_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_TXT_HEADER" />
+          <NavigationProperty Name="TE_Deduccion" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Deduccion" />
+          <NavigationProperty Name="TE_Percepcion" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina" FromRole="TE_Nomina" ToRole="TE_Percepcion" />
         </EntityType>
         <EntityType Name="TE_TXT_HEADER">
           <Key>
@@ -1474,18 +1408,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TE_Deduccion_TE_Nomina">
-          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="0..1" />
-          <End Type="AvantCraft_nomina2017Model.TE_Deduccion" Role="TE_Deduccion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TE_Nomina">
-              <PropertyRef Name="nominaId" />
-            </Principal>
-            <Dependent Role="TE_Deduccion">
-              <PropertyRef Name="nominaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TE_Incapacidad_TE_Nomina">
           <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="0..1" />
           <End Type="AvantCraft_nomina2017Model.TE_Incapacidad" Role="TE_Incapacidad" Multiplicity="*" />
@@ -1518,18 +1440,6 @@
               <PropertyRef Name="nominaId" />
             </Principal>
             <Dependent Role="TE_OtroPago">
-              <PropertyRef Name="nominaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TE_Percepcion_TE_Nomina">
-          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="0..1" />
-          <End Type="AvantCraft_nomina2017Model.TE_Percepcion" Role="TE_Percepcion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TE_Nomina">
-              <PropertyRef Name="nominaId" />
-            </Principal>
-            <Dependent Role="TE_Percepcion">
               <PropertyRef Name="nominaId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1653,6 +1563,100 @@
           <Property Name="txtUUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="txtFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="TE_Deduccion">
+          <Key>
+            <PropertyRef Name="deduccionId" />
+          </Key>
+          <Property Name="deduccionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nominaId" Type="Int32" />
+          <Property Name="TipoDeduccion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="c_TipoDeduccion" Type="Double" />
+          <Property Name="Clave" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Concepto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Importe" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="bolExclude" Type="Boolean" />
+          <NavigationProperty Name="c_TipoDeduccion1" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion" FromRole="TE_Deduccion" ToRole="c_TipoDeduccion" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina" FromRole="TE_Deduccion" ToRole="TE_Nomina" />
+        </EntityType>
+        <EntityType Name="TE_Percepcion">
+          <Key>
+            <PropertyRef Name="percepcionId" />
+          </Key>
+          <Property Name="percepcionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nominaId" Type="Int32" />
+          <Property Name="TipoPercepcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="c_TipoPercepcion" Type="Double" />
+          <Property Name="Clave" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Concepto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ImporteGravado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ImporteExcento" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AccionesOTitulos_ValorMercado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AccionesOTitulos_PrecioAlOtorgarse" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="bolExclude" Type="Boolean" />
+          <NavigationProperty Name="c_TipoPercepcion1" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion" FromRole="TE_Percepcion" ToRole="c_TipoPercepcion" />
+          <NavigationProperty Name="TE_Nomina" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina" FromRole="TE_Percepcion" ToRole="TE_Nomina" />
+          <NavigationProperty Name="TE_Percepcion_HorasExtra" Relationship="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion" FromRole="TE_Percepcion" ToRole="TE_Percepcion_HorasExtra" />
+        </EntityType>
+        <Association Name="FK_TE_Deduccion_c_TipoDeduccion">
+          <End Type="AvantCraft_nomina2017Model.c_TipoDeduccion" Role="c_TipoDeduccion" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Deduccion" Role="TE_Deduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoDeduccion">
+              <PropertyRef Name="c_TipoDeduccion1" />
+            </Principal>
+            <Dependent Role="TE_Deduccion">
+              <PropertyRef Name="c_TipoDeduccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Percepcion_c_TipoPercepcion">
+          <End Type="AvantCraft_nomina2017Model.c_TipoPercepcion" Role="c_TipoPercepcion" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Percepcion" Role="TE_Percepcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_TipoPercepcion">
+              <PropertyRef Name="c_TipoPercepcion1" />
+            </Principal>
+            <Dependent Role="TE_Percepcion">
+              <PropertyRef Name="c_TipoPercepcion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Deduccion_TE_Nomina">
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Deduccion" Role="TE_Deduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_Deduccion">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Percepcion_TE_Nomina">
+          <End Type="AvantCraft_nomina2017Model.TE_Nomina" Role="TE_Nomina" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Percepcion" Role="TE_Percepcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Nomina">
+              <PropertyRef Name="nominaId" />
+            </Principal>
+            <Dependent Role="TE_Percepcion">
+              <PropertyRef Name="nominaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TE_Percepcion_HorasExtra_TE_Percepcion">
+          <End Type="AvantCraft_nomina2017Model.TE_Percepcion" Role="TE_Percepcion" Multiplicity="0..1" />
+          <End Type="AvantCraft_nomina2017Model.TE_Percepcion_HorasExtra" Role="TE_Percepcion_HorasExtra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TE_Percepcion">
+              <PropertyRef Name="percepcionId" />
+            </Principal>
+            <Dependent Role="TE_Percepcion_HorasExtra">
+              <PropertyRef Name="percepcionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1877,35 +1881,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TE_Percepcion">
-            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Percepcion">
-              <MappingFragment StoreEntitySet="TE_Percepcion">
-                <ScalarProperty Name="AccionesOTitulos_PrecioAlOtorgarse" ColumnName="AccionesOTitulos_PrecioAlOtorgarse" />
-                <ScalarProperty Name="AccionesOTitulos_ValorMercado" ColumnName="AccionesOTitulos_ValorMercado" />
-                <ScalarProperty Name="ImporteExcento" ColumnName="ImporteExcento" />
-                <ScalarProperty Name="ImporteGravado" ColumnName="ImporteGravado" />
-                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
-                <ScalarProperty Name="Clave" ColumnName="Clave" />
-                <ScalarProperty Name="c_TipoPercepcion" ColumnName="c_TipoPercepcion" />
-                <ScalarProperty Name="TipoPercepcion" ColumnName="TipoPercepcion" />
-                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
-                <ScalarProperty Name="percepcionId" ColumnName="percepcionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TE_Deduccion">
-            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Deduccion">
-              <MappingFragment StoreEntitySet="TE_Deduccion">
-                <ScalarProperty Name="Importe" ColumnName="Importe" />
-                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
-                <ScalarProperty Name="Clave" ColumnName="Clave" />
-                <ScalarProperty Name="c_TipoDeduccion" ColumnName="c_TipoDeduccion" />
-                <ScalarProperty Name="TipoDeduccion" ColumnName="TipoDeduccion" />
-                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
-                <ScalarProperty Name="deduccionId" ColumnName="deduccionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TE_Nomina">
             <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Nomina">
               <MappingFragment StoreEntitySet="TE_Nomina">
@@ -2085,6 +2060,37 @@
                 <ScalarProperty Name="txtNombre" ColumnName="txtNombre" />
                 <ScalarProperty Name="txtRFC" ColumnName="txtRFC" />
                 <ScalarProperty Name="timbradoKey" ColumnName="timbradoKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_Deduccion">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Deduccion">
+              <MappingFragment StoreEntitySet="TE_Deduccion">
+                <ScalarProperty Name="bolExclude" ColumnName="bolExclude" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="c_TipoDeduccion" ColumnName="c_TipoDeduccion" />
+                <ScalarProperty Name="TipoDeduccion" ColumnName="TipoDeduccion" />
+                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
+                <ScalarProperty Name="deduccionId" ColumnName="deduccionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TE_Percepcion">
+            <EntityTypeMapping TypeName="AvantCraft_nomina2017Model.TE_Percepcion">
+              <MappingFragment StoreEntitySet="TE_Percepcion">
+                <ScalarProperty Name="bolExclude" ColumnName="bolExclude" />
+                <ScalarProperty Name="AccionesOTitulos_PrecioAlOtorgarse" ColumnName="AccionesOTitulos_PrecioAlOtorgarse" />
+                <ScalarProperty Name="AccionesOTitulos_ValorMercado" ColumnName="AccionesOTitulos_ValorMercado" />
+                <ScalarProperty Name="ImporteExcento" ColumnName="ImporteExcento" />
+                <ScalarProperty Name="ImporteGravado" ColumnName="ImporteGravado" />
+                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="c_TipoPercepcion" ColumnName="c_TipoPercepcion" />
+                <ScalarProperty Name="TipoPercepcion" ColumnName="TipoPercepcion" />
+                <ScalarProperty Name="nominaId" ColumnName="nominaId" />
+                <ScalarProperty Name="percepcionId" ColumnName="percepcionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

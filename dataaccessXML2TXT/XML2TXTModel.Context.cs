@@ -47,8 +47,6 @@ namespace dataaccessXML2TXT
         public virtual DbSet<TE_Percepcion_HorasExtra> TE_Percepcion_HorasExtra { get; set; }
         public virtual DbSet<TE_Receptor_Subcontratacion> TE_Receptor_Subcontratacion { get; set; }
         public virtual DbSet<TE_SeparacionIndemnizacion> TE_SeparacionIndemnizacion { get; set; }
-        public virtual DbSet<TE_Percepcion> TE_Percepcion { get; set; }
-        public virtual DbSet<TE_Deduccion> TE_Deduccion { get; set; }
         public virtual DbSet<TE_Nomina> TE_Nomina { get; set; }
         public virtual DbSet<TE_TXT_HEADER> TE_TXT_HEADER { get; set; }
         public virtual DbSet<TC_Subcontratacion> TC_Subcontratacion { get; set; }
@@ -58,5 +56,7 @@ namespace dataaccessXML2TXT
         public virtual DbSet<TC_RFC> TC_RFC { get; set; }
         public virtual DbSet<TE_UUID2CANCEL> TE_UUID2CANCEL { get; set; }
         public virtual DbSet<TE_RfcTimbrado> TE_RfcTimbrado { get; set; }
+        public virtual DbSet<TE_Deduccion> TE_Deduccion { get; set; }
+        public virtual DbSet<TE_Percepcion> TE_Percepcion { get; set; }
     }
 }

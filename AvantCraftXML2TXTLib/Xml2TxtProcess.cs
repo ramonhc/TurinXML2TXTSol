@@ -751,15 +751,35 @@ namespace AvantCraftXML2TXTLib
 
                     db.SaveChanges();
                 }
+                //------------- MARK Deducciones and/or Percepciones as Exclusions if needed
+                //------------- Find VALES concepts to exclude
+                /*
+                 List<Tuple<int,int>> excludePercecpcionDeductionList = (from a in db.TE_Percepcion join b in db.TE_Deduccion on a.nominaId equals b.nominaId
+                                                                              where a.Clave == "8R50" && a.ImporteExcento.Value == 2265.00m && b.TipoDeduccion == "004" && b.Clave == "9015" && a.ImporteGravado == b.Importe  select (new Tuple<int,int>(a.percepcionId, b.deduccionId))).ToList();
+                */
+                List<int> ExcludedPercepciones = (from a in db.TE_Percepcion
+                                                  join b in db.TE_Deduccion on a.nominaId equals b.nominaId
+                                                  where a.Clave == "8R50" && a.ImporteExcento.Value == 2265.00m && b.TipoDeduccion == "004" && b.Clave == "9015" && a.ImporteGravado == b.Importe && a.nominaId == dbNO.nominaId
+                                                  select a.percepcionId).ToList();
+
+                List<int> ExcludedDeducciones = (from a in db.TE_Percepcion
+                                                 join b in db.TE_Deduccion on a.nominaId equals b.nominaId
+                                                 where a.Clave == "8R50" && a.ImporteExcento.Value == 2265.00m && b.TipoDeduccion == "004" && b.Clave == "9015" && a.ImporteGravado == b.Importe && a.nominaId == dbNO.nominaId
+                                                 select b.deduccionId).ToList();
+
+                //----- exclude in DB
+                (from up in db.TE_Percepcion where ExcludedPercepciones.Contains(up.percepcionId) && up.nominaId == dbNO.nominaId select up).ToList().ForEach(p => p.bolExclude = true);
+                (from up in db.TE_Deduccion where ExcludedDeducciones.Contains(up.deduccionId) && up.nominaId == dbNO.nominaId select up).ToList().ForEach(p => p.bolExclude = true);
+                db.SaveChanges();
 
                 //------------- FIX TotalSueldos, TotalGravado, TotalExcento, TotalDeducciones, TotalOtrosPagos
 
                 //----- FIX TotalGravado
-                decimal fixTotalGravado = (from a in db.TE_Percepcion where a.nominaId == dbNO.nominaId && a.Clave != "REMPLAZO" select a.ImporteGravado).Sum().Value;
+                decimal fixTotalGravado = (from a in db.TE_Percepcion where a.nominaId == dbNO.nominaId && a.Clave != "REMPLAZO" && a.bolExclude != true select a.ImporteGravado).Sum().Value;
                 dbNO.Percepciones_TotalGravado = fixTotalGravado;
 
                 //----- FIX TotalExcento
-                decimal fixTotalExcento = (from a in db.TE_Percepcion where a.nominaId == dbNO.nominaId && a.Clave != "REMPLAZO" select a.ImporteExcento).Sum().Value;
+                decimal fixTotalExcento = (from a in db.TE_Percepcion where a.nominaId == dbNO.nominaId && a.Clave != "REMPLAZO" && a.bolExclude != true select a.ImporteExcento).Sum().Value;
                 dbNO.Percepciones_TotalExento = fixTotalExcento;
 
                 //----- FIX TotalDeducciones
@@ -1068,7 +1088,7 @@ namespace AvantCraftXML2TXTLib
                 sb.Append(n.Percepciones_TotalExento);
                 sb.Append(Environment.NewLine);
 
-                var ps = (from per in db.TE_Percepcion where per.nominaId == n.nominaId && per.c_TipoPercepcion != 19 && per.Clave != "REMPLAZO" select per).DefaultIfEmpty();
+                var ps = (from per in db.TE_Percepcion where per.nominaId == n.nominaId && per.c_TipoPercepcion != 19 && per.Clave != "REMPLAZO" && per.bolExclude != true select per).DefaultIfEmpty();
                 foreach (TE_Percepcion p in ps)
                 {
                     string tipoPercep = string.Empty;
@@ -1139,7 +1159,7 @@ namespace AvantCraftXML2TXTLib
 
                 sb.Append(Environment.NewLine);
 
-                var ds = (from ded in db.TE_Deduccion where ded.nominaId == n.nominaId select ded).DefaultIfEmpty();
+                var ds = (from ded in db.TE_Deduccion where ded.nominaId == n.nominaId && ded.bolExclude != true select ded).DefaultIfEmpty();
                 if (!(ds.Count() == 1 && ds.First() == null))
                 {
                     foreach (TE_Deduccion d in ds)

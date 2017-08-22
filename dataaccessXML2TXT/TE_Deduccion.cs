@@ -21,6 +21,7 @@ namespace dataaccessXML2TXT
         public string Clave { get; set; }
         public string Concepto { get; set; }
         public Nullable<decimal> Importe { get; set; }
+        public Nullable<bool> bolExclude { get; set; }
     
         public virtual c_TipoDeduccion c_TipoDeduccion1 { get; set; }
         public virtual TE_Nomina TE_Nomina { get; set; }

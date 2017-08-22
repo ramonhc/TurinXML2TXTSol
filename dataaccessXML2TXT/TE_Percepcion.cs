@@ -30,10 +30,11 @@ namespace dataaccessXML2TXT
         public Nullable<decimal> ImporteExcento { get; set; }
         public Nullable<decimal> AccionesOTitulos_ValorMercado { get; set; }
         public Nullable<decimal> AccionesOTitulos_PrecioAlOtorgarse { get; set; }
+        public Nullable<bool> bolExclude { get; set; }
     
         public virtual c_TipoPercepcion c_TipoPercepcion1 { get; set; }
+        public virtual TE_Nomina TE_Nomina { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TE_Percepcion_HorasExtra> TE_Percepcion_HorasExtra { get; set; }
-        public virtual TE_Nomina TE_Nomina { get; set; }
     }
 }

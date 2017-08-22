@@ -30,11 +30,6 @@
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_c_TipoHoras" ManuallyRouted="false" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Incapacidad_c_TipoIncapacidad" ManuallyRouted="false" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_OtroPago_c_TipoOtroPago" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_Percepcion" Width="1.5" PointX="8.25" PointY="7.5" />
-        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion" />
-        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion" />
-        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_Deduccion" Width="1.5" PointX="8.25" PointY="21.5" />
-        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion" />
         <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_Nomina" Width="1.5" PointX="3" PointY="7.375" />
         <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_TXT_HEADER" Width="1.5" PointX="5.25" PointY="33.5" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_Banco" />
@@ -46,11 +41,9 @@
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoJornada" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoNomina" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Nomina_c_TipoRegimen" />
-        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Incapacidad_TE_Nomina" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_JubilacionPensionRetiro_TE_Nomina" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_OtroPago_TE_Nomina" />
-        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Receptor_Subcontratacion_TE_Nomina" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_SeparacionIndemnizacion_TE_Nomina" />
         <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_TXT_HEADER_TE_Nomina" />
@@ -61,6 +54,13 @@
         <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TC_RFC" Width="1.5" PointX="9.5" PointY="0.625" />
         <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_UUID2CANCEL" Width="1.5" PointX="12.375" PointY="3.75" />
         <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_RfcTimbrado" Width="1.5" PointX="10.375" PointY="11.75" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_Deduccion" Width="1.5" PointX="8.25" PointY="16.5" />
+        <EntityTypeShape EntityType="AvantCraft_nomina2017Model.TE_Percepcion" Width="1.5" PointX="13.25" PointY="8.5" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_c_TipoDeduccion" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_c_TipoPercepcion" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Deduccion_TE_Nomina" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_TE_Nomina" />
+        <AssociationConnector Association="AvantCraft_nomina2017Model.FK_TE_Percepcion_HorasExtra_TE_Percepcion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

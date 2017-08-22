@@ -17,14 +17,14 @@ namespace dataaccessXML2TXT
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TE_Nomina()
         {
-            this.TE_Deduccion = new HashSet<TE_Deduccion>();
             this.TE_Incapacidad = new HashSet<TE_Incapacidad>();
             this.TE_JubilacionPensionRetiro = new HashSet<TE_JubilacionPensionRetiro>();
             this.TE_OtroPago = new HashSet<TE_OtroPago>();
-            this.TE_Percepcion = new HashSet<TE_Percepcion>();
             this.TE_Receptor_Subcontratacion = new HashSet<TE_Receptor_Subcontratacion>();
             this.TE_SeparacionIndemnizacion = new HashSet<TE_SeparacionIndemnizacion>();
             this.TE_TXT_HEADER = new HashSet<TE_TXT_HEADER>();
+            this.TE_Deduccion = new HashSet<TE_Deduccion>();
+            this.TE_Percepcion = new HashSet<TE_Percepcion>();
         }
     
         public int nominaId { get; set; }
@@ -81,20 +81,20 @@ namespace dataaccessXML2TXT
         public virtual c_TipoNomina c_TipoNomina1 { get; set; }
         public virtual c_TipoRegimen c_TipoRegimen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TE_Deduccion> TE_Deduccion { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TE_Incapacidad> TE_Incapacidad { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TE_JubilacionPensionRetiro> TE_JubilacionPensionRetiro { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TE_OtroPago> TE_OtroPago { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TE_Percepcion> TE_Percepcion { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TE_Receptor_Subcontratacion> TE_Receptor_Subcontratacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TE_SeparacionIndemnizacion> TE_SeparacionIndemnizacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TE_TXT_HEADER> TE_TXT_HEADER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TE_Deduccion> TE_Deduccion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TE_Percepcion> TE_Percepcion { get; set; }
     }
 }
